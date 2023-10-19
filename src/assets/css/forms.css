@@ -136,3 +136,9 @@ exemplo copiado e não autoral (apenas algumas modificações) */
     color:rgb(0, 0, 0);
     text-decoration: none;
 }
+
+.divCentral { /* div central onde estão os forms */
+    width: 17%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
