@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Trajetos</title>
+        <script src="/src/javascripts/alterar/alterar_trajeto.js"></script>
+    </head>
+    <body>
+        <!-- cabeçalho -->
+        <form>
+            <div id="header">
+            <h1 >Alterar trajeto</h1>
+            <p >Preencha todos os campos para alterar o trajeto.</p>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Trajetos</title>
+                    </head>
+                <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <div id="container">
+            <p>
+                <label for ="id">Digite o ID do trajeto que deseja alterar:</label><br/>
+                <input type="number" id="id" name="id" maxlength="2" size="1"/>
+            </p>
+                <p>
+                    <label for="aeroportoOrigem">Escolha o aeroporto de origem:</label><br/>
+                    <select id="aeroportoOrigem" name="aeroportoOrigem">
+                        <option value="0">Selecione...</option>
+                        <option value="Aeroporto Internacional de Viracopos">Aeroporto Internacional de Viracopos</option>
+                        <option value="Aeroporto Internacional de São Paulo-Guarulhos">Aeroporto Internacional de São Paulo-Guarulhos</option>
+                        <option value="Aeroporto Internacional de Foz do Iguaçu/Cataratas">Aeroporto Internacional de Foz do Iguaçu/Cataratas</option>
+                        <option value="Aeroporto Internacional do Rio de Janeiro - Galeão">Aeroporto Internacional do Rio de Janeiro - Galeão</option>
+                        <option value="Aeroporto Internacional de Manaus Eduardo Gomes">Aeroporto Internacional de Manaus Eduardo Gomes</option>
+                        <option value="Aeroporto Internacional de Brasília">Aeroporto Internacional de Brasília</option>
+                        <option value="Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães">Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães</option>
+                        <option value="Aeroporto Internacional de Confins - Tancredo Neves">Aeroporto Internacional de Confins - Tancredo Neves</option>
+                        <option value="Aeroporto de Belo Horizonte/Pampulha-MG - Carlos Drummond de Andrade">Aeroporto de Belo Horizonte/Pampulha-MG - Carlos Drummond de Andrade</option>
+                        <option value="Aeroporto Internacional Afonso Pena">Aeroporto Internacional Afonso Pena</option>
+                        <option value="Aeroporto de São Paulo/Congonhas (CGH) – Deputado Freitas Nobre">Aeroporto de São Paulo/Congonhas (CGH) – Deputado Freitas Nobre</option>
+                        <option value="Aeroporto Santos Dumont">Aeroporto Santos Dumont</option>
+                        <option value="Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre">Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre</option>
+                        <option value="Aeroporto Internacional Porto Alegre Salgado Filho">Aeroporto Internacional Porto Alegre Salgado Filho</option>
+                        <option value="Aeroporto Internacional de Florianópolis - Hercílio Luz">Aeroporto Internacional de Florianópolis - Hercílio Luz</option>
+                        <option value="Aeroporto Internacional de Miami">Aeroporto Internacional de Miami</option>
+                        <option value="Aeroparque Jorge Newbery">Aeroparque Jorge Newbery</option>
+                        <option value="Aeroporto Internacional Pierre Elliott Trudeau">Aeroporto Internacional Pierre Elliott Trudeau</option>
+                        <option value="Arturo Merino Benitez International Airport">Arturo Merino Benitez International Airport</option>
+                        <option value="Aeroporto Internacional de Dallas/Fort Worth">Aeroporto Internacional de Dallas/Fort Worth</option>
+                        <option value="Aeroporto Internacional Benito Juárez">Aeroporto Internacional Benito Juárez</option>
+                        <option value="Aeroporto de Frankfurt">Aeroporto de Frankfurt</option>
+                        <option value="Aeroporto Internacional Indira Gandhi">Aeroporto Internacional Indira Gandhi</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="aeroportoDestino">Escolha o aeroporto de destino:</label><br/>
+                    <select id="aeroportoDestino" name="aeroportoDestino">
+                        <option value="0">Selecione...</option>
+                        <option value="Aeroporto Internacional de Viracopos">Aeroporto Internacional de Viracopos</option>
+                        <option value="Aeroporto Internacional de São Paulo-Guarulhos">Aeroporto Internacional de São Paulo-Guarulhos</option>
+                        <option value="Aeroporto Internacional de Foz do Iguaçu/Cataratas">Aeroporto Internacional de Foz do Iguaçu/Cataratas</option>
+                        <option value="Aeroporto Internacional do Rio de Janeiro - Galeão">Aeroporto Internacional do Rio de Janeiro - Galeão</option>
+                        <option value="Aeroporto Internacional de Manaus Eduardo Gomes">Aeroporto Internacional de Manaus Eduardo Gomes</option>
+                        <option value="Aeroporto Internacional de Brasília">Aeroporto Internacional de Brasília</option>
+                        <option value="Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães">Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães</option>
+                        <option value="Aeroporto Internacional de Confins - Tancredo Neves">Aeroporto Internacional de Confins - Tancredo Neves</option>
+                        <option value="Aeroporto de Belo Horizonte/Pampulha-MG - Carlos Drummond de Andrade">Aeroporto de Belo Horizonte/Pampulha-MG - Carlos Drummond de Andrade</option>
+                        <option value="Aeroporto Internacional Afonso Pena">Aeroporto Internacional Afonso Pena</option>
+                        <option value="Aeroporto de São Paulo/Congonhas (CGH) – Deputado Freitas Nobre">Aeroporto de São Paulo/Congonhas (CGH) – Deputado Freitas Nobre</option>
+                        <option value="Aeroporto Santos Dumont">Aeroporto Santos Dumont</option>
+                        <option value="Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre">Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre</option>
+                        <option value="Aeroporto Internacional Porto Alegre Salgado Filho">Aeroporto Internacional Porto Alegre Salgado Filho</option>
+                        <option value="Aeroporto Internacional de Florianópolis - Hercílio Luz">Aeroporto Internacional de Florianópolis - Hercílio Luz</option>
+                        <option value="Aeroporto Internacional de Miami">Aeroporto Internacional de Miami</option>
+                        <option value="Aeroparque Jorge Newbery">Aeroparque Jorge Newbery</option>
+                        <option value="Aeroporto Internacional Pierre Elliott Trudeau">Aeroporto Internacional Pierre Elliott Trudeau</option>
+                        <option value="Arturo Merino Benitez International Airport">Arturo Merino Benitez International Airport</option>
+                        <option value="Aeroporto Internacional de Dallas/Fort Worth">Aeroporto Internacional de Dallas/Fort Worth</option>
+                        <option value="Aeroporto Internacional Benito Juárez">Aeroporto Internacional Benito Juárez</option>
+                        <option value="Aeroporto de Frankfurt">Aeroporto de Frankfurt</option>
+                        <option value="Aeroporto Internacional Indira Gandhi">Aeroporto Internacional Indira Gandhi</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="duração">Qual a duração desse trajeto:</label><br/>
+                    <input type="text" id="duração" name="duração" size="20"/>
+                </p>
+                <p>
+                    <label for="tipo">Qual o tipo desse voo:</label><br/>
+                    <select id="tipo" name="tipo">
+                        <option value="0">Selecione...</option>
+                        <option value="1">Somente ida</option>
+                        <option value="2">Ida e volta</option>
+                    </select>
+                </p>
+
+                <p>
+                    <button type="button" onclick="AlterarTrajeto();" id="btnAlterar">Alterar</button>
+                    <button type="reset" id="btnLimpar">Limpar</button>
+                    <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/trajetos.html" class="botaoPadrao">Cancelar</a></button>
+                </p>
+        </form>
+        <p id="status" class="statusError"></p>
+        </div>
+    </body>
+</html>

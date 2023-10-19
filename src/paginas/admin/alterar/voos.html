@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Voos</title>
+        <script src="/src/javascripts/alterar/alterar_voo.js"></script>
+    </head>
+    <body>
+        <!-- cabeçalho -->
+        <form>
+            <div id="header">
+            <h1>Alterar voo</h1>
+            <p >Preencha todos os campos para alterar o voo.</p>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Voos</title>
+                    </head>
+                <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <div id="container">
+            <p>
+                <label for ="id">Digite o ID do mapa que deseja alterar:</label><br/>
+                <input type="number" id="id" name="id" maxlength="2" size="1"/>
+            </p>
+            <p>
+                <label for="trajeto">Escolha o trajeto do voo:</label><br/>
+                <select id="trajeto" name="trajeto">
+                    <option value="0">Selecione...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </p>
+            <p>
+                <label for="aeronave">Escolha a aeronave do voo:</label><br/>
+                <select id="aeronave" name="aeronave">
+                    <option value="0">Selecione...</option>
+                    <option value="Airbus A320">Airbus A320</option>
+                    <option value="Boeing 737">Boeing 737</option>
+                    <option value="Boeing 777">Boeing 777</option>
+                    <option value="CRJ 1000">CRJ 1000</option>
+                    <option value="Embraer E-195">Embraer E-195</option>
+                    <option value="Boeing 727">Boeing 727</option>
+                    <option value="Airbus A330">Airbus A330</option>
+                    <option value="Boeing 747">Boeing 747</option>
+                    <option value="Boeing 787">Boeing 787</option>
+                    <option value="Boeing 767">Boeing 767</option>
+                </select>
+            </p>
+
+            <p>
+                <label for="data">Digite a data desse voo:</label><br/>
+                <input type="text" id="data" name="data" size="15"/>
+            </p>
+            
+            <p>
+                <label for="horarioIda">Digite o horário de saída desse voo:</label><br/>
+                <input type="text" id="horarioIda" name="horarioIda" size="15"/>
+            </p>    
+            <p>
+                <label for="horarioChegada">Digite o horário de chegada desse voo:</label><br/>
+                <input type="text" id="horarioChegada" name="horarioChegada" size="15"/>
+            </p>    
+            <p>
+                <label for="valor">Digite o valor desse voo:</label><br/>
+                <input type="text" id="valor" name="valor" size="15"/>
+            </p>    
+            <p>
+                <button type="button" onclick="AlterarVoo();" id="btnCadastrar">Cadastrar</button>
+                <button type="reset" id="btnLimpar">Limpar</button>
+                <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/voos.html" class="botaoPadrao">Cancelar</a></button>
+            </p>
+        </form>
+        <p id="status" class="statusError"></p>
+        </div>
+    </body>
+</html>

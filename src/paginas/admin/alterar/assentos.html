@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Mapa de assentos</title>
+        <script src="/src/javascripts/alterar/alterar_mapa.js"></script>
+    </head>
+    <body>
+        <!-- cabeçalho -->
+        <form>
+            <div id="header">
+            <h1 >Alterar mapa de assentos</h1>
+            <p >Preencha todos os campos para alterar o mapa de assentos.</p>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Mapa de assentos</title>
+                    </head>
+                <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <div id="container">
+            <p>
+                <p>
+                    <label for ="id">Digite o ID do mapa que deseja alterar:</label><br/>
+                    <input type="number" id="id" name="id" maxlength="2" size="1"/>
+                </p>
+                <p>
+                    <label for="modelo">Modelo do avião:</label><br/>
+                    <input type="text" id="modelo" name="modelo" size="20"/>
+                </p>
+
+                <p>
+                    <label for="Fileiras">Quantidade de fileiras:</label><br/>
+                    <input type="number" id="Fileiras" name="Fileiras" maxlength="4" size="1"/>
+                </p>
+
+                <p>
+                    <label for="Colunas">Quantidade de colunas:</label><br/>
+                    <input type="number" id="Colunas" name="Colunas" maxlength="4" size="1"/>
+                </p>
+                
+                <p>
+                    <label for="Assentos">Quantidade de assentos:</label><br/>
+                    <input type="number" id="Assentos" name="Assentos" maxlength="4" size="1"/>
+                </p>
+
+            <p>
+                <button type="button" onclick="AlterarMapa();" id="btnAlterar">Alterar</button>
+                <button type="reset" id="btnLimpar">Limpar</button>
+                <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/assentos.html" class="botaoPadrao">Cancelar</a></button>
+            </p>
+            <p id="status" class="statusError"></p>
+        </form>
+        </div>
+    </body>
+</html>

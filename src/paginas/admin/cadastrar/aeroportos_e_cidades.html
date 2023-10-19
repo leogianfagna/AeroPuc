@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Aeroportos</title>
+        <script src="/src/javascripts/cadastrar/cadastrar_aeroportos.js"></script>
+    </head>
+    <body>
+        <!-- cabeçalho -->
+        
+        <div id="main">
+            <div id="header">
+            <h1 >Novo aeroporto</h1>
+            <p >Preencha todos os campos para cadastrar o aeroporto.</p>
+        </div>
+            </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Aeroportos</title>
+                    </head>
+                <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <form>
+        <div id="container">
+            <p>
+                <label for="cidade">Escolha/Cadastre uma cidade:</label><br/>
+                <select id="cidade" name="cidade">
+                    <option value="0">Selecione...</option>
+                    <option value="Campinas">Campinas</option>
+                    <option value="Guarulhos">Guarulhos</option>
+                    <option value="Foz do Iguaçu">Foz do Iguaçu</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Manaus">Manaus</option>
+                    <option value="Brasília">Brasília</option>
+                    <option value="Salvador">Salvador</option>
+                    <option value="Confins">Confins</option>
+                    <option value="Belo Horizonte">Belo Horizonte</option>
+                    <option value="São José dos Pinhais">São José dos Pinhais</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Recife">Recife</option>
+                    <option value="Porto Alegre">Porto Alegre</option>
+                    <option value="Florianópolis">Florianópolis</option>
+                    <option value="Miami">Miami</option>
+                    <option value="Buenos Aires">Buenos Aires</option>
+                    <option value="Montreal">Montreal</option>
+                    <option value="Santiago">Santiago</option>
+                    <option value="Dallas">Dallas</option>
+                    <option value="Cidade do México">Cidade do México</option>
+                    <option value="Frankfurt">Frankfurt</option>
+                    <option value="Nova Delhi">Nova Delhi</option>
+                </select> 
+                <button type="button" id="btnCadastrarCidade"><a href="/src/paginas/admin/cadastrar/cidades.html" style="color:black">Cadastrar nova cidade</a></button>
+            </p>
+            <p>
+                <label for="aeroportoNome">Nome do aeroporto:</label><br/>
+                <input type="text" id="aeroportoNome" name="aeroportoNome" size="50"/>
+            </p>
+            <p>
+                <button type="button" onclick="inserirAeroporto();" id="btnCadastrar" name="btnCadastrar">Cadastrar</button>
+                <button type="reset" id="btnLimpar">Limpar</button>
+                <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/aeroportos.html" class="botaoPadrao">Cancelar</a></button>
+            </p>
+            </div>
+            <p id="status" class="statusError"></p>
+        </form>  
+    </body>
+</html>

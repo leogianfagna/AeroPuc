@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Aeronaves</title>
+        <script src="/src/javascripts/cadastrar/cadastrar_aeronaves.js"></script>
+    </head>
+    <body>
+        <div id="main">
+            <!-- cabeçalho do site-->
+            <div id="header">
+                <header>
+                    <h1>Nova aeronave</h1>
+                    <p>Preencha todos os campos para cadastrar a aeronave.</p>
+                </header>
+            </div>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Aeronaves</title>
+                    </head>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <form>
+            <div id="container">
+                <p>
+                    <label for="fabricantesCombo">Escolha um fabricante:</label><br/>
+                    <select id="fabricantesCombo" name="fabricantesCombo">
+                        <option value="-1">Selecione...</option>
+                        <option value="Airbus">Airbus</option>
+                        <option value="Boeing">Boeing</option>
+                        <option value="Embraer">Embraer</option>
+                        <option value="Bombardier">Bombardier</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="modelo">Modelo:</label><br/>
+                    <input type="text" id="modelo" name="modelo" size="20"/>
+                </p>
+                <p>
+                    <label for="referencia">Referência:</label><br/>
+                    <input type="text" id="referencia" name="referecia" size="20"/>
+                </p>
+                <p>
+                    <label for="qtdeAssentos">Total de Assentos (passageiros):</label><br/>
+                    <input type="text" id="qtdeAssentos" name="qtdeAssentos" maxlength="4" size="1"/>
+                </p>    
+                <p>
+                    <label for="anoFabricacao">Ano de fabricação:</label><br/>
+                    <input type="text" id="anoFabricacao" name="anoFabricacao" maxlength="4" size="1"/>
+                </p>
+                <p >
+                    <button type="button" onclick="inserirAeronave();" id="btnCadastrar" name="btnCadastrar">Cadastrar</button>
+                    <button type="reset" id="btnLimpar">Limpar</button>
+                    <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/aeronaves.html" class="botaoPadrao">Cancelar</a></button>
+                </p>
+            </div>
+            <p id="status" class="statusError"></p>
+        </form>
+    </body>
+</html>

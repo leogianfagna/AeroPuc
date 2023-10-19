@@ -1,0 +1,107 @@
+body {
+    background-color: #2A3036;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    width: 100%;
+    background-color: #0c0c0c;
+    border-left: 2px solid #0c0c0c;
+    border-right: 2px solid #0c0c0c;
+    margin: 0 auto;
+}
+
+#cover img {
+    background-image: url('/src/assents/images/aeropuc_logo.jpeg');
+    height: 150px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    transform: translate(5%, 0%);
+}
+
+#header {
+    background-image: url('/src/assets/images/background.png');
+    background-size: cover;
+    background-position: 0px -30px;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    height: 150px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 40px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.centerText{
+    text-align: center;
+}
+
+.centerTitle{
+    text-align: center;
+    line-height: 70px;
+}
+
+#botton_info{
+    color: rgb(133, 133, 133);
+    text-align: center;
+}
+
+#navPaginas{
+    text-align: center;
+    background-color: #0c0c0c;
+    width: 100%;
+    border-top: 8px solid #0c0c0c;
+    border-bottom: 8px solid #0c0c0c;
+}
+
+#navPaginas{
+    background-color: #0c0c0c;
+    width: 100%;
+    border-top: 8px solid #0c0c0c;
+    border-bottom: 8px solid #0c0c0c;
+}
+
+/* animações ao passar o mouse nas opções da nav bar
+exemplo copiado e não autoral (apenas algumas modificações) */
+.paginasIcones a {
+    position: relative;
+    text-decoration: none;
+    color: #FFA500;
+    overflow: hidden;
+}
+
+.paginasIcones a::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: #FFA500;
+    transform: scaleX(0); /* iniciando na escala zero */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease; /* animacao */
+}
+
+.paginasIcones a:hover::before {
+    transform: scaleX(1); /* expansão da linha */
+    transform-origin: bottom left;
+}

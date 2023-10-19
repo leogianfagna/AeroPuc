@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Mapa de assentos</title>
+        <script src="/src/javascripts/excluir.js"></script>
+    </head>
+    <body>
+        <div id="main">
+            <!-- cabeçalho do site-->
+            <div id="header">
+                <header>
+                    <h1>Excluir mapa de assentos</h1>
+                </header>
+            </div>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Mapa de assentos</title>
+                    </head>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <form>
+            <div id="container">
+                <p>
+                    <label for ="id">Digite o ID do mapa de assentos que deseja excluir:</label><br/>
+                    <input type="number" id="id" name="id" maxlength="2" size="1"/>
+                <p >
+                    <button type="button" onclick="excluir();" id="btnExcluir" name="btnExcluir">Excluir</button>
+                    <button type="reset" id="btnLimpar">Limpar</button>
+                    <button type="button" id="btnCancelar"><a href="/src/paginas/admin/opções/assentos.html" class="botaoPadrao">Cancelar</a></button>
+                </p>
+            </div>
+            <p id="status" class="statusError"></p>
+        </form>
+    </body>
+</html>
