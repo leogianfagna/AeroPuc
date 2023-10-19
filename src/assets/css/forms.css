@@ -142,3 +142,9 @@ exemplo copiado e não autoral (apenas algumas modificações) */
     box-sizing: border-box;
     margin: 0 auto;
 }
+
+.divParaAlertas {
+    width: 30%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
