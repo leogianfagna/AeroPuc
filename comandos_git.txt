@@ -1,0 +1,11 @@
+CLONAR O REPOSITÓRIO PARA SEU COMPUTADOR:
+
+1. "cd caminho/do/diretorio"
+2. "git clone <URL_do_repositorio>"
+3. abrir o projeto pelo vscode
+
+ENVIAR MODIFICAÇÕES AO GITHUB
+
+1. "git add ." (ou arquivos específicos com "git add arquivo1")
+2. "git commit -m "Mensagem do commit aqui""
+3. "git push origin main"
