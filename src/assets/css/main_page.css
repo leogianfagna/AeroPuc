@@ -105,3 +105,25 @@ exemplo copiado e não autoral (apenas algumas modificações) */
     transform: scaleX(1); /* expansão da linha */
     transform-origin: bottom left;
 }
+
+.infos {
+    border-top: 40px solid #2A3036;;
+    box-sizing: border-box;
+}
+
+.cartoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80h;
+    width: 60%; /* Agora a div ocupa 60% da largura da tela */
+    margin: 0 auto; /* Margens automáticas na esquerda e na direita */
+    box-sizing: border-box;
+}
+
+.centrao {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
