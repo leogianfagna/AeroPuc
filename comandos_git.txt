@@ -9,3 +9,5 @@ ENVIAR MODIFICAÇÕES AO GITHUB
 1. "git add ." (ou arquivos específicos com "git add arquivo1")
 2. "git commit -m "Mensagem do commit aqui""
 3. "git push origin main"
+
+TESTE TESTE
