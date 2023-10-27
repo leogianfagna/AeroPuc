@@ -25,7 +25,8 @@ app.get("/listarAeronaves", async(req,res)=>{
     let cr: CustomResponse = {
         status: "ERROR", 
         message: "", 
-        payload: undefined,};
+        payload: undefined,
+    };
   
     try{
       const connAttibs: ConnectionAttributes = {
@@ -41,6 +42,9 @@ app.get("/listarAeronaves", async(req,res)=>{
       cr.message = "Dados obtidos";
       cr.payload = resultadoConsulta.rows;
   
+      // Envia os dados como resposta, independente de erro (por enquanto)
+      res.send(cr);
+
     }catch(e){
       if(e instanceof Error){
         cr.message = e.message;
