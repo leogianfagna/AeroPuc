@@ -43,7 +43,7 @@ app.get("/listarAeronaves", async(req,res)=>{
       cr.payload = resultadoConsulta.rows;
   
       // Envia os dados como resposta, independente de erro (por enquanto)
-      res.send(cr);
+      // res.send(cr);
 
     }catch(e){
       if(e instanceof Error){

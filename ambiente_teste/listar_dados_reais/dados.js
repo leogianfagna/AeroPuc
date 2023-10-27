@@ -5,8 +5,8 @@ fetch('http://localhost:3000/listarAeronaves')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
-            const tabelaCorpo = document.getElementById('tabelaCorpo');
-            tabelaCorpo.innerHTML = ''; // Limpa o conteúdo atual
+            const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
+            tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
@@ -17,7 +17,7 @@ fetch('http://localhost:3000/listarAeronaves')
                     tr.appendChild(td);
                 });
 
-                tabelaCorpo.appendChild(tr);
+                tabelaDeAeronaves.appendChild(tr);
             });
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);
