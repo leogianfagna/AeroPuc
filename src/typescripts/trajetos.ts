@@ -33,7 +33,7 @@ app.get("/listarTrajetos", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     }
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT * FROM trajetos");
+    let resultadoConsulta = await connection.execute("SELECT * FROM trajetos ORDER BY id ASC");
 
     await connection.close();
     cr.status = "SUCCESS"; 
