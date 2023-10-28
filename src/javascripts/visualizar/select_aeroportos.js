@@ -1,12 +1,9 @@
-// Assume que a resposta tem a seguinte estrutura:
-// { status: 'SUCCESS', message: 'Dados obtidos', payload: [ /*...dados...*/ ] }
-
 fetch('http://localhost:3000/listarAeroportos')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
-            const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
-            tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
+            const tabelaDeAeroportos = document.getElementById('tabelaDeAeroportos');
+            tabelaDeAeroportos.innerHTML = ''; // Limpa o conteúdo atual
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
@@ -17,7 +14,7 @@ fetch('http://localhost:3000/listarAeroportos')
                     tr.appendChild(td);
                 });
 
-                tabelaDeAeronaves.appendChild(tr);
+                tabelaDeAeroportos.appendChild(tr);
             });
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);

@@ -7,7 +7,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body data-bs-theme="light">
-        <script src="/src/javascripts/visualizar/dados.js"></script>
+        <script src="/src/javascripts/visualizar/select_aeroportos.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid"> <!-- container fluído é que um elemento vai ficar do lado do outro -->
@@ -108,7 +108,7 @@
             <div class="row justify-content-end">
                 <div class="col-lg-4">
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" aria-label="Search" placeholder="Pesquisar por uma aeronave">
+                        <input class="form-control me-2" type="search" aria-label="Search" placeholder="Pesquisar por um aeroporto">
                         <button class="btn btn-outline-info" type="submit">Pesquisar</button>
                     </form>
                 </div>
@@ -123,15 +123,12 @@
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Identificação</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Fabricante</th>
-                            <th scope="col">Ano fabricação</th>
-                            <th scope="col">Assentos</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Cidade localizada</th>
                         </tr>
                     </thead>
                     <!-- tbody da tabela (as informações) -->
-                    <tbody id="tabelaDeAeronaves" class="align-middle">
+                    <tbody id="tabelaDeAeroportos" class="align-middle">
                         <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
                     </tbody>
                 </table>
