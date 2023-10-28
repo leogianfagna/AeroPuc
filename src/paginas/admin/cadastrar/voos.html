@@ -103,72 +103,80 @@
             </div>
             <!-- divs nova para o form -->
             <form> <!-- necessário ter para os botões funcionarem -->
-                <div class="mb-3">
-                    <!-- escolher trajeto -->
-                    <label for="trajeto" class="form-label">Trajeto do voo realizado</label>
-                    <select id="trajeto" name="trajeto" class="form-select" aria-label="Default select example">
-                        <option value="0">Selecionar</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
+                <!-- div para agrupar duas opções na mesma linha -->
+                <div class="row" style="margin-top: 30px">
+                    <div class="col">
+                        <!-- escolher trajeto -->
+                        <label for="trajeto" class="form-label">Trajeto do voo realizado</label>
+                        <select id="trajeto" name="trajeto" class="form-select" aria-label="Default select example">
+                            <option value="0">Selecionar</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <!-- escolher aeronave -->
+                        <label for="aeronave" class="form-label">Aeronave utilizada</label>
+                        <select id="aeronave" name="aeronave" class="form-select" aria-label="Default select example">
+                            <option value="0">Selecionar</option>
+                            <option value="Airbus A320">Airbus A320</option>
+                            <option value="Boeing 737">Boeing 737</option>
+                            <option value="Boeing 777">Boeing 777</option>
+                            <option value="CRJ 1000">CRJ 1000</option>
+                            <option value="Embraer E-195">Embraer E-195</option>
+                            <option value="Boeing 727">Boeing 727</option>
+                            <option value="Airbus A330">Airbus A330</option>
+                            <option value="Boeing 747">Boeing 747</option>
+                            <option value="Boeing 787">Boeing 787</option>
+                            <option value="Boeing 767">Boeing 767</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <!-- escolher aeronave -->
-                    <label for="aeronave" class="form-label">Aeronave utilizada</label>
-                    <select id="aeronave" name="aeronave" class="form-select" aria-label="Default select example">
-                        <option value="0">Selecionar</option>
-                        <option value="Airbus A320">Airbus A320</option>
-                        <option value="Boeing 737">Boeing 737</option>
-                        <option value="Boeing 777">Boeing 777</option>
-                        <option value="CRJ 1000">CRJ 1000</option>
-                        <option value="Embraer E-195">Embraer E-195</option>
-                        <option value="Boeing 727">Boeing 727</option>
-                        <option value="Airbus A330">Airbus A330</option>
-                        <option value="Boeing 747">Boeing 747</option>
-                        <option value="Boeing 787">Boeing 787</option>
-                        <option value="Boeing 767">Boeing 767</option>
-                    </select>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col">
+                        <!-- data -->
+                        <label for="data" class="form-label">Data de partida</label>
+                        <input id="data" name="data" type="text" class="form-control" placeholder="Ex.: 10/01/2024">
+                    </div>
+                    <div class="col">
+                        <!-- valor da passagem -->
+                        <label for="valor" class="form-label">Valor da passagem</label>
+                        <input id="valor" name="valor" type="text" class="form-control" placeholder="Ex.: 750.30">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <!-- data -->
-                    <label for="data" class="form-label">Data de partida</label>
-                    <input id="data" name="data" type="text" class="form-control" placeholder="Ex.: 10/01/2024">
+                <div class="row" style="margin-top: 10px">
+                    <div class="col">
+                        <!-- horário saída -->
+                        <label for="horarioIda" class="form-label">Horário saída</label>
+                        <input id="horarioIda" name="horarioIda" type="text" class="form-control" placeholder="Ex.: 10:40">
+                    </div>
+                    <div class="col">
+                        <!-- horário chegada -->
+                        <label for="horarioChegada" class="form-label">Horário de chegada prevista</label>
+                        <input id="horarioChegada" name="horarioChegada" type="text" class="form-control" placeholder="Ex.: 16:00">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <!-- data -->
-                    <label for="horarioIda" class="form-label">Horário saída</label>
-                    <input id="horarioIda" name="horarioIda" type="text" class="form-control" placeholder="Ex.: 10:40">
-                </div>
-                <div class="mb-3">
-                    <!-- data -->
-                    <label for="horarioChegada" class="form-label">Horário de chegada prevista</label>
-                    <input id="horarioChegada" name="horarioChegada" type="text" class="form-control" placeholder="Ex.: 16:00">
-                </div>
-                <div class="mb-3">
-                    <!-- data -->
-                    <label for="valor" class="form-label">Valor da passagem</label>
-                    <input id="valor" name="valor" type="text" class="form-control" placeholder="Ex.: 750.30">
-                </div>
-                <p>
+                <p style="margin-top: 15px">
                     <button type="button" onclick="inserirVoo();" id="btnCadastrar" class="btn btn-outline-primary">Cadastrar</button>
                     <button type="reset" id="btnLimpar" class="btn btn-outline-secondary">Limpar</button>
                     <a class="btn btn-outline-secondary" href="/src/paginas/admin/main/voos.html" role="button">Voltar</a>
                 </p>
             </form>
-            <p id="status" class="statusError"></p>
+            <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
+            <p id="status"></p>
         </div>
     </body>
 </html>
