@@ -5,8 +5,8 @@ fetch('http://localhost:3000/listarVoos')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
-            const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
-            tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
+            const tabelaDeVoos = document.getElementById('tabelaDeVoos');
+            tabelaDeVoos.innerHTML = ''; // Limpa o conteúdo atual
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
@@ -17,7 +17,7 @@ fetch('http://localhost:3000/listarVoos')
                     tr.appendChild(td);
                 });
 
-                tabelaDeAeronaves.appendChild(tr);
+                tabelaDeVoos.appendChild(tr);
             });
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);
