@@ -4,7 +4,7 @@ function selecionouTrajeto(){
     var trajeto = document.getElementById("trajeto");
     var valorSelecionado = trajeto.value;
     
-    if (valorSelecionado !== "0"){
+    if (valorSelecionado !== "0") {
         resultado = true;
     }
 
@@ -16,7 +16,7 @@ function selecionouAeronave(){
     var aeronave = document.getElementById("aeronave");
     var valorSelecionado = aeronave.value;
     
-    if (valorSelecionado !== "0"){
+    if (valorSelecionado !== "0") {
         resultado = true;
     }
     
@@ -27,7 +27,7 @@ function preencheuData(){
     let resultado = false;
     const data = document.getElementById("data").value;
     
-    if(data.length > 0){
+    if (data.length > 0) {
         resultado = true;
     }
     
@@ -38,7 +38,7 @@ function preencheuIda(){
     let resultado = false;
     const ida = document.getElementById("horarioIda").value;
     
-    if(ida.length > 0){
+    if (ida.length > 0) {
         resultado = true;
     }
 
@@ -49,7 +49,7 @@ function preencheuChegada(){
     let resultado = false;
     const chegada = document.getElementById("horarioChegada").value;
     
-    if(chegada.length > 0){
+    if (chegada.length > 0) {
         resultado = true;
     }
 
@@ -60,7 +60,7 @@ function preencheuValor(){
     let resultado = false;
     const valor = document.getElementById("valor").value;
     
-    if(valor.length > 0){
+    if (valor.length > 0) {
         resultado = true;
     }
 
@@ -70,7 +70,7 @@ function preencheuValor(){
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
-    if (error === true){
+    if (error === true) {
         pStatus.className = "text-danger"; // de acordo com o bootstrap
     } else {
         pStatus.className = "text-success";
