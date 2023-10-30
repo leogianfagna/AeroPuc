@@ -144,7 +144,7 @@ function inserirVoo(){
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){
-            showStatusMessage("Aeronave cadastrada... ", false);
+            showStatusMessage("Aeronave cadastrada!", false);
             }else{
             showStatusMessage("Erro ao cadastrar aeronave...: " + message, true);
             console.log(resultado.message);

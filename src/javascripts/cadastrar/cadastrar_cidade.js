@@ -87,7 +87,7 @@ function inserirCidade(){
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){
-            showStatusMessage("Cidade cadastrada... ", false);
+            showStatusMessage("Cidade cadastrada!", false);
             }else{
             showStatusMessage("Erro ao cadastrar cidade...: " + message, true);
             console.log(resultado.message);
