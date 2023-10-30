@@ -19,8 +19,19 @@ fetch('http://localhost:3000/listarAeronaves')
 
                 tabelaDeAeronaves.appendChild(tr);
             });
+
+            // Atualiza o contador de resultados
+            var contadorElemento = document.getElementById("contadorResultados");
+            contadorElemento.textContent = data.payload.length + ".";
+            
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);
         }
     })
     .catch(error => console.error('Erro ao conectar:', error));
+
+// Atualiza o contador de resultados
+var contadorElemento = document.getElementById("contadorResultados");
+contadorElemento.textContent = `Total de Resultados: ${data.payload.length}`;
+
+// pStatus.textContent = msg;
