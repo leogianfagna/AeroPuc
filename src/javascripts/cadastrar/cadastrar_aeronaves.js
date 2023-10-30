@@ -5,7 +5,7 @@ function anoValido(){
     const ano = parseInt(strAno);
     console.log("Ano aeronave: " + ano.toString());
     
-    if (ano >= 2000 && ano <= 2025){
+    if (ano >= 2000 && ano <= 2025) {
         resultado = true;
     }
 
@@ -17,7 +17,7 @@ function totalAssentosValido(){
     const strAssentos = document.getElementById("qtdeAssentos").value;
     const assentos = parseInt(strAssentos);
     
-    if (assentos > 0){
+    if (assentos > 0) {
         resultado = true;
     }
 
@@ -29,7 +29,7 @@ function selecionouFabricante(){
     var listaFabricantes = document.getElementById("fabricantesCombo");
     var valorSelecionado = listaFabricantes.value;
     
-    if (valorSelecionado !== "-1"){
+    if (valorSelecionado !== "-1") {
         resultado = true;
     }
 
@@ -40,7 +40,7 @@ function preencheuModelo(){
     let resultado = false;
     const modeloInformado = document.getElementById("modelo").value;
     
-    if(modeloInformado.length > 0){
+    if (modeloInformado.length > 0) {
         resultado = true;
     }
 
@@ -50,7 +50,7 @@ function preencheuRegistro(){
     let resultado = false;
     const registroReferencia = document.getElementById("referencia").value;
     
-    if(registroReferencia.length > 0){
+    if (registroReferencia.length > 0) {
         resultado = true;
     }
 
@@ -59,7 +59,7 @@ function preencheuRegistro(){
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
-    if (error === true){
+    if (error === true) {
         pStatus.className = "text-danger"; // de acordo com o bootstrap
     } else {
         pStatus.className = "text-success";
@@ -84,27 +84,27 @@ function fetchInserir(body) {
 function inserirAeronave(){
 
     if(!selecionouFabricante()){
-        showStatusMessage("Selecione o fabricante...", true);  
+        showStatusMessage("Fabricante não selecionado.", true);  
         return;
     }
 
     if(!preencheuModelo()){
-        showStatusMessage("Preencha o modelo...", true);
+        showStatusMessage("Modelo deve ser preenchido.", true);
         return;
     }
 
     if(!preencheuRegistro()){
-        showStatusMessage("Preencha o registro da aeronave...", true);
+        showStatusMessage("Referência deve ser preenchida.", true);
         return;
     }
 
     if(!anoValido()){
-        showStatusMessage("Ano deve de 2000 até 2025...", true);
+        showStatusMessage("Ano de fabricação deve de 2000 até 2025.", true);
         return;
     }
 
     if(!totalAssentosValido()){
-        showStatusMessage("Preencha corretamente o total de assentos.", true);
+        showStatusMessage("Total de assentos inválido.", true);
         return;
     }
 
