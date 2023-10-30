@@ -3,7 +3,7 @@ function preencheuCidade(){
     let resultado = false;
     const cidadeInformada = document.getElementById("cidade").value;
     
-    if(cidadeInformada.length > 0){
+    if (cidadeInformada.length > 0) {
         resultado = true;
     }
     
@@ -14,7 +14,7 @@ function preencheuEstado(){
     let resultado = false;
     const estadoInformado = document.getElementById("estado").value;
     
-    if(estadoInformado.length > 0){
+    if (estadoInformado.length > 0) {
         resultado = true;
     }
 
@@ -25,7 +25,7 @@ function preencheuPais(){
     let resultado = false;
     const paisInformado = document.getElementById("pais").value;
     
-    if(paisInformado.length > 0){
+    if (paisInformado.length > 0) {
         resultado = true;
     }
 
@@ -59,17 +59,17 @@ function fetchInserir(body) {
 // funcao para inserir uma nova cidade
 function inserirCidade(){
     if(!preencheuCidade()){
-        showStatusMessage("Selecione a cidade...", true);  
+        showStatusMessage("Cidade não preenchida.", true);  
         return;
     }
 
     if(!preencheuEstado()){
-        showStatusMessage("Preencha o estado...", true);
+        showStatusMessage("Estado não preenchido.", true);
         return;
     }
 
     if(!preencheuPais()){
-        showStatusMessage("Preencha o país...", true);
+        showStatusMessage("País não preenchido.", true);
         return;
     }
 
