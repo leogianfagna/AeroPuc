@@ -4,7 +4,7 @@ function selecionouCidade(){
     var cidade = document.getElementById("cidade");
     var valorSelecionado = cidade.value;
     
-    if (valorSelecionado !== "0"){
+    if (valorSelecionado !== "0") {
         resultado = true;
     }
     
@@ -50,12 +50,12 @@ function fetchInserir(body) {
 function inserirAeroporto(){
 
     if(!selecionouCidade()){
-        showStatusMessage("Selecione a cidade...", true);  
+        showStatusMessage("Cidade não selecionada.", true);  
         return;
     }
 
     if(!preencheuNome()){
-        showStatusMessage("Preencha o nome...", true);
+        showStatusMessage("Nome do aeroporto deve ser preenchido.", true);
         return;
     }
 
