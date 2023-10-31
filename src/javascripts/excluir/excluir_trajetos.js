@@ -22,7 +22,7 @@ function showStatusMessage(msg, error){
 }
 function excluir(){
     if(!ids()){
-        showStatusMessage("Preencha o ID...",true);
+        showStatusMessage("ID deve ser preenchido.",true);
         return;
     }
 }
@@ -35,21 +35,30 @@ function fetchInserir(body) {
 
     return fetch('http://localhost:3000/excluirTrajeto', requestOptions)
     .then(T => T.json())
-  }
-  const idInserido = document.getElementById("id").value;
-  fetchInserir({
-    id: idInserido})
-    .then(resultado => {
-        // obteve resposta, vamos simplesmente exibir como mensagem: 
-        if(resultado.status === "SUCCESS"){
-        showStatusMessage("Trajeto excluído... ", false);
-        }else{
-        showStatusMessage("Erro ao excluir trajeto...: " + message, true);
-        console.log(resultado.message);
-        }
-    })
-    .catch(()=>{
-        showStatusMessage("Erro técnico ao excluir... Contate o suporte.", true);
-        console.log("Falha grave ao excluir.")
-    });
+}
 
+function excluir(){
+    if(!ids()){
+        showStatusMessage("ID deve ser preenchido.",true);
+        return;
+    }
+
+    const idInserido = document.getElementById("id").value;
+    fetchInserir({
+        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
+        id: idInserido
+     })
+        .then(resultado => {
+            // obteve resposta
+            if(resultado.status === "SUCCESS"){
+            showStatusMessage("Trajeto excluído!", false);
+            }else{
+            showStatusMessage("Erro ao excluir trajeto...: " + message, true);
+            console.log(resultado.message);
+            }
+        })
+        .catch(()=>{
+            showStatusMessage("Erro técnico ao excluir... Contate o suporte.", true);
+            console.log("Falha grave ao excluir.")
+        });
+}
