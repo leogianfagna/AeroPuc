@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="/src/assets/css/forms.css">
+        <title>Aeronaves</title>
+        <script src="/src/javascripts/excluir/excluir_aeronave.js"></script>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <div id="main">
+            <!-- cabeçalho do site-->
+            <div id="header">
+                <header>
+                    <h1>Excluir aeronave </h1>
+                </header>
+            </div>
+        </div>
+        <!-- div das páginas (nav bar) -->
+        <div>
+            <nav id="navPaginas">
+                <ul>
+                    <head>
+                        <title>Aeronaves</title>
+                    </head>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/home.html">Início</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeronaves.html">Aeronaves</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/assentos.html">Mapa de assentos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/aeroportos.html">Aeroportos e cidades</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/trajetos.html">Trajetos</a></li>
+                    <li class="paginasIcones"><a href="/src/paginas/admin/opções/voos.html">Voos</a></li>
+            </nav>
+        </div>
+        <!-- formulario de cadastro -->
+        <form>
+            <div id="container">
+                <div class="divCentral">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Identificador da aeronave</label>
+                            <input type="number" class="form-control" id="id" maxlength="2" size="1">
+                        </div>
+                    </form>
+                </div>
+                <p>
+                    <button 
+                        type="button" 
+                        class="btn btn-danger"
+                        onclick="excluir();" 
+                        id="btnExcluir" 
+                        name="btnExcluir">
+                        Excluir
+                    </button>
+                    <button 
+                        type="reset"
+                        class="btn btn-secondary"
+                        id="btnLimpar">
+                        Limpar
+                    </button>
+                    <a 
+                        class="btn btn-secondary" 
+                        href="/src/paginas/admin/opções/aeronaves.html"
+                        id="btnCancelar"
+                        role="button">
+                        Cancelar
+                    </a>
+                </p>
+            </div>
+            <p id="status" class="statusError"></p>
+        </form>
+    </body>
+</html>
