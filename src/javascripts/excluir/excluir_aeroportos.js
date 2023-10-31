@@ -2,18 +2,22 @@ function ids(){
     let resultado = false;
     const id = document.getElementById("id").value;
     const ID = parseInt(id);
+    
     if (ID > 0){
-    resultado = true;
+      resultado = true;
     }
+
     return resultado; 
 }
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
-    if (error === true){
-    pStatus.className = "statusError";
-    }else{
-    pStatus.className = "statusSuccess";
+    
+    if (error === true) {
+      pStatus.className = "text-danger"; // de acordo com o bootstrap
+    } else {
+      pStatus.className = "text-success";
     }
+
     pStatus.textContent = msg;
 }
 function fetchInserir(body) {
@@ -28,7 +32,7 @@ function fetchInserir(body) {
   }
 function excluir(){
     if(!ids()){
-    showStatusMessage("Preencha o ID...",true);
+    showStatusMessage("ID deve ser preenchido.",true);
     return;
     }
   const idInserido = document.getElementById("id").value;
@@ -37,7 +41,7 @@ function excluir(){
     .then(resultado => {
         // obteve resposta, vamos simplesmente exibir como mensagem: 
         if(resultado.status === "SUCCESS"){
-        showStatusMessage("Aeroporto excluido... ", false);
+        showStatusMessage("Aeroporto excluido!", false);
         }else{
         showStatusMessage("Erro ao excluir aeroporto...: " + message, true);
         console.log(resultado.message);
