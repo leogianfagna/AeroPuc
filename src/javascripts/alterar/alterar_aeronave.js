@@ -50,7 +50,7 @@ function preencheuModelo(){
     let resultado = false;
     const modeloInformado = document.getElementById("modelo").value;
     
-    if(modeloInformado.length > 0) {
+    if (modeloInformado.length > 0) {
         resultado = true;
     }
 
@@ -61,7 +61,7 @@ function preencheuRegistro(){
     let resultado = false;
     const registroReferencia = document.getElementById("referencia").value;
     
-    if(registroReferencia.length > 0) {
+    if (registroReferencia.length > 0) {
         resultado = true;
     }
 
@@ -93,34 +93,34 @@ function fetchAlterar(body) {
 }
 
 function alterarAeronave(){
-    if(!id()){
-    showStatusMessage("ID deve ser preenchido.",true);
-    return;
+    if (!id()) {
+        showStatusMessage("ID não foi preenchido.",true);
+        return;
     }
 
-    if(!selecionouFabricante()){
-    showStatusMessage("Fabricante não selecionado.", true);  
-    return;
+    if (!selecionouFabricante()) {
+        showStatusMessage("Fabricante não foi selecionado.", true);  
+        return;
     }
 
-    if(!preencheuModelo()){
-    showStatusMessage("Modelo não foi preenchido.", true);
-    return;
+    if (!preencheuModelo()) {
+        showStatusMessage("Modelo não foi preenchido.", true);
+        return;
     }
 
-    if(!preencheuRegistro()){
-    showStatusMessage("Registro não foi preenchido.", true);
-    return;
+    if (!preencheuRegistro()) {
+        showStatusMessage("Registro não foi preenchido.", true);
+        return;
     }
 
-    if(!anoValido()){
-    showStatusMessage("Ano da aeronave deve de 2000 até 2025.", true);
-    return;
+    if (!anoValido()) {
+        showStatusMessage("Ano da aeronave deve de 2000 até 2025.", true);
+        return;
     }
 
-    if(!totalAssentosValido()){
-    showStatusMessage("Preencha corretamente o total de assentos.", true);
-    return;
+    if (!totalAssentosValido()) {
+        showStatusMessage("Preencha corretamente o total de assentos.", true);
+        return;
     }
 
     // obtem os dados inseridos no html
