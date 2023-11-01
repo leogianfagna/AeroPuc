@@ -58,7 +58,7 @@ app.get("/listarAeronaves", async(req,res)=>{
 app.put("/inserirAeronave", async(req,res)=>{
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
-  const registro = req.body.registro as number; 
+  const registro = req.body.registro as number;
   const qtdeAssentos = req.body.qtdeAssentos as number;
   const anoFab = req.body.anoFab as number;
 
@@ -78,10 +78,10 @@ app.put("/inserirAeronave", async(req,res)=>{
     });
 
     const cmdInsertAero = `INSERT INTO aeronaves
-    (numero_identificacao, fabricante, modelo, assentos, ano_fabricacao)
-    VALUES (aeronaves_id.nextval, :1, :2, :3, :4)`;
+    (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao)
+    VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5)`;
 
-    const dados = [fabricante, modelo, qtdeAssentos, anoFab];
+    const dados = [registro, fabricante, modelo, qtdeAssentos, anoFab];
     let resInsert = await conn.execute(cmdInsertAero, dados);
     
     await conn.commit();
