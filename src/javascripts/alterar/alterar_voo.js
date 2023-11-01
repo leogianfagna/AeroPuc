@@ -59,11 +59,13 @@ function preencheuValor(){
 }
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
-    if (error === true){
-    pStatus.className = "statusError";
-    }else{
-    pStatus.className = "statusSuccess";
+    
+    if (error === true) {
+        pStatus.className = "text-danger"; // de acordo com o bootstrap
+    } else {
+        pStatus.className = "text-success";
     }
+
     pStatus.textContent = msg;
 }
 function AlterarVoo(){

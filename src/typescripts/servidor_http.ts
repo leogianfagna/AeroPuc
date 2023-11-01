@@ -162,9 +162,9 @@ app.put("/alterarAeronave", async(req,res)=>{
   const id = req.body.id as number;
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
-  const registro = parseInt(req.body.registro);
-  const qtdeAssentos = parseInt(req.body.qtdeAssentos);
-  const anoFab = parseInt(req.body.anoFab);
+  const qtdeAssentos = req.body.qtdeAssentos as number;
+  const anoFab = req.body.anoFab as number;
+  const registro = req.body.registro as number;
   
   let cr: CustomResponse = {
     status: "ERROR",
@@ -186,15 +186,15 @@ app.put("/alterarAeronave", async(req,res)=>{
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     
     await connection.commit();
- 
-    await connection.close();
 
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if(rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeronave alterada.";
     } else {
       cr.message = "Aeronave não alterada. Verifique se o código informado está correto.";
+      await connection.close();
     }
 
   } catch(e){
