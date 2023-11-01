@@ -12,10 +12,10 @@ function ids(){
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
-    if (error === true){
-        pStatus.className = "statusError";
+    if (error === true) {
+        pStatus.className = "text-danger"; // de acordo com o bootstrap
     } else {
-        pStatus.className = "statusSuccess";
+        pStatus.className = "text-success";
     }
 
     pStatus.textContent = msg;
@@ -46,7 +46,7 @@ function excluir(){
     const idInserido = document.getElementById("id").value;
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
-        trajeto: idInserido
+        id: idInserido
      })
         .then(resultado => {
             // obteve resposta
