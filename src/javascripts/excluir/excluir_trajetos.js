@@ -31,7 +31,7 @@ function fetchDeletar(body) {
       body: JSON.stringify(body)
     };
 
-    return fetch('http://localhost:3000/ExcluirAeronave', requestOptions)
+    return fetch('http://localhost:3000/excluirTrajeto', requestOptions)
     .then(T => T.json())
 }
 
@@ -51,7 +51,7 @@ function excluir(){
         .then(resultado => {
             // obteve resposta
             if (resultado.status === "SUCCESS") {
-                showStatusMessage("Trajeto excluido!", false);
+                showStatusMessage("Trajeto excluído!", false);
             } else {
                 showStatusMessage("Erro ao excluir trajeto: " + message, true);
                 console.log(resultado.message);
