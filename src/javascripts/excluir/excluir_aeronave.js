@@ -3,7 +3,7 @@ function ids(){
     let resultado = false;
     const id = document.getElementById("id").value;
     
-    if (parseInt(id) > 0){
+    if (parseInt(id) > 0) {
         resultado = true;
     }
 
@@ -37,7 +37,7 @@ function fetchDeletar(body) {
 
 // funcao para excluir
 function excluir(){
-    if(!ids()){
+    if (!ids()) {
         showStatusMessage("ID deve ser preenchido.", true);
         return;
     }
@@ -47,6 +47,7 @@ function excluir(){
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         id: idInserido
      })
+        
         .then(resultado => {
             // obteve resposta
             if (resultado.status === "SUCCESS") {
@@ -56,6 +57,7 @@ function excluir(){
                 console.log(resultado.message);
             }
         })
+        
         .catch(()=>{
             showStatusMessage("Erro técnico ao excluir. Contate o suporte.", true);
             console.log("Falha grave ao excluir.")
