@@ -31,7 +31,7 @@ function fetchDeletar(body) {
       body: JSON.stringify(body)
     };
 
-    return fetch('http://localhost:3000/ExcluirAeronave', requestOptions)
+    return fetch('http://localhost:3000/excluirMapa', requestOptions)
     .then(T => T.json())
 }
 
