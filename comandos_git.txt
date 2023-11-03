@@ -1,23 +1,29 @@
-CLONAR O REPOSITÓRIO PARA SEU COMPUTADOR: (ISSO FAZ PELA PRIMEIRA VEZ)
+em "aspas" são os comandos no terminal. retire as aspas na hora de executar
 
+PRIMEIRA VEZ MEXENDO COM GITHUB NO VSCODE
+1. instalar a extensão do github (fica em source control na aba lateral esquerda)
+2. ter uma conta no github, no momento da clonagem do projeto, vai pedir para logar-se
+
+CLONAR O REPOSITÓRIO PARA SEU COMPUTADOR: (ISSO FAZ PELA PRIMEIRA VEZ)
 1. "cd caminho/do/diretorio" 
     - isso no terminal, sem NENHUM PROJETO ABERTO!
     - por exemplo, criar pasta no desktop chamada repositorios_github, ai use "cd desktop/repositorios_github
     - a pasta do projeto vai ser criada automaticamente depois disso
-2. "git clone <URL_do_repositorio>" (terminal, sem NENHUM PROJETO ABERTO)
-    - ainda no terminal, sem nenhum projeto aberto
-    - pegar o link no repositorio la no github, no botão verde "code"
-3. abrir o projeto pelo vscode
+2. "git clone https://github.com/leogianfagna/pi_aeropuc.git"
+    - ainda no terminal, SEM NENHUM PROJETO ABERTO!!!
+    - esse link do repositório está na página do nosso projeto, no botão verde "code"
+3. abrir o projeto pelo vscode (file -> open projetct... etc)
 
 ENVIAR SUAS MODIFICAÇÕES FEITAS AO GITHUB
-
 1. "git add ." (ou arquivos específicos com "git add arquivo1")
 2. "git commit -m "Mensagem do commit aqui""
+    - a mensagem de commit é para especificar o que foi alterado na hora de enviar as mudanças
+    - por exemplo, git commit -m "adicionado novo icone na nav bar"
 3. "git push origin main"
 
 VOLTAR A TRABALHAR NO PROJETO
-
 * membros do grupo podem fazer alterações no projeto nesse tempo, então você deve baixar todas essas alterações antes de mexer nele, para isso:
 
 1. abrir o projeto pelo vscode
 2. usar no terminal "git pull origin main"
+    - esse comando baixa todas as alterações durante esse tempo e ai voce já pode voltar a trabalhar e enviar mudanças ao projeto
