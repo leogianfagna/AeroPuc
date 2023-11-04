@@ -1,9 +1,10 @@
-// configurações
+// bibliotecas importadas
 import express from "express";
 import oracledb, { Connection, ConnectionAttributes } from "oracledb";
 import dotenv from "dotenv";
 import cors from "cors";
 
+// configurações da conexão
 const app = express();
 const port = 3000;
 
@@ -12,22 +13,28 @@ app.use(cors());
 
 dotenv.config();
 
+// tipo de resposta da conexão
 type CustomResponse = {
   status: string,
   message: string,
   payload: any
 };
 
+// função listen do servidor
+app.listen(port,()=>{
+  console.log("Servidor HTTP ligado.");
+});
+
 // aeronaves = executar select
 app.get("/listarAeronaves", async(req,res)=>{
-  
+
   let cr: CustomResponse = {
       status: "ERROR", 
       message: "", 
       payload: undefined,
   };
   
-  try{
+  try {
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
@@ -42,8 +49,8 @@ app.get("/listarAeronaves", async(req,res)=>{
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
-  } catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
     } else {
@@ -70,7 +77,7 @@ app.put("/inserirAeronave", async(req,res)=>{
 
   let conn;
 
-  try{
+  try {
     conn = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
@@ -85,22 +92,22 @@ app.put("/inserirAeronave", async(req,res)=>{
     let resInsert = await conn.execute(cmdInsertAero, dados);
     
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeronave inserida.";
     }
 
-  } catch(e){
-    if(e instanceof Error) {
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
     } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
-    if(conn!== undefined) {
+    if (conn!== undefined) {
       await conn.close();
     }
     res.send(cr);  
@@ -117,7 +124,7 @@ app.delete("/excluirAeronave", async(req,res)=>{
     payload: undefined,
   };
 
-    try{
+    try {
       const connection = await oracledb.getConnection({
          user: process.env.ORACLE_DB_USER,
          password: process.env.ORACLE_DB_PASSWORD,
@@ -130,32 +137,27 @@ app.delete("/excluirAeronave", async(req,res)=>{
       let resDelete = await connection.execute(cmdDeleteAero, dados);
       
       await connection.commit();
-
       await connection.close();
- 
-      const rowsDeleted = resDelete.rowsAffected
-      if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+      const rowsDeleted = resDelete.rowsAffected;
+      
+      if (rowsDeleted !== undefined &&  rowsDeleted === 1) {
         cr.status = "SUCCESS"; 
         cr.message = "Aeronave excluída.";
-      }else{
+      } else {
         cr.message = "Aeronave não excluída. Verifique se o código informado está correto.";
       }
   
-    }catch(e){
-      if(e instanceof Error){
+    } catch(e) {
+      if (e instanceof Error) {
         cr.message = e.message;
         console.log(e.message);
-      }else{
+      } else {
         cr.message = "Erro ao conectar ao oracle. Sem detalhes";
       }
     } finally {
       res.send(cr);  
     }
-  });
-  
-  app.listen(port,()=>{
-    console.log("Servidor HTTP funcionando...");
-  });
+});
 
 // aeronaves = alterar
 app.put("/alterarAeronave", async(req,res)=>{
@@ -184,12 +186,10 @@ app.put("/alterarAeronave", async(req,res)=>{
     const dados = [id, registro, modelo, fabricante, anoFab, qtdeAssentos];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
-    
     await connection.commit();
-
     const rowsUpdated = resUpdate.rowsAffected;
     
-    if(rowsUpdated !== undefined && rowsUpdated === 1) {
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeronave alterada.";
     } else {
@@ -243,10 +243,9 @@ app.get("/listarAeroportos", async(req,res)=>{
   } finally {
     res.send(cr);  
   }
-  
-  });
+});
 
-//Inserir aeroportos
+// aeroportos = inserir
 app.put("/inserirAeroporto", async(req,res)=>{
   const aeroporto = req.body.aeroporto as string;
   const cidade = req.body.cidade as string;
@@ -259,7 +258,7 @@ app.put("/inserirAeroporto", async(req,res)=>{
 
   let conn;
   
-  try{
+  try {
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -268,43 +267,44 @@ app.put("/inserirAeroporto", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO aeroportos 
     VALUES(aeroportos_id.nextval,:1, :2)`
-
     const dados = [aeroporto, cidade];
-    let resInsert = await conn.execute(cmdInsertAero, dados);
     
+    let resInsert = await conn.execute(cmdInsertAero, dados);
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined &&  rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeroporto inserido.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
-    if(conn!== undefined){
+    if (conn!== undefined) {
       await conn.close();
     }
+    
     res.send(cr);  
   }
 });
 
-//Excluir aeroportos
+// aeroportos - excluir
 app.delete("/excluirAeroporto", async(req,res)=>{
   const id = req.body.id as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -315,48 +315,46 @@ app.delete("/excluirAeroporto", async(req,res)=>{
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
-    
     await connection.commit();
-
     await connection.close();
-
-    const rowsDeleted = resDelete.rowsAffected
+    const rowsDeleted = resDelete.rowsAffected;
     
-    if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+    if (rowsDeleted !== undefined && rowsDeleted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeroporto excluída.";
-    }else{
+    } else {
       cr.message = "Aeroporto não excluída. Verifique se o código informado está correto.";
     }
 
-  } catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else{ 
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     res.send(cr);  
   }
-  });
+});
 
-//Alterar aeroportos
+// aeroportos - alterar
 app.put("/alterarAeroporto", async(req,res)=>{
-   const id = req.body.id as number;
-   const aeroporto = req.body.aeroporto as string;
-   const cidade = req.body.cidade as string;
-   let cr: CustomResponse = {
+  const id = req.body.id as number;
+  const aeroporto = req.body.aeroporto as string;
+  const cidade = req.body.cidade as string;
+   
+  let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
-       user: process.env.ORACLE_DB_USER,
-       password: process.env.ORACLE_DB_PASSWORD,
-       connectionString: process.env.ORACLE_CONN_STR,
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
     });
 
     const cmdUpdateAero = `UPDATE aeroportos SET aeroporto = :2,
@@ -366,53 +364,18 @@ app.put("/alterarAeroporto", async(req,res)=>{
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     
     await connection.commit();
- 
     await connection.close();
-
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeroporto alterado.";
-    }else{
+    } else {
       cr.message = "Aeroporto não alterado. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
-      cr.message = e.message;
-      console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
-    }
-  } finally {
-    res.send(cr);  
-  }
-});
-
-//Listar cidade
-app.get("/listarCidades", async(req,res)=>{
-
-  let cr: CustomResponse = {
-      status: "ERROR", 
-      message: "", 
-      payload: undefined,};
-
-  try{
-    const connAttibs: ConnectionAttributes = {
-      user: process.env.ORACLE_DB_USER,
-      password: process.env.ORACLE_DB_PASSWORD,
-      connectionString: process.env.ORACLE_CONN_STR,
-    }
-    const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT * FROM cidades");
-  
-    await connection.close();
-    cr.status = "SUCCESS"; 
-    cr.message = "Dados obtidos";
-    cr.payload = resultadoConsulta.rows;
-
-  }catch(e){
-    if(e instanceof Error) {
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
     } else {
@@ -421,9 +384,44 @@ app.get("/listarCidades", async(req,res)=>{
   } finally {
     res.send(cr);  
   }
-  });
+});
 
-//Inserir cidades 
+// cidades = executar select
+app.get("/listarCidades", async(req,res)=>{
+
+  let cr: CustomResponse = {
+      status: "ERROR", 
+      message: "", 
+      payload: undefined,};
+
+  try {
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+    
+    const connection = await oracledb.getConnection(connAttibs);
+    let resultadoConsulta = await connection.execute("SELECT * FROM cidades");
+  
+    await connection.close();
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+    cr.payload = resultadoConsulta.rows;
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
+    }
+  } finally {
+    res.send(cr);  
+  }
+});
+
+// cidades - inserir
 app.put("/inserirCidade", async(req,res)=>{
   const cidade = req.body.cidade as string;
   const estado = req.body.estado as string;
@@ -437,7 +435,7 @@ app.put("/inserirCidade", async(req,res)=>{
 
   let conn;
 
-  try{
+  try {
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -446,43 +444,43 @@ app.put("/inserirCidade", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO cidades
     VALUES(cidades_id.nextval,:1, :2, :3)`
-
     const dados = [cidade,estado,pais];
-    let resInsert = await conn.execute(cmdInsertAero, dados);
     
+    let resInsert = await conn.execute(cmdInsertAero, dados);
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Cidade inserida.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
-    if(conn!== undefined){
+    if (conn!== undefined) {
       await conn.close();
     }
     res.send(cr);  
   }
 });
 
-//Excluir cidade
+// cidade - excluir
 app.delete("/excluirCidade", async(req,res)=>{
   const id = req.body.id as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -493,44 +491,43 @@ app.delete("/excluirCidade", async(req,res)=>{
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
-    
     await connection.commit();
-
     await connection.close();
-
-    const rowsDeleted = resDelete.rowsAffected
-    if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+    const rowsDeleted = resDelete.rowsAffected;
+    
+    if (rowsDeleted !== undefined && rowsDeleted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Cidade excluída.";
-    }else{
+    } else {
       cr.message = "Cidade não excluída. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     res.send(cr);  
   }
 });
 
-//Alterar cidades
+// cidades - alterar
 app.put("/alterarCidade", async(req,res)=>{
   const id = req.body.id as number;
   const cidade = req.body.cidade as string;
   const estado = req.body.estado as string;
-  const pais = req.body.pais as number; 
+  const pais = req.body.pais as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
@@ -542,46 +539,46 @@ app.put("/alterarCidade", async(req,res)=>{
     const dados = [id, cidade, estado, pais];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
-    
     await connection.commit();
- 
     await connection.close();
-
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Cidade alterada.";
-    }else{
+    } else {
       cr.message = "Cidade não alterada. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     res.send(cr);  
   }
 });
 
-
-//Listar mapa de assentos
+// mapa de assentos - executar select
 app.get("/listarMapa", async(req,res)=>{
   let cr: CustomResponse = {
       status: "ERROR", 
       message: "", 
-      payload: undefined,};
+      payload: undefined,
+  };
 
-  try{
+  try {
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
+    
     const connection = await oracledb.getConnection(connAttibs);
+    
     let resultadoConsulta = await connection.execute("SELECT * FROM mapa_assentos");
   
     await connection.close();
@@ -589,11 +586,11 @@ app.get("/listarMapa", async(req,res)=>{
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
@@ -601,7 +598,7 @@ app.get("/listarMapa", async(req,res)=>{
   }
 });
 
-//Inserir mapa de assentos 
+// mapa de assentos - inserir
 app.put("/inserirMapa", async(req,res)=>{
   const fileiras = req.body.fileiras as number;
   const colunas = req.body.colunas as number;
@@ -616,7 +613,7 @@ app.put("/inserirMapa", async(req,res)=>{
 
   let conn;
 
-  try{
+  try {
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -625,24 +622,23 @@ app.put("/inserirMapa", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO aeronaves 
     VALUES(aeronaves_id.nextval,:1, :2, :3, :4)`
-
     const dados = [fileiras, colunas, total_assentos, aeronave];
-    let resInsert = await conn.execute(cmdInsertAero, dados);
     
+    let resInsert = await conn.execute(cmdInsertAero, dados);
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Mapa de assentos inserido.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     if(conn!== undefined){
@@ -652,16 +648,17 @@ app.put("/inserirMapa", async(req,res)=>{
   }
 });
 
-//Excluir mapa de assentos
+// mapa de assentos - excluir
 app.delete("/excluirMapa", async(req,res)=>{
   const id = req.body.id as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -672,28 +669,26 @@ app.delete("/excluirMapa", async(req,res)=>{
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
-    
     await connection.commit();
-
     await connection.close();
-
-    const rowsDeleted = resDelete.rowsAffected
-    if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+    const rowsDeleted = resDelete.rowsAffected;
+    
+    if (rowsDeleted !== undefined && rowsDeleted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Mapa de assentos excluído.";
-    }else{
+    } else {
       cr.message = "Mapa de assentos não excluído. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
-    res.send(cr);  
+    res.send(cr);
   }
 });
 
@@ -711,7 +706,7 @@ app.put("/alterarMapa", async(req,res)=>{
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
@@ -723,24 +718,22 @@ app.put("/alterarMapa", async(req,res)=>{
     const dados = [id, fileiras, colunas, total_assentos, aeronave];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
-    
     await connection.commit();
- 
     await connection.close();
-
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if (rowsUpdated !== undefined &&  rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Mapa de assentos alterado.";
-    }else{
+    } else {
       cr.message = "Mapa de assentos não alterado. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
@@ -748,20 +741,22 @@ app.put("/alterarMapa", async(req,res)=>{
   }
 });
 
-//Listar trajetos
+// trajetos - executar select
 app.get("/listarTrajetos", async(req,res)=>{
 
   let cr: CustomResponse = {
       status: "ERROR", 
       message: "", 
-      payload: undefined,};
+      payload: undefined,
+  };
 
-  try{
+  try {
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
+    
     const connection = await oracledb.getConnection(connAttibs);
     let resultadoConsulta = await connection.execute("SELECT * FROM trajetos ORDER BY id ASC");
 
@@ -770,11 +765,11 @@ app.get("/listarTrajetos", async(req,res)=>{
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
@@ -782,7 +777,7 @@ app.get("/listarTrajetos", async(req,res)=>{
   }
 });
 
-//Inserir trajetos 
+// trajetos - inserir
 app.put("/inserirTrajeto", async(req,res)=>{
   const origem = req.body.origem as string;
   const destino = req.body.destino as string; 
@@ -797,7 +792,7 @@ app.put("/inserirTrajeto", async(req,res)=>{
 
   let conn;
 
-  try{
+  try {
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -806,44 +801,43 @@ app.put("/inserirTrajeto", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO trajetos 
     VALUES(trajetos_id.nextval,:1, :2, :3, :4)`
-
     const dados = [origem,destino,duracao,tipo];
-    let resInsert = await conn.execute(cmdInsertAero, dados);
     
+    let resInsert = await conn.execute(cmdInsertAero, dados);
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Trajeto inserido.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
-    if(conn!== undefined){
+    if (conn!== undefined) {
       await conn.close();
     }
     res.send(cr);  
   }
 });
 
-//Excluir trajeto
-
+// trajeto - excluir
 app.delete("/excluirTrajeto", async(req,res)=>{
   const id = req.body.id as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -854,24 +848,22 @@ app.delete("/excluirTrajeto", async(req,res)=>{
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
-    
     await connection.commit();
-
     await connection.close();
-
-    const rowsDeleted = resDelete.rowsAffected
-    if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+    const rowsDeleted = resDelete.rowsAffected;
+    
+    if (rowsDeleted !== undefined && rowsDeleted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Trajeto excluída.";
-    }else{
+    } else {
       cr.message = "Trajeto não excluída. Verifique se o código informado está correto.";
     }
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     res.send(cr);  
@@ -892,7 +884,7 @@ app.put("/alterarTrajeto", async(req,res)=>{
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
@@ -904,45 +896,45 @@ app.put("/alterarTrajeto", async(req,res)=>{
     const dados = [id,origem,destino,duracao,tipo];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
-    
     await connection.commit();
- 
     await connection.close();
-
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Trajeto alterado.";
-    }else{
+    } else {
       cr.message = "Trajeto não alterado. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else{
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
     res.send(cr);  
   }
 });
 
-//Listar voos
+// voos - executar select
 app.get("/listarVoos", async(req,res)=>{
 
   let cr: CustomResponse = {
       status: "ERROR", 
       message: "", 
-      payload: undefined,};
+      payload: undefined,
+  };
   
-  try{
+  try {
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
+    
     const connection = await oracledb.getConnection(connAttibs);
     let resultadoConsulta = await connection.execute("SELECT * FROM voos");
   
@@ -951,11 +943,11 @@ app.get("/listarVoos", async(req,res)=>{
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
-  }catch(e){
+  } catch(e) {
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
@@ -963,7 +955,7 @@ app.get("/listarVoos", async(req,res)=>{
   }
 });
 
-//Inserir voos
+// voos - inserir
 app.put("/inserirVoos", async(req,res)=>{
   const data = req.body.data as string;
   const trajeto = req.body.trajeto as number;
@@ -980,7 +972,7 @@ app.put("/inserirVoos", async(req,res)=>{
 
   let conn;
 
-  try{
+  try {
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -989,43 +981,43 @@ app.put("/inserirVoos", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO voos 
     VALUES(voos_id.nextval,:1, :2, :3, :4, :5, :6)`
-
-    const dados = [data,trajeto,aeronave,horario_ida,horario_volta,valor];
-    let resInsert = await conn.execute(cmdInsertAero, dados);
+    const dados = [data, trajeto, aeronave, horario_ida, horario_volta, valor];
     
+    let resInsert = await conn.execute(cmdInsertAero, dados);
     await conn.commit();
-
-    const rowsInserted = resInsert.rowsAffected
-    if(rowsInserted !== undefined &&  rowsInserted === 1) {
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Voo inserido.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
-    if(conn!== undefined){
+    if (conn!== undefined) {
       await conn.close();
     }
     res.send(cr);  
   }
 });
 
-//Excluir voo
+// voos - excluir
 app.delete("/excluirVoo", async(req,res)=>{
   const id = req.body.id as number;
+  
   let cr: CustomResponse = {
     status: "ERROR",
     message: "",
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
@@ -1036,24 +1028,22 @@ app.delete("/excluirVoo", async(req,res)=>{
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
-    
     await connection.commit();
-
     await connection.close();
-
-    const rowsDeleted = resDelete.rowsAffected
-    if(rowsDeleted !== undefined &&  rowsDeleted === 1) {
+    const rowsDeleted = resDelete.rowsAffected;
+    
+    if (rowsDeleted !== undefined && rowsDeleted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Voo excluído.";
-    }else{
+    } else {
       cr.message = "Voo não excluído. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if(e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
@@ -1061,7 +1051,7 @@ app.delete("/excluirVoo", async(req,res)=>{
   }
 });
 
-//Alterar voos
+// voos - alterar
 app.put("/alterarVoo", async(req,res)=>{
   const id = req.body.id as number;
   const data = req.body.data as string;
@@ -1077,7 +1067,7 @@ app.put("/alterarVoo", async(req,res)=>{
     payload: undefined,
   };
 
-  try{
+  try {
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
@@ -1086,27 +1076,25 @@ app.put("/alterarVoo", async(req,res)=>{
 
     const cmdUpdateAero = `UPDATE voos SET data = :2,
      trajeto = :3, aeronave = :4, horario_ida = :5, horario_volta = :6, valor = :7 WHERE id = :1`
-     const dados = [id,data,trajeto,aeronave,horario_ida,horario_volta,valor];
+    const dados = [id,data,trajeto,aeronave,horario_ida,horario_volta,valor];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
-    
     await connection.commit();
- 
     await connection.close();
-
-    const rowsUpdated = resUpdate.rowsAffected
-    if(rowsUpdated !== undefined &&  rowsUpdated === 1) {
+    const rowsUpdated = resUpdate.rowsAffected;
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Voo alterado.";
-    }else{
+    } else {
       cr.message = "Voo não alterado. Verifique se o código informado está correto.";
     }
 
-  }catch(e){
-    if(e instanceof Error){
+  } catch(e) {
+    if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
-    }else{
+    } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
