@@ -27,3 +27,8 @@ VOLTAR A TRABALHAR NO PROJETO
 1. abrir o projeto pelo vscode
 2. usar no terminal "git pull origin main"
     - esse comando baixa todas as alterações durante esse tempo e ai voce já pode voltar a trabalhar e enviar mudanças ao projeto
+
+
+OBSERVAÇÕES (ERROS):
+- Se aparecer o erro "O termo 'git' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa operável", confira se baixou a extensão GITHUB. Se sim, apenas reinicie o VSCode e abra outra janela (nova window) para usar um novo terminal
+- Depois disso vai pedir para se logar com o github. É o mesmo esquema quando é connta google.
