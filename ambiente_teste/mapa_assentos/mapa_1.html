@@ -1,11 +1,11 @@
-<!-- essa maneira foi feita usando botões -->
+<!-- essa maneira foi feita usando emojis -->
 
 <!doctype html>
 <html lang="pt">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Assentos da aeronave</title>
+        <title>Bootstrap demo</title>
         <!--
         <script src="/ambiente_teste/mapa_assentos/exibir_mapa.js"></script>
         -->
@@ -19,33 +19,31 @@
             <script>
                 const colunas = 6;
                 const fileiras = 30;
-                const cadeiraReservadas = [1, 2, 3, 10, 15]; // apenas teste
-                let cadeiraVez = 0;
+                let linhaImpressao = ""; // começa vazio
                 
                 // deve fazer a linha e depois imprimir, depois seguir para a proxima
 
                 // passar por todas as colunas
-                for (let i = 0; i < fileiras; i++) {
+                for (let i = 10; i < fileiras + 10; i++) {  // por enquanto coloquei começando em 10 só para alinhar
+                    linhaImpressao = i + " - "; // coloca um identificador na frente
 
                     // passar pela linha inteira
-                    for (let j = 0; j < colunas; j++) {
-                        cadeiraVez++; // conta em qual cadeira está
-
+                    for (let i = 0; i < colunas; i++) {
                         // conferir se é um corredor
                         // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
-                        if (j === colunas/2) {
-                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
+                        if (i === colunas/2) {
+                            linhaImpressao = linhaImpressao + " . ";
                         }
 
                         // conferir se está ocupado ou desocupado
-                        if (cadeiraReservadas.includes(cadeiraVez) === true) {
-                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
+                        if (i === "ocupado") {
+                            linhaImpressao = linhaImpressao + "⬛";
                         } else {
-                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
+                            linhaImpressao = linhaImpressao + "⬜";
                         }
                     }
 
-                    document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<p id=${i}>` + linhaImpressao + "</p>";
                 }
             </script>
         </div>
