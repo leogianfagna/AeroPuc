@@ -78,7 +78,7 @@ app.get("/listarClientes", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT * FROM clientes");
+    let resultadoConsulta = await connection.execute("SELECT * FROM cliente");
   
     await connection.close();
     cr.status = "SUCCESS"; 
