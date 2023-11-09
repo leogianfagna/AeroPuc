@@ -127,3 +127,9 @@ exemplo copiado e não autoral (apenas algumas modificações) */
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.logo {
+    height: 50px; /* Altura desejada para a imagem pequena */
+    width: auto;
+    margin-right: 10px; /* Espaço entre a imagem e o texto AeroPUC */
+}
