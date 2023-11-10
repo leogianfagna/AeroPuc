@@ -114,7 +114,7 @@ app.get("/listarAssentosReservados", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente");
+    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente ORDER BY assento ASC");
   
     await connection.close();
     cr.status = "SUCCESS"; 

@@ -23,17 +23,12 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'SUCCESS') {
-                        const assentosReservados = data.payload.map(row => row.ASSSENTO);
+                        const assentosReservados = data.payload.map(row => row[0][0]); // transformar o SELECT assentos em string
                         console.log('Assentos Reservados:', assentosReservados);
-
-                        // Agora você pode manipular o array 'assentosReservados' conforme necessário.
-                        
-                        
                         
                         // criando um array dos assentos reservados para imprimir
                         const colunas = 6;
                         const fileiras = 30;
-                        const cadeiraReservadas = [1, 2, 3, 10, 15]; // apenas teste
                         let cadeiraVez = 0;
                         
                         // deve fazer a linha e depois imprimir, depois seguir para a proxima
@@ -51,8 +46,12 @@
                                     document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
                                 }
 
+                                // AQUI VAI TER QUE SER ASSIM:
+                                // ele nao pode conferir posição por posição, vai ter que conferir se o numero cadeiraVez
+                                // tem algum resultado no array!!!
+
                                 // conferir se está ocupado ou desocupado
-                                if (cadeiraReservadas.includes(cadeiraVez) === true) {
+                                if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
                                     document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
                                 } else {
                                     document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
