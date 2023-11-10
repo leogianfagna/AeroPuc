@@ -133,6 +133,58 @@ app.get("/listarAssentosReservados", async(req,res)=>{
   }
 });
 
+// cliente = inserir modo administrativo
+app.put("/inserirCliente", async(req,res)=>{
+  const nome = req.body.nome as string;
+  const email = req.body.email as string;
+  const assento = req.body.assento as number;
+  const voo = req.body.voo as number;
+
+  let cr: CustomResponse = {
+    status: "ERROR",
+    message: "",
+    payload: undefined,
+  };
+
+  let conn;
+
+  try {
+    conn = await oracledb.getConnection({
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    });
+
+    const cmdInsertAero = `INSERT INTO cliente
+    (id, nome, email, assento, voo)
+    VALUES (aeronaves_id.nextval, :1, :2, :3, :4)`;
+
+    const dados = [nome, email, assento, voo];
+    let resInsert = await conn.execute(cmdInsertAero, dados);
+    
+    await conn.commit();
+    const rowsInserted = resInsert.rowsAffected;
+    
+    if (rowsInserted !== undefined && rowsInserted === 1) {
+      cr.status = "SUCCESS"; 
+      cr.message = "Aeronave inserida.";
+    }
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    if (conn!== undefined) {
+      await conn.close();
+    }
+    res.send(cr);  
+  }
+});
+
 // aeronaves = inserir
 app.put("/inserirAeronave", async(req,res)=>{
   const fabricante = req.body.fabricante as string;

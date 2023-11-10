@@ -23,9 +23,46 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'SUCCESS') {
-                        // criando um array dos assentos reservados para imprimir
                         const assentosReservados = data.payload.map(row => row.ASSSENTO);
                         console.log('Assentos Reservados:', assentosReservados);
+
+                        // Agora você pode manipular o array 'assentosReservados' conforme necessário.
+                        
+                        
+                        
+                        // criando um array dos assentos reservados para imprimir
+                        const colunas = 6;
+                        const fileiras = 30;
+                        const cadeiraReservadas = [1, 2, 3, 10, 15]; // apenas teste
+                        let cadeiraVez = 0;
+                        
+                        // deve fazer a linha e depois imprimir, depois seguir para a proxima
+
+                        // passar por todas as colunas
+                        for (let i = 0; i < fileiras; i++) {
+
+                            // passar pela linha inteira
+                            for (let j = 0; j < colunas; j++) {
+                                cadeiraVez++; // conta em qual cadeira está
+
+                                // conferir se é um corredor
+                                // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
+                                if (j === colunas/2) {
+                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
+                                }
+
+                                // conferir se está ocupado ou desocupado
+                                if (cadeiraReservadas.includes(cadeiraVez) === true) {
+                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
+                                } else {
+                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
+                                }
+                            }
+
+                            document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                        }
+
+
                     } else {
                         console.error('Erro ao obter os assentos reservados:', data.message);
                     }
