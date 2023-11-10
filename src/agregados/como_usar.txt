@@ -1,0 +1,16 @@
+// Cole esse código no espaço da nav bar para gerar automaticamente
+
+<div id="nav-bar-pronta"></div>
+<script>
+    // requisição para carregar o conteúdo do arquivo
+    fetch('nav.html') // se necessario, trocar o nome do arquivo aqui
+        .then(response => response.text())
+        .then(data => {
+            
+            var elemento = document.getElementById('nav-bar-pronta'); // trocar o nome do elemento
+
+            // inserir o conteúdo HTML no elemento
+            elemento.innerHTML = data;
+        })
+        .catch(error => console.error('Erro ao carregar o arquivo:', error));
+</script>
