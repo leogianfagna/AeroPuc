@@ -6,9 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap demo</title>
-        <!--
         <script src="/ambiente_teste/mapa_assentos/exibir_mapa.js"></script>
-        -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -16,61 +14,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <div id="mapaAssentos">
             <!-- aqui vem a impressão do mapa -->
-            <script>
-                
-                // fazendo conexão com o typescript que da um select nos assentos somente (por enquanto TODOS)
-                fetch('http://localhost:3000/listarAssentosReservados')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'SUCCESS') {
-                        const assentosReservados = data.payload.map(row => row[0][0]); // transformar o SELECT assentos em string
-                        console.log('Assentos Reservados:', assentosReservados);
-                        
-                        // criando um array dos assentos reservados para imprimir
-                        const colunas = 6;
-                        const fileiras = 30;
-                        let cadeiraVez = 0;
-                        
-                        // deve fazer a linha e depois imprimir, depois seguir para a proxima
-
-                        // passar por todas as colunas
-                        for (let i = 0; i < fileiras; i++) {
-
-                            // passar pela linha inteira
-                            for (let j = 0; j < colunas; j++) {
-                                cadeiraVez++; // conta em qual cadeira está
-
-                                // conferir se é um corredor
-                                // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
-                                if (j === colunas/2) {
-                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
-                                }
-
-                                // AQUI VAI TER QUE SER ASSIM:
-                                // ele nao pode conferir posição por posição, vai ter que conferir se o numero cadeiraVez
-                                // tem algum resultado no array!!!
-
-                                // conferir se está ocupado ou desocupado
-                                if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
-                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
-                                } else {
-                                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
-                                }
-                            }
-
-                            document.getElementById("mapaAssentos").innerHTML += `<br>`;
-                        }
-
-
-                    } else {
-                        console.error('Erro ao obter os assentos reservados:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao fazer a requisição:', error);
-                });
-
-            </script>
         </div>
     </body>
 </html>
