@@ -99,6 +99,7 @@ app.get("/listarClientes", async(req,res)=>{
 
 // clientes = executar select somente na cadeira reservada
 app.get("/listarAssentosReservados", async(req,res)=>{
+  const numeroVoo = req.query.voo as string;
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -114,7 +115,9 @@ app.get("/listarAssentosReservados", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente ORDER BY assento ASC");
+    
+    console.log("Num recebido: ", numeroVoo);
+    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente WHERE voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
   
     await connection.close();
     cr.status = "SUCCESS"; 
