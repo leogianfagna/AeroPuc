@@ -2,6 +2,7 @@ fetch('http://localhost:3000/listarAeroportos')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
+            let i = 0;
             const tabelaDeAeroportos = document.getElementById('tabelaDeAeroportos');
             tabelaDeAeroportos.innerHTML = ''; // Limpa o conteúdo atual
 
@@ -14,6 +15,9 @@ fetch('http://localhost:3000/listarAeroportos')
                     tr.appendChild(td);
                 });
 
+                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
+                tr.id = i;
+                i++;
                 tabelaDeAeroportos.appendChild(tr);
             });
 

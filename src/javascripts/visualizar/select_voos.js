@@ -5,6 +5,7 @@ fetch('http://localhost:3000/listarVoos')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
+            let i = 0;
             const tabelaDeVoos = document.getElementById('tabelaDeVoos');
             tabelaDeVoos.innerHTML = ''; // Limpa o conteúdo atual
 
@@ -17,6 +18,9 @@ fetch('http://localhost:3000/listarVoos')
                     tr.appendChild(td);
                 });
 
+                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
+                tr.id = i;
+                i++;
                 tabelaDeVoos.appendChild(tr);
             });
 

@@ -5,6 +5,7 @@ fetch('http://localhost:3000/listarAeronaves')
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
+            let i = 0;
             const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
             tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
 
@@ -17,6 +18,9 @@ fetch('http://localhost:3000/listarAeronaves')
                     tr.appendChild(td);
                 });
 
+                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
+                tr.id = i;
+                i++;
                 tabelaDeAeronaves.appendChild(tr);
             });
 
@@ -29,9 +33,3 @@ fetch('http://localhost:3000/listarAeronaves')
         }
     })
     .catch(error => console.error('Erro ao conectar:', error));
-
-// Atualiza o contador de resultados
-var contadorElemento = document.getElementById("contadorResultados");
-contadorElemento.textContent = `Total de Resultados: ${data.payload.length}`;
-
-// pStatus.textContent = msg;
