@@ -3,19 +3,19 @@
 
 // vai tratar o dado inserido no tipo de passagem e exibir a nova <div>
 function conferirTipoViagem(){
-    var tipoPassagem = document.getElementById("dia").value;
+    var tipoSelecionado = document.getElementById("tipoPassagem").value;
     let resultado = false;
     var divTalvez = document.getElementById("talvez");
     divTalvez.style.display = "none";
     
     // conferir selecionado
-    if (tipoPassagem !== 0) {
+    if (tipoSelecionado !== 0) {
         resultado = true;
-        console.log("tipo de passagem: ", tipoPassagem);
+        console.log("tipo de passagem: ", tipoSelecionado);
     }
 
     // exibir se necessário
-    if (tipoPassagem === "ambos") {
+    if (tipoSelecionado === "ambos") {
         divTalvez.style.display = "block";
     }
 
@@ -24,14 +24,101 @@ function conferirTipoViagem(){
 
 
 // funções para tratar os dados inseridos
-function testeData() {
-    var datefrom = new Date();
-    var dateto = new Date();
+function datasInvalidas() {
+    var dataPartida = new Date();
+    var dataVolta = new Date();
+    var tipoSelecionado = document.getElementById("tipoPassagem").value; // se não for ambos, não precisa validar
+    var resultado = false;
 
-    var datefrom = document.getElementById("start").value;
-    dateto = document.getElementById("start").value;
+    dataPartida = document.getElementById("start").value;
+    dataVolta = document.getElementById("back").value;
 
-    console.log("data: ", datefrom);
+    // console.log("data partida: ", dataPartida);
+    // console.log("data volta: ", dataVolta);
+
+    if (tipoSelecionado === "ambos") {
+        // precisa validar
+        if (dataPartida >= dataVolta) {
+            console.log("as datas são inválidas");
+        } else {
+            console.log("as datas estão CORRETAS!");
+            resultado = true;
+        }
+    } else {
+        // não precisa validar
+        console.log("tudo certo, não precisa de validação");
+        resultado = true;
+    }
+
+    return resultado;
+}
+
+function selecionouPassagem(){
+    let resultado = false;
+    const tipoSelecionado = document.getElementById("tipoPassagem").value;
+    
+    if (tipoSelecionado !== "0") {
+        resultado = true;
+    }
+
+    return resultado;
+}
+
+function selecionouCidadePartida(){
+    let resultado = false;
+    const partidaSelecionada = document.getElementById("localPartida").value;
+    
+    if (partidaSelecionada !== "0") {
+        resultado = true;
+    }
+
+    return resultado;
+}
+
+function selecionouCidadeDestino(){
+    let resultado = false;
+    const destinoSelecionado = document.getElementById("localDestino").value;
+    
+    if (destinoSelecionado !== "0") {
+        resultado = true;
+    }
+
+    return resultado;
+}
+
+function showStatusMessage(msg, error){
+    var pStatus = document.getElementById("status");
+    
+    if (error === true) {
+        pStatus.className = "text-danger"; // de acordo com o bootstrap
+    } else {
+        pStatus.className = "text-success";
+    }
+
+    pStatus.textContent = msg;
+}
+
+function buscarVoos(){
+
+    if(!selecionouPassagem()){
+        showStatusMessage("Tipo de passagem não selecionado.", true);  
+        return;
+    }
+
+    if(!selecionouCidadePartida()){
+        showStatusMessage("Cidade de partida não selecionada.", true);
+        return;
+    }
+
+    if(!selecionouCidadeDestino()){
+        showStatusMessage("Cidade de destino não selecionada.", true);
+        return;
+    }
+
+    if(!datasInvalidas()){
+        showStatusMessage("Datas inválidas.", true);
+        return;
+    }
 }
 
 /*

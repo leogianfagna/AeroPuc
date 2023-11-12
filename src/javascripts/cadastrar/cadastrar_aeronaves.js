@@ -46,6 +46,7 @@ function preencheuModelo(){
 
     return resultado;
 }
+
 function preencheuRegistro(){
     let resultado = false;
     const registroReferencia = document.getElementById("referencia").value;
@@ -56,6 +57,7 @@ function preencheuRegistro(){
 
     return resultado;
 }
+
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     

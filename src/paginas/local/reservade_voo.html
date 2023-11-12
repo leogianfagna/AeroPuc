@@ -16,22 +16,24 @@
 
   <form>
     <!-- tipo de passagem -->
-    <label for="dia">Tipo de passagem:</label>
-    <select id="dia" name="dia" onchange="conferirTipoViagem()">
+    <label for="tipoPassagem">Tipo de passagem:</label>
+    <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()">
       <option value="0">Selecionar</option>
       <option value="ambos">Ida e volta</option>
       <option value="ida">Somente ida</option>
     </select>
 
     <!-- cidade de partida -->
-    <label for="dia">Partida:</label>
-    <select id="dia" name="dia">
+    <label for="localPartida">Partida:</label>
+    <select id="localPartida" name="localPartida">
+      <option value="0">Selecionar</option>
       <option value="segunda">Campinas</option>
     </select>
 
     <!-- cidade de chegada -->
-    <label for="dia">Destino:</label>
-    <select id="dia" name="dia">
+    <label for="localDestino">Destino:</label>
+    <select id="localDestino" name="localDestino">
+      <option value="0">Selecionar</option>
       <option value="segunda">Campinas</option>
     </select>
 
@@ -47,12 +49,14 @@
       }
     </style>
     <div id="talvez">
-      <label for="start">Data volta:</label>
-      <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-12-01" max="2026-12-31"/>
+      <label for="back">Data volta:</label>
+      <input type="date" id="back" name="trip-back" min="2023-12-01" max="2026-12-31"/>
     </div>
 
-    <button type="button" id="btnProcurar" onclick="testeData();">Buscar</button>
+    <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
   </form>
+  <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
+  <p id="status"></p>
 
 </body>
 </html>
