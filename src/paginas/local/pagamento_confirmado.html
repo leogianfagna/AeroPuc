@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pagamento</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                exibirDados();
+            });
+    
+            function exibirDados() {
+                var email = sessionStorage.getItem("pagamentoEmail");
+                document.getElementById("emailPagamento").textContent = email;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Pagamento aprovado!</h1>
+        <h2>Obrigado pela preferência.</h2>
+        <p style="display: inline;">Sua reserva foi feita com sucesso.</p>
+        <p style="display: inline;">As demais informações foram enviadas para seu email </p>
+        <p style="display: inline;" id="emailPagamento"></p>
+    </body>
+</html>

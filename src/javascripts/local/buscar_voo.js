@@ -11,32 +11,31 @@ function idVooInserido(){
     }
   
     return resultado; 
-  }
+}
   
-  function showStatusMessage(msg, error){
+function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
-    
+
     if (error === true) {
         pStatus.className = "text-danger"; // de acordo com o bootstrap
     } else {
         pStatus.className = "text-success";
     }
-  
+
     pStatus.textContent = msg;
-  }
+}
   
-  // funcao fetch tipo get
-  function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
+// funcao fetch tipo get
+function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
     return fetch(`http://localhost:3000/listarAssentosReservados?voo=${numeroVoo}`) // passando como parametro o numero do voo
-      .then(response => response.json());
-  }
+        .then(response => response.json());
+}
   
   
-  // função para fazer a listagem dos assentos
+// função para fazer a listagem dos assentos
 function criarMapaAssentos(){
     // conferir o dado enviado
     var pStatus = document.getElementById("statusReserva");
-    var msg;
     var resultado;
     pStatus.className = "text-success";
 
@@ -90,7 +89,7 @@ function criarMapaAssentos(){
                 if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
                     document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
                 } else {
-                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
                 }
             }
     
@@ -257,4 +256,10 @@ function buscarVoos(){
 
     // limpar
     showStatusMessage("", true);
+}
+
+function reservarCadeira(cadeiraReservada){
+    console.log("Foi reservado a cadeira: ", cadeiraReservada);
+    sessionStorage.setItem("reservaCadeira", cadeiraReservada);
+    window.location.href = "/src/paginas/local/pagamento.html";
 }

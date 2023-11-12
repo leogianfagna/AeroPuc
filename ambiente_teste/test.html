@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>teste</title>
+        <script lang="javascript">
+            function resgatarDado(){
+                var data = sessionStorage.getItem("chave");
+                console.log("data é: ", data);
+                return data;
+            }
+        </script>
+    </head>
+    <body>
+        <button type="button" id="btnProcurar" onclick="resgatarDado();">Buscar</button>
+    </body>
+</html>
