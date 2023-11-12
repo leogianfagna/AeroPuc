@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroPuc - Escolha o voo</title>
+  <title>Agendar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="/src/assets/css/reserva_voo.css">
   <script src="/src/javascripts/local/buscar_voo.js"></script>
   <!--
@@ -11,74 +12,94 @@
   -->
 </head>
 <body>
-
   <h1>Escolha o Voo</h1>
-
-  <form>
-    <!-- tipo de passagem -->
-    <label for="tipoPassagem">Tipo de passagem:</label>
-    <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()">
-      <option value="0">Selecionar</option>
-      <option value="ambos">Ida e volta</option>
-      <option value="ida">Somente ida</option>
-    </select>
-
-    <!-- cidade de partida -->
-    <label for="localPartida">Partida:</label>
-    <select id="localPartida" name="localPartida">
-      <option value="0">Selecionar</option>
-      <option value="segunda">Campinas</option>
-    </select>
-
-    <!-- cidade de chegada -->
-    <label for="localDestino">Destino:</label>
-    <select id="localDestino" name="localDestino">
-      <option value="0">Selecionar</option>
-      <option value="segunda">Campinas</option>
-    </select>
-
-    <!-- data partida -->
-    <label for="start">Data partida:</label>
-    <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-12-01" max="2026-12-31"/>
-
-    <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
-    <style>
-      /* cria um estilo que deixa a div invisível */
-      #talvez {
-        display: none;
-      }
-    </style>
-    <div id="talvez">
-      <label for="back">Data volta:</label>
-      <input type="date" id="back" name="trip-back" min="2023-12-01" max="2026-12-31"/>
-    </div>
-
-    <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
-  </form>
-  <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
-  <p id="status"></p>
-  <div class="row" style="margin-top:5px">
-    <div>
-        <!-- estilo da tabela feito pelo bootstrap -->
+  <div class="container" style="margin-top:50px">
+    <div class="row">
+      <div class="col-md-4">
+        <form>
+          <!-- tipo de passagem -->
+          <label for="tipoPassagem">Tipo de passagem:</label>
+          <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()">
+            <option value="0">Selecionar</option>
+            <option value="ambos">Ida e volta</option>
+            <option value="ida">Somente ida</option>
+          </select>
+      
+          <!-- cidade de partida -->
+          <label for="localPartida">Partida:</label>
+          <select id="localPartida" name="localPartida">
+            <option value="0">Selecionar</option>
+            <option value="segunda">Campinas</option>
+          </select>
+      
+          <!-- cidade de chegada -->
+          <label for="localDestino">Destino:</label>
+          <select id="localDestino" name="localDestino">
+            <option value="0">Selecionar</option>
+            <option value="segunda">Campinas</option>
+          </select>
+      
+          <!-- data partida -->
+          <label for="start">Data partida:</label>
+          <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-12-01" max="2026-12-31"/>
+      
+          <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
+          <style>
+            /* cria um estilo que deixa a div invisível */
+            #talvez {
+              display: none;
+            }
+          </style>
+          <div id="talvez">
+            <label for="back">Data volta:</label>
+            <input type="date" id="back" name="trip-back" min="2023-12-01" max="2026-12-31"/>
+          </div>
+      
+          <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
+        </form>
+        <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
+        <p id="status"></p>
+      </div>
+      <div class="col-md-8">
+        <!-- aqui vai a tabela de lançamentos -->
         <table class="table table-light table-striped">
-            <!-- thead da tabela (cabeçalho) -->
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Referência</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Fabricante</th>
-                    <th scope="col">Ano fabricação</th>
-                    <th scope="col">Assentos</th>
-                </tr>
-            </thead>
-            <!-- tbody da tabela (as informações) -->
-            <tbody id="tabelaDeAeronaves" class="align-middle">
-                <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
-            </tbody>
+          <!-- thead da tabela (cabeçalho) -->
+          <thead>
+              <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Data partida</th>
+                  <th scope="col">Trajeto</th>
+                  <th scope="col">Fabricante do avião</th>
+                  <th scope="col">Horário de partida</th>
+                  <th scope="col">Horário de chegada</th>
+                  <th scope="col">Valor</th>
+              </tr>
+          </thead>
+          <!-- tbody da tabela (as informações) -->
+          <tbody id="tabelaDeAeronaves" class="align-middle">
+              <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
+          </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top:10px" >
+    <!-- divs nova para o form -->
+    <form> <!-- necessário ter para os botões funcionarem -->
+      <!-- id do voo para usar no typescript -->
+      <label for="vooEscolhido" class="form-label">ID do voo para reservar</label>
+      <input id="vooEscolhido" name="vooEscolhido" type="text" class="form-control">
+      <p>
+          <button type="button" onclick="criarMapaAssentos();" id="btnCadastrar" class="btn btn-outline-primary">Reservar</button>
+      </p>
+      <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
+      <p id="statusReserva"></p>
+    </form>
+    <div id="mapaAssentos" class="mapaAssentos">
+      <!-- aqui vem a impressão do mapa -->
     </div>
 </div>
 
+  
 </body>
 </html>
