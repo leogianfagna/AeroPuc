@@ -1,39 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AeroPuc - Escolha o voo</title>
   <link rel="stylesheet" href="/src/assets/css/reserva_voo.css">
-  <img class="logo"  src="/src/assets/images/aeropuc_logo.jpeg" alt="foto_logo">
+  <script src="/src/javascripts/local/buscar_voo.js"></script>
+  <!--
+  <img class="logo" src="/src/assets/images/aeropuc_logo.jpeg" alt="foto_logo">
+  -->
 </head>
 <body>
 
   <h1>Escolha o Voo</h1>
 
   <form>
-    <label for="dia">Escolha o dia:</label>
+    <!-- tipo de passagem -->
+    <label for="dia">Tipo de passagem:</label>
+    <select id="dia" name="dia" onchange="conferirTipoViagem()">
+      <option value="0">Selecionar</option>
+      <option value="ambos">Ida e volta</option>
+      <option value="ida">Somente ida</option>
+    </select>
+
+    <!-- cidade de partida -->
+    <label for="dia">Partida:</label>
     <select id="dia" name="dia">
-      <option value="segunda">Segunda-feira</option>
-      <option value="terca">Terça-feira</option>
-      <option value="quarta">Quarta-feira</option>
-      <option value="quinta">Quinta-Feira</option>
-      <option value="sexta">Sexta-Feira</option>
-      <option value="sexta">Sábado</option>
-      <option value="sexta">Domingo</option>
+      <option value="segunda">Campinas</option>
     </select>
 
-    <label for="horario">Escolha o períodos do dia:</label>
-    <select id="horario" name="horario">
-      <option value="manha">Manhã</option>
-      <option value="tarde">Tarde</option>
-      <option value="noite">Noite</option>
+    <!-- cidade de chegada -->
+    <label for="dia">Destino:</label>
+    <select id="dia" name="dia">
+      <option value="segunda">Campinas</option>
     </select>
 
-    <label for="voo">Escolha o voo:</label>
-    <input type="text" id="voo" name="voo" placeholder="Número do voo">
+    <!-- data partida -->
+    <label for="start">Data partida:</label>
+    <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-12-01" max="2026-12-31"/>
 
-    <button type="submit">Reservar</button>
+    <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
+    <style>
+      /* cria um estilo que deixa a div invisível */
+      #talvez {
+        display: none;
+      }
+    </style>
+    <div id="talvez">
+      <label for="start">Data volta:</label>
+      <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-12-01" max="2026-12-31"/>
+    </div>
+
+    <button type="button" id="btnProcurar" onclick="testeData();">Buscar</button>
   </form>
 
 </body>

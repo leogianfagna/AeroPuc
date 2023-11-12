@@ -9,7 +9,7 @@ function anoValido(){
         resultado = true;
     }
 
-    return resultado; 
+    return resultado;
 }
 
 function totalAssentosValido(){
