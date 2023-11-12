@@ -105,36 +105,6 @@ function criarMapaAssentos(){
     });
 }
 
-fetch('http://localhost:3000/buscarVoosLista')
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'SUCCESS') {
-            let i = 0;
-            const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
-            tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
-
-            data.payload.forEach(rowData => {
-                const tr = document.createElement('tr');
-
-                rowData.forEach(cellData => {
-                    const td = document.createElement('td');
-                    td.textContent = cellData;
-                    tr.appendChild(td);
-                });
-
-                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
-                tr.id = i;
-                i++;
-                tabelaDeAeronaves.appendChild(tr);
-            });
-            
-        } else {
-            console.error(`Erro ao obter dados: ${data.message}`);
-        }
-    })
-    .catch(error => console.error('Erro ao conectar:', error));
-
-
 // vai tratar o dado inserido no tipo de passagem e exibir a nova <div>
 function conferirTipoViagem(){
     var tipoSelecionado = document.getElementById("tipoPassagem").value;
@@ -254,8 +224,41 @@ function buscarVoos(){
         return;
     }
 
-    // limpar
+    // limpar mensagem de erro se tiver
     showStatusMessage("", true);
+
+    const dataPartidaFetch = document.getElementById("start").value;
+    console.log("teste: ", dataPartidaFetch);
+
+    // um fetch que envia a data enviada como parâmetro lá pro typescript
+    // tem que usar o encode por se tratar de uma data
+    fetch(`http://localhost:3000/buscarVoosLista?dataPreenchida=${encodeURIComponent(dataPartidaFetch)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'SUCCESS') {
+            let i = 0;
+            const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
+            tabelaDeAeronaves.innerHTML = ''; // limpar o conteúdo atual
+
+            data.payload.forEach(rowData => {
+                const tr = document.createElement('tr');
+
+                rowData.forEach(cellData => {
+                    const td = document.createElement('td');
+                    td.textContent = cellData;
+                    tr.appendChild(td);
+                });
+
+                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
+                tr.id = i;
+                i++;
+                tabelaDeAeronaves.appendChild(tr);
+            });
+            
+        } else {
+            console.error(`Erro ao obter dados: ${data.message}`);
+        }
+    }).catch(error => console.error('Erro ao conectar:', error));
 }
 
 function reservarCadeira(cadeiraReservada){

@@ -139,8 +139,10 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // buscar os voos baseado nas datas e informações inseridas
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
-  //var dataPartida = req.query.voo as string;
-  //var dataChegada = req.query.voo as string;
+  var dataPartida = req.query.dataPreenchida as string;
+  var dataChegada = req.query.voo as string;
+
+  console.log("Data recebida:", dataPartida);
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -155,13 +157,12 @@ app.get("/buscarVoosLista", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     }
 
-
     //dataPartida = '2023-11-01';
-    //dataChegada = '2023-11-13';
+    //dataChegada = '2023-11-11';
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT * FROM voos WHERE data='2023-11-12'");
-    //let resultadoConsulta = await connection.execute("SELECT * FROM voos WHERE data BETWEEN ':dataPartida' AND ':dataChegada'", [dataPartida, dataChegada]);
+    //let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
+    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data = '${dataPartida}'`);
 
     await connection.close();
     cr.status = "SUCCESS"; 
