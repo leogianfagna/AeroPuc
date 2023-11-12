@@ -136,6 +136,45 @@ app.get("/listarAssentosReservados", async(req,res)=>{
   }
 });
 
+// clientes = executar select somente na cadeira reservada
+app.get("/buscarVoosLista", async(req,res)=>{
+  const numeroVoo = req.query.voo as string;
+
+  let cr: CustomResponse = {
+      status: "ERROR", 
+      message: "", 
+      payload: undefined,
+  };
+  
+  try {
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+
+    const connection = await oracledb.getConnection(connAttibs);
+    
+    console.log("Num recebido: ", numeroVoo);
+    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente WHERE voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
+  
+    await connection.close();
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+    cr.payload = resultadoConsulta.rows;
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    res.send(cr);  
+  }
+});
+
 // cliente = inserir modo administrativo
 app.put("/inserirCliente", async(req,res)=>{
   const nome = req.body.nome as string;

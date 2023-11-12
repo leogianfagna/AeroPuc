@@ -119,6 +119,9 @@ function buscarVoos(){
         showStatusMessage("Datas inválidas.", true);
         return;
     }
+
+    // limpar
+    showStatusMessage("", true);
 }
 
 /*
