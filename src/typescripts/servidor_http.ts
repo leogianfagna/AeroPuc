@@ -136,9 +136,11 @@ app.get("/listarAssentosReservados", async(req,res)=>{
   }
 });
 
-// clientes = executar select somente na cadeira reservada
+// buscar os voos baseado nas datas e informações inseridas
+// por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
-  const numeroVoo = req.query.voo as string;
+  var dataPartida = req.query.voo as string;
+  var dataChegada = req.query.voo as string;
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -153,11 +155,14 @@ app.get("/buscarVoosLista", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     }
 
+
+    dataPartida = '2023-11-01';
+    dataChegada = '2023-11-13';
+
     const connection = await oracledb.getConnection(connAttibs);
-    
-    console.log("Num recebido: ", numeroVoo);
-    let resultadoConsulta = await connection.execute("SELECT assento FROM cliente WHERE voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
-  
+    let resultadoConsulta = await connection.execute("SELECT * FROM voos WHERE data='2023-11-12'");
+    //let resultadoConsulta = await connection.execute("SELECT * FROM voos WHERE data BETWEEN ':dataPartida' AND ':dataChegada'", [dataPartida, dataChegada]);
+
     await connection.close();
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";

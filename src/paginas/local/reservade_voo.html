@@ -57,6 +57,28 @@
   </form>
   <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
   <p id="status"></p>
+  <div class="row" style="margin-top:5px">
+    <div>
+        <!-- estilo da tabela feito pelo bootstrap -->
+        <table class="table table-light table-striped">
+            <!-- thead da tabela (cabeçalho) -->
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Referência</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Fabricante</th>
+                    <th scope="col">Ano fabricação</th>
+                    <th scope="col">Assentos</th>
+                </tr>
+            </thead>
+            <!-- tbody da tabela (as informações) -->
+            <tbody id="tabelaDeAeronaves" class="align-middle">
+                <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
