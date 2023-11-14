@@ -95,7 +95,7 @@ function fetchInserir(body) {
 function inserirVoo(){
 
     if(!selecionouTrajeto()){
-        showStatusMessage("Selecione o trajeto...", true);  
+        showStatusMessage("Selecione o trajeto...", true);
         return;
     }
 
@@ -144,10 +144,10 @@ function inserirVoo(){
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){
-            showStatusMessage("Aeronave cadastrada!", false);
-            }else{
-            showStatusMessage("Erro ao cadastrar aeronave...: " + message, true);
-            console.log(resultado.message);
+                showStatusMessage("Voo cadastrado!", false);
+            } else {
+                showStatusMessage("Erro ao cadastrar aeronave...: " + message, true);
+                console.log(resultado.message);
             }
         })
         .catch(()=>{

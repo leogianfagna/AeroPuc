@@ -1133,7 +1133,7 @@ app.put("/inserirVoos", async(req,res)=>{
   const trajeto = req.body.trajeto as number;
   const aeronave = req.body.aeronave as string; 
   const horario_ida = req.body.horario_ida as string;
-  const horario_volta = req.body.hoario_volta as string;
+  const horario_volta = req.body.horario_volta as string;
   const valor = req.body.valor as string;
 
   let cr: CustomResponse = {
@@ -1152,7 +1152,7 @@ app.put("/inserirVoos", async(req,res)=>{
     });
 
     const cmdInsertAero = `INSERT INTO voos 
-    VALUES(voos_id.nextval,:1, :2, :3, :4, :5, :6)`
+    VALUES(voos_id.nextval, :1, :2, :3, :4, :5, :6)`
     const dados = [data, trajeto, aeronave, horario_ida, horario_volta, valor];
     
     let resInsert = await conn.execute(cmdInsertAero, dados);
