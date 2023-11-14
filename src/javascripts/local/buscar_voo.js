@@ -264,5 +264,6 @@ function buscarVoos(){
 function reservarCadeira(cadeiraReservada){
     console.log("Foi reservado a cadeira: ", cadeiraReservada);
     sessionStorage.setItem("reservaCadeira", cadeiraReservada);
+    
     window.location.href = "/src/paginas/local/pagamento.html";
 }
