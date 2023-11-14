@@ -262,8 +262,16 @@ function buscarVoos(){
 }
 
 function reservarCadeira(cadeiraReservada){
+    // controle
+    const vooPreenchidoReserva = document.getElementById("vooEscolhido").value;
     console.log("Foi reservado a cadeira: ", cadeiraReservada);
     sessionStorage.setItem("reservaCadeira", cadeiraReservada);
     
+    console.log("Foi escolhido o voo: ", vooPreenchidoReserva);
+
+    // variáveis para uso posterior
+    sessionStorage.setItem("assentoReservado", cadeiraReservada);
+    sessionStorage.setItem("vooEscolhido", vooPreenchidoReserva);
+
     window.location.href = "/src/paginas/local/pagamento.html";
 }
