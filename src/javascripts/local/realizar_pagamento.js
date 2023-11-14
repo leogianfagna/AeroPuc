@@ -1,3 +1,19 @@
+/* função para o botão de realizar o pagamento, ela:
+    - confere se preencheu corretamente [X]
+    - salva as variáveis como email para impressão [X]
+    - envia os dados para o banco de dados já com o assento reservado [X]
+*/
+
+function aaa() { 
+    const emailInserido = document.getElementById("email").value;
+    const nomeInserido = document.getElementById("nome").value;
+
+    sessionStorage.setItem("pagamentoNome", nomeInserido);
+    sessionStorage.setItem("pagamentoEmail", emailInserido);
+
+    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+}
+
 // funcoes de tratamento de dados recebidos
 
 /*
@@ -61,7 +77,7 @@ function fetchInserir(body) {
 }
 
 // funcao para inserir o cliente
-function inserirCliente(){
+function realizarPagamento(){
     /*
     if(!preencheuCidade()){
         showStatusMessage("Cidade não preenchida.", true);  
@@ -78,11 +94,17 @@ function inserirCliente(){
         return;
     } */
 
-    // obtem os dados inseridos no html
-    const nomeInserido = document.getElementById("nomeCliente").value;
-    const emailInserido = document.getElementById("emailCliente").value;
-    const assentoInserido = document.getElementById("assentoReservado").value;
-    const vooInserido = document.getElementById("vooCliente").value;
+    // obtém os dados do html
+    const emailInserido = document.getElementById("email").value;
+    const nomeInserido = document.getElementById("nome").value;
+    var assentoInserido = sessionStorage.getItem("assentoReservado");
+    var vooInserido = sessionStorage.getItem("vooEscolhido");
+
+    // salva nas variáveis
+    sessionStorage.setItem("pagamentoNome", nomeInserido);
+    sessionStorage.setItem("pagamentoEmail", emailInserido);
+
+    
 
     // promise
     fetchInserir({
@@ -93,11 +115,11 @@ function inserirCliente(){
         voo: vooInserido
     }).then(resultado => {
             // obteve resposta
-            if(resultado.status === "SUCCESS"){
-            showStatusMessage("Cidade cadastrada!", false);
-            }else{
-            showStatusMessage("Erro ao cadastrar cidade...: " + message, true);
-            console.log(resultado.message);
+            if(resultado.status === "SUCCESS") {
+                showStatusMessage("Cidade cadastrada!", false);
+            } else {
+                showStatusMessage("Erro ao cadastrar cidade...: " + message, true);
+                console.log(resultado.message);
             }
         })
         .catch(()=>{
@@ -105,6 +127,7 @@ function inserirCliente(){
             console.log("Falha grave ao cadastrar.")
         });
 
-        // uma possivel melhoria: se tenta inserir uma cidade que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
+    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
 }
+
+

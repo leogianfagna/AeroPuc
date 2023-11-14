@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AeroPuc - Página de Pagamento</title>
+    <script src="/src/javascripts/local/realizar_pagamento.js"></script>
     <link rel="stylesheet" href="/src/assets/css/pagina_pagamento.css">
     <!-- 
     <img class="logo" src="/src/assets/images/aeropuc_logo.jpeg" alt="Logo">
@@ -86,13 +87,6 @@
                 } else if (valor === "pix") {
                     camposPix.style.display = "block";
                 }
-            }
-        
-            function realizarPagamento() {
-                window.location.href = "/src/paginas/local/pagamento_confirmado.html";
-                const emailInserido = document.getElementById("email").value;
-                console.log("set salvo como:", emailInserido);
-                sessionStorage.setItem("pagamentoEmail", emailInserido);
             }
         </script>
         
