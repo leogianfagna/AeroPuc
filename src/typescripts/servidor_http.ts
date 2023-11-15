@@ -1230,7 +1230,7 @@ app.put("/alterarVoo", async(req,res)=>{
   const trajeto = req.body.trajeto as number;
   const aeronave = req.body.aeronave as string; 
   const horario_ida = req.body.horario_ida as string;
-  const horario_volta = req.body.hoario_volta as string;
+  const horario_volta = req.body.horario_volta as string;
   const valor = req.body.valor as string;
   
   let cr: CustomResponse = {
@@ -1248,7 +1248,8 @@ app.put("/alterarVoo", async(req,res)=>{
 
     const cmdUpdateAero = `UPDATE voos SET data = :2,
      trajeto = :3, aeronave = :4, horario_ida = :5, horario_volta = :6, valor = :7 WHERE id = :1`
-    const dados = [id,data,trajeto,aeronave,horario_ida,horario_volta,valor];
+    const dados = [id, data, trajeto, aeronave, horario_ida, horario_volta, valor];
+    console.log("Dados inseridos: ", dados);
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
