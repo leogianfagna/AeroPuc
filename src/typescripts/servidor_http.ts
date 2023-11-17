@@ -140,7 +140,8 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
   var dataPartida = req.query.dataPreenchida as string;
-  var dataChegada = req.query.voo as string;
+  var localViagemDestino = req.query.localDestino as string;
+  // var dataChegada = req.query.voo as string;
 
   console.log("Data recebida:", dataPartida);
 
@@ -157,12 +158,22 @@ app.get("/buscarVoosLista", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     }
 
-    //dataPartida = '2023-11-01';
-    //dataChegada = '2023-11-11';
-
     const connection = await oracledb.getConnection(connAttibs);
-    //let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
     let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data = '${dataPartida}'`);
+
+    /* 
+    CONSULTA QUE USA A DATA DE CHEGADA PARA BUSCAR
+    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
+    */
+    
+    /* FAZENDO!
+    let resultadoConsulta = await connection.execute(`
+      SELECT * 
+      FROM voos v 
+      INNER JOIN trajetos t
+      ON TO_CHAR(v.trajeto) = t.origem 
+      WHERE data = '${dataPartida}'
+    `); */
 
     await connection.close();
     cr.status = "SUCCESS"; 

@@ -228,11 +228,12 @@ function buscarVoos(){
     showStatusMessage("", true);
 
     const dataPartidaFetch = document.getElementById("start").value;
-    console.log("teste: ", dataPartidaFetch);
+    const destinoFetch = document.getElementById("localDestino").value;
+    const origemFetch = document.getElementById("localPartida").value;
 
     // um fetch que envia a data enviada como parâmetro lá pro typescript
     // tem que usar o encode por se tratar de uma data
-    fetch(`http://localhost:3000/buscarVoosLista?dataPreenchida=${encodeURIComponent(dataPartidaFetch)}`)
+    fetch(`http://localhost:3000/buscarVoosLista?dataPreenchida=${encodeURIComponent(dataPartidaFetch)}&localDestino=$${encodeURIComponent(destinoFetch)}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {

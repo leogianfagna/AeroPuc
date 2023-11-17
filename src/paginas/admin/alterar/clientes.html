@@ -25,7 +25,7 @@
         </script>
         <div class="container" style="margin-top:50px" >
             <div>
-                <h1 class="text-center">Alterar aeronaves</h1>
+                <h1 class="text-center">Alterar clientes</h1>
                 <p class="text-center">Preencha as informações</p>
             </div>
             <!-- divs nova para o form -->
@@ -34,41 +34,30 @@
                 <div class="row" style="margin-top: 30px">
                     <div class="col">
                         <!-- identificador para ser alterado -->
-                        <label for="identificador" class="form-label">ID da aeronave modificada</label>
+                        <label for="identificador" class="form-label">ID do cliente cadastrado</label>
                         <input id="identificador" name="identificador" type="text" class="form-control">
                     </div>
                     <div class="col">
-                        <!-- escolher o fabricante -->
-                        <label for="fabricantesCombo" class="form-label">Fabricante</label>
-                        <select id="fabricantesCombo" name="fabricantesCombo" class="form-select" aria-label="Default select example">
-                            <option value="-1">Selecionar</option>
-                            <option value="Airbus">Airbus</option>
-                            <option value="Boeing">Boeing</option>
-                            <option value="Bombardier">Bombardier</option>
-                            <option value="Embraer">Embraer</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <!-- modelo -->
-                        <label for="modelo" class="form-label">Modelo da aeronave</label>
-                        <input id="modelo" name="modelo" type="text" class="form-control" placeholder="Ex.: Airbus A320">
+                        <!-- nome do cliente -->
+                        <label for="nomeCliente" class="form-label">Nome</label>
+                        <input id="nomeCliente" name="nomeCliente" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px">
                     <div class="col">
-                        <!-- ref -->
-                        <label for="referencia" class="form-label">Referência</label>
-                        <input id="referencia" name="referencia" type="text" class="form-control" placeholder="Ex.: 5678">
+                        <!-- email -->
+                        <label for="emailCliente" class="form-label">Email</label>
+                        <input id="emailCliente" name="emailCliente" type="text" class="form-control" placeholder="exemplo@gmail.com">
                     </div>
                     <div class="col">
-                        <!-- assentos -->
-                        <label for="qtdeAssentos" class="form-label">Quantidade de assentos</label>
-                        <input id="qtdeAssentos" name="qtdeAssentos" type="text" class="form-control">
+                        <!-- assento reservado -->
+                        <label for="assentoReservado" class="form-label">Assento reservado</label>
+                        <input id="assentoReservado" name="assentoReservado" type="text" class="form-control">
                     </div>
                     <div class="col">
                         <!-- ano -->
-                        <label for="anoFabricacao" class="form-label">Ano de fabricação</label>
-                        <input id="anoFabricacao" name="anoFabricacao" type="text" class="form-control" maxlength="4">
+                        <label for="vooReservado" class="form-label">Voo do bilhete</label>
+                        <input id="vooReservado" name="vooReservado" type="text" class="form-control" maxlength="4">
                     </div>
                 </div>
                 <p style="margin-top: 15px">
