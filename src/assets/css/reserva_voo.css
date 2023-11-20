@@ -46,5 +46,50 @@ button {
   justify-content: center;
   justify-items: center;
   text-align: center;
+}
 
+#cadastroCentral {
+  visibility: visible;
+  transition: opacity 1s ease-in-out;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tabelaResultados {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+
+  transition: opacity 1s ease-in-out, height 3s ease-in-out;
+
+  justify-content: center;
+  align-items: center;
+}
+
+#containerDados {
+  margin: auto;
+  width: 30%;
+  height: 30%;
+  padding: 10px;
+  
+  
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  text-align: start;
+  border-radius: 40px;
+  background-color: #ffffff;
+}
+
+/* para fazer a tabela nas mesmas margens da nav-bar */
+.tabela {
+    /* ajustar o tamanho vertical */
+    height: 70px;
+
+    /* ajustar com a borda da página */
+    margin-left: 15%;
+    margin-right: 15%;
 }

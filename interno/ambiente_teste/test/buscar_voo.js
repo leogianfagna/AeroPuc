@@ -258,6 +258,15 @@ function buscarVoos(){
         return;
     }
 
+    // passou por todos as checagens de dados e pode prosseguir
+    // então agora vai sumir com o <form> e mostrar a tabela
+    document.getElementById('tabelaResultados').style.visibility = 'visible';
+    console.log("AQUI PRRA");
+    
+    // divTalvez.style.display = "block";
+
+
+
     // limpar mensagem de erro se tiver
     showStatusMessage("", true);
 

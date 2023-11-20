@@ -33,9 +33,12 @@ function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
   
   
 // função para fazer a listagem dos assentos
-function criarMapaAssentos(){
+function criarMapaAssentos(vooEscolhido){
     // conferir o dado enviado
     var pStatus = document.getElementById("statusReserva");
+    
+
+    /* não precisa mais pois agora é diretamente clicando no botão 
     var resultado;
     pStatus.className = "text-success";
 
@@ -49,9 +52,10 @@ function criarMapaAssentos(){
         pStatus.textContent = "";
         resultado = true;
         pStatus.className = "text-danger";
-    }
+    } */
   
-    const vooInserido = document.getElementById("vooEscolhido").value;
+    //const vooInserido = document.getElementById("vooEscolhido").value;
+    const vooInserido = vooEscolhido;
     console.log("Voo inserido no html: ", vooInserido);
   
     // usar o fetch com o parametro (vai receber no typescript)
@@ -224,9 +228,21 @@ function buscarVoos(){
         return;
     }
 
-    // limpar mensagem de erro se tiver
+    // passou por todas as validações com sucesso
+    // agora é só dar fetch na tabela e imprimir a tabela
+    // + esconder a parte de preenchimento de dados
+    
     showStatusMessage("", true);
+    var desaparecerDivDados = document.getElementById('cadastroCentral'); // usa a opacidade para dar efeito de fade
+    desaparecerDivDados.style.opacity = '0';
+    desaparecerDivDados.style.height = '0';
 
+    var mostrarDivTabela = document.getElementById('tabelaResultados');
+    mostrarDivTabela.style.opacity = '1';
+    mostrarDivTabela.style.height = 'auto';
+    mostrarDivTabela.style.visibility = 'visible';
+
+    // obtém os dados do HTML
     const dataPartidaFetch = document.getElementById("start").value;
     const destinoFetch = document.getElementById("localDestino").value;
     const origemFetch = document.getElementById("localPartida").value;
@@ -243,18 +259,43 @@ function buscarVoos(){
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
+              
+                rowData.forEach((cellData, index) => {
+                  const td = document.createElement('td');
+              
+                  // Verifique se a coluna é a coluna ID
+                  if (index === 0) {
+                    // declarando os atributos do mesmo estilo que o bootstrap
+                    const botaoExcluir = document.createElement('button');
+                    botaoExcluir.type = 'button'; 
+                    botaoExcluir.className = 'btn btn-outline-info';
+                    botaoExcluir.textContent = `Reservar`;
+                    // cada botão chama a função que é a criarMapaAssentos, passando como parâmetro o ID do voo
+                    botaoExcluir.addEventListener('click', () => criarMapaAssentos(`${cellData}`));
+                    td.appendChild(botaoExcluir);
 
-                rowData.forEach(cellData => {
-                    const td = document.createElement('td');
+                    // adiciona a coluna de botões de exclusão
+                    /*
+                    const botaoExcluir = document.createElement('button');
+                    botaoExcluir.type = 'button'; // declarando os atributos do mesmo estilo que o bootstrap
+                    botaoExcluir.className = 'btn btn-danger';
+                    botaoExcluir.textContent = '🗑️';
+                    botaoExcluir.addEventListener('click', excluir(i)); // função excluir que passa i como argumento
+                    tdExcluir.appendChild(botaoExcluir);
+                    tr.appendChild(tdExcluir); */
+                  } else {
                     td.textContent = cellData;
-                    tr.appendChild(td);
+                  }
+              
+                  tr.appendChild(td);
                 });
-
-                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
+              
+                // Aqui imprime o próximo tr, colocando um ID para identificar cada linha
                 tr.id = i;
                 i++;
                 tabelaDeAeronaves.appendChild(tr);
-            });
+              });
+              
             
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);

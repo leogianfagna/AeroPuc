@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
     <head>
         <title>Pagamento</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 exibirDados();
@@ -14,6 +17,21 @@
         </script>
     </head>
     <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <div id="nav-bar-local-pronta"></div>
+        <script>
+            // requisição para carregar o conteúdo do arquivo
+            fetch('/src/agregados/navbar/nav_local.html') // se necessario, trocar o nome do arquivo aqui
+                .then(response => response.text())
+                .then(data => {
+                    
+                    var elemento = document.getElementById('nav-bar-local-pronta'); // trocar o nome do elemento
+
+                    // inserir o conteúdo HTML no elemento
+                    elemento.innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao carregar o arquivo:', error));
+        </script>
         <h1>Pagamento aprovado!</h1>
         <h2>Obrigado pela preferência.</h2>
         <p style="display: inline;">Sua reserva foi feita com sucesso.</p>
