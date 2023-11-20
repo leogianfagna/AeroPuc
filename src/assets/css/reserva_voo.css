@@ -58,6 +58,23 @@ button {
   align-items: center;
 }
 
+#cadastroCentralAvancado {
+  transition: opacity 1s ease-in-out;
+
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#invisivelDiv {
+  visibility: hidden;
+  height: 0;
+}
+
 #tabelaResultados {
   visibility: hidden;
   opacity: 0;
@@ -92,4 +109,8 @@ button {
     /* ajustar com a borda da página */
     margin-left: 15%;
     margin-right: 15%;
+}
+
+.flexConteiner {
+  display: flex;
 }

@@ -317,3 +317,22 @@ function reservarCadeira(cadeiraReservada){
 
     window.location.href = "/src/paginas/local/pagamento.html";
 }
+
+// função para mostrar a outra div, com todas as opções do escopo ao invés da div com opções básicas
+function opcoesAvancadas(){
+    // zerar a opacidade da div simples
+    var desaparecerDivDados = document.getElementById('invisivelDiv'); // usa a opacidade para dar efeito de fade
+    var checarMarcacaoCheckbox = document.getElementById("flexSwitchCheckDefault");
+
+    if (checarMarcacaoCheckbox.checked) {
+        // checkbox marcado = mostrar as opções avançadas
+        desaparecerDivDados.style.visibility = 'visible';
+        desaparecerDivDados.style.height = 'auto';
+    } else {
+        // checkbox desmarcada = esconder as opções avançadas
+        desaparecerDivDados.style.visibility = 'hidden';
+        desaparecerDivDados.style.height = 0;
+    }
+
+
+}

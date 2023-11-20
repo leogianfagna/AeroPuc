@@ -31,17 +31,10 @@
   <div id="cadastroCentral">
     <div style="margin:50px" id="containerDados">
       <form style="margin: 25px">
-        <!-- tipo de passagem -->
-        <label for="tipoPassagem">Tipo de passagem:</label>
-        <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()">
-          <option value="0">Selecionar</option>
-          <option value="ambos">Ida e volta</option>
-          <option value="ida">Somente ida</option>
-        </select>
-    
+
         <!-- cidade de partida -->
-        <label for="localPartida">Partida:</label>
-        <select id="localPartida" name="localPartida">
+        <label for="localPartida" class="form-label">Partida:</label>
+        <select id="localPartida" name="localPartida" class="form-control">
           <option value="0">Selecionar</option>
           <option value="Campinas">Campinas</option>
           <option value="Belo Horizonte">Belo Horizonte</option>
@@ -69,8 +62,8 @@
         </select>
     
         <!-- cidade de chegada -->
-        <label for="localDestino">Destino:</label>
-        <select id="localDestino" name="localDestino">
+        <label for="localDestino" class="form-label">Destino:</label>
+        <select id="localDestino" name="localDestino" class="form-control">
           <option value="0">Selecionar</option>
           <option value="Campinas">Campinas</option>
           <option value="Belo Horizonte">Belo Horizonte</option>
@@ -96,24 +89,40 @@
           <option value="São José dos Pinhais">São José dos Pinhais</option>
           <option value="São Paulo">São Paulo</option>
         </select>
-    
-        <!-- data partida -->
-        <label for="start">Data partida:</label>
-        <input type="date" id="start" name="trip-start" value="2023-12-01" min="2023-11-01" max="2026-12-31"/>
-    
-        <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
-        <style>
-          /* cria um estilo que deixa a div invisível */
-          #talvez {
-            display: none;
-          }
-        </style>
-        <div id="talvez">
-          <label for="back">Data volta:</label>
-          <input type="date" id="back" name="trip-back" min="2023-12-01" max="2026-12-31"/>
+
+        <!-- div que é padrão desabilitada, onde tem todas as opções do escopo do projeto -->
+        <div id="invisivelDiv">
+      
+          <!-- tipo de passagem -->
+          <label for="tipoPassagem" class="form-label">Tipo de passagem:</label>
+          <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()" class="form-control">
+            <option value="0">Selecionar</option>
+            <option value="ambos">Ida e volta</option>
+            <option value="ida">Somente ida</option>
+          </select>
+
+          <!-- data partida -->
+          <label for="start" class="form-label">Data partida:</label>
+          <input type="date" id="start" class="form-control" name="trip-start" value="2023-12-01" min="2023-11-01" max="2026-12-31"/>
+          <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
+          <style>
+            /* cria um estilo que deixa a div invisível */
+            #talvez {
+              display: none;
+            }
+          </style>
+          <div id="talvez">
+            <label for="back" class="form-label">Data volta:</label>
+            <input type="date" id="back" class="form-control" name="trip-back" min="2023-12-01" max="2026-12-31"/>
+          </div>
         </div>
-    
-        <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
+        <div class="flexConteiner">
+          <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
+          <div class="form-check form-switch" style="margin-left: 20px; margin-top: 10px;">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onclick="opcoesAvancadas();">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Opções avançadas</label>
+          </div>
+        </div>
         <p id="status" style="margin-top: 8px;"></p>
       </form>
       <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
