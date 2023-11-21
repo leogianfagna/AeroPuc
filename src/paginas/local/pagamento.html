@@ -8,117 +8,131 @@
     <title>AeroPuc - Página de Pagamento</title>
     <script src="/src/javascripts/local/realizar_pagamento.js"></script>
     <link rel="stylesheet" href="/src/assets/css/pagina_pagamento.css">
-    <!-- 
-    <img class="logo" src="/src/assets/images/aeropuc_logo.jpeg" alt="Logo">
-    -->
+
+    
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <div id="nav-bar-local-pronta"></div>
+    <script>
+      // requisição para carregar o conteúdo do arquivo
+      fetch('/src/agregados/navbar/nav_local.html') // se necessario, trocar o nome do arquivo aqui
+          .then(response => response.text())
+          .then(data => {
+              
+              var elemento = document.getElementById('nav-bar-local-pronta'); // trocar o nome do elemento
+  
+              // inserir o conteúdo HTML no elemento
+              elemento.innerHTML = data;
+          })
+          .catch(error => console.error('Erro ao carregar o arquivo:', error));
+    </script>
 
-    <h1>Detalhes do Pagamento</h1>
+    <h1>Detalhes do Pagamento</h1><br>
+    <div id="form">
+        <form>
 
-    <form>
-
-        <label for="metodo_pagamento">Método de Pagamento:</label>
-        <select id="metodo_pagamento" name="metodo_pagamento" onchange="mostrarCampos(this.value)" >
-            <option value="cartao_credito">Escolher um método</option>
-            <option value="cartao_credito">Cartão de Crédito</option>
-            <option value="cartao_debito">Cartão de Débito</option>
-            <option value="pix">PIX</option>
-        </select><br>
-        
-        <label for="nome">Nome completo:</label>
-        <input type="text" id="nome" name="nome" required><br>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Ex:exemplo@email.com" required><br>
-        
-        
-        <div id="cartao_credito_campos" class="campos">
+            <label for="metodo_pagamento">Método de Pagamento:</label>
+            <select id="metodo_pagamento" name="metodo_pagamento" onchange="mostrarCampos(this.value)" >
+                <option value="cartao_credito">Escolher um método</option>
+                <option value="cartao_credito">Cartão de Crédito</option>
+                <option value="cartao_debito">Cartão de Débito</option>
+                <option value="pix">PIX</option>
+            </select><br>
             
-            <label for="nomeCartao">Nome no cartão:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
+            <label for="nome">Nome completo:</label>
+            <input type="text" id="nome" name="nome" required><br>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Ex:exemplo@email.com" required><br>
+            
+            
+            <div id="cartao_credito_campos" class="campos">
+                
+                <label for="nomeCartao">Nome no cartão:</label>
+                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
 
-            <label for="numeroCartao">Número do Cartão:</label>
-            <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
-    
-            <label for="validadeCartao">Data de Validade:</label>
-            <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
+                <label for="numeroCartao">Número do Cartão:</label>
+                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+        
+                <label for="validadeCartao">Data de Validade:</label>
+                <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
 
-            <label for="cvcCartao">cvc: </label>
-            <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
-        </div>
-        
-        <div id="cartao_debito_campos" class="campos">
+                <label for="cvcCartao">cvc: </label>
+                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
+            </div>
+            
+            <div id="cartao_debito_campos" class="campos">
 
-            <label for="nomeCartao">Nome no cartão:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
+                <label for="nomeCartao">Nome no cartão:</label>
+                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
 
-            <label for="numeroCartao">Número do Cartão:</label>
-            <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
-    
-            <label for="validadeCartao">Data de Validade:</label>
-            <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
+                <label for="numeroCartao">Número do Cartão:</label>
+                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+        
+                <label for="validadeCartao">Data de Validade:</label>
+                <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
 
-            <label for="cvcCartao">cvc: </label>
-            <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
-        </div>
+                <label for="cvcCartao">cvc: </label>
+                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
+            </div>
 
-        
-        <div id="pix_campos" class="campos">
-            <label for="numeroPix">Número do PIX:</label>
-            <input type="text" id="numeroPix" name="numeroPix" value="00020101021226AeroPuc-Pix" readonly>
-            <button onclick="copiarNumeroPix()">Copiar</button>
-            <span id="mensagemCopiado" style="color: green;"></span>
-        </div>
-        
-        <button type="button" onclick="realizarPagamento();">Pagar</button>
-        
-        <script>
-            function mostrarCampos(valor) {
-                var camposCartao = document.getElementById("cartao_credito_campos");
-                var camposDebito = document.getElementById("cartao_debito_campos");
-                var camposPix = document.getElementById("pix_campos");
-        
-                camposCartao.style.display = "none";
-                camposDebito.style.display = "none";
-                camposPix.style.display = "none";
-        
-                if (valor === "cartao_credito") {
-                    camposCartao.style.display = "block";
-                } else if (valor === "cartao_debito") {
-                    camposDebito.style.display = "block";
-                } else if (valor === "pix") {
-                    camposPix.style.display = "block";
+            
+            <div id="pix_campos" class="campos">
+                <label for="numeroPix">Número do PIX:</label>
+                <input type="text" id="numeroPix" name="numeroPix" value="00020101021226AeroPuc-Pix" readonly>
+                <button onclick="copiarNumeroPix()">Copiar</button>
+                <span id="mensagemCopiado" style="color: green;"></span>
+            </div>
+            
+            <button type="button" onclick="realizarPagamento();">Pagar</button>
+            
+            <script>
+                function mostrarCampos(valor) {
+                    var camposCartao = document.getElementById("cartao_credito_campos");
+                    var camposDebito = document.getElementById("cartao_debito_campos");
+                    var camposPix = document.getElementById("pix_campos");
+            
+                    camposCartao.style.display = "none";
+                    camposDebito.style.display = "none";
+                    camposPix.style.display = "none";
+            
+                    if (valor === "cartao_credito") {
+                        camposCartao.style.display = "block";
+                    } else if (valor === "cartao_debito") {
+                        camposDebito.style.display = "block";
+                    } else if (valor === "pix") {
+                        camposPix.style.display = "block";
+                    }
                 }
-            }
-        
-            function realizarPagamento() {
-                const ncartao = document.getElementById("numeroCartao").value;
-                if(ncartao === "1234"){
-                    window.location.href="/src/paginas/local/pagamentoNaoAutorizado.html";
+            
+                function realizarPagamento() {
+                    const ncartao = document.getElementById("numeroCartao").value;
+                    if(ncartao === "1234"){
+                        window.location.href="/src/paginas/local/pagamentoNaoAutorizado.html";
+                    }
+                    else{
+                    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+                    const emailInserido = document.getElementById("email").value;
+                    console.log("set salvo como:", emailInserido);
+                    sessionStorage.setItem("pagamentoEmail", emailInserido);}
                 }
-                else{
-                window.location.href = "/src/paginas/local/pagamento_confirmado.html";
-                const emailInserido = document.getElementById("email").value;
-                console.log("set salvo como:", emailInserido);
-                sessionStorage.setItem("pagamentoEmail", emailInserido);}
-            }
 
-            function copiarNumeroPix() {
-                var numeroPixInput = document.getElementById("numeroPix");
-                numeroPixInput.select();
-                document.execCommand("copy");
+                function copiarNumeroPix() {
+                    var numeroPixInput = document.getElementById("numeroPix");
+                    numeroPixInput.select();
+                    document.execCommand("copy");
 
-                var mensagemCopiado = document.getElementById("mensagemCopiado");
-                mensagemCopiado.innerText = "Copiado!";
+                    var mensagemCopiado = document.getElementById("mensagemCopiado");
+                    mensagemCopiado.innerText = "Copiado!";
 
-                setTimeout(function() {
-                    mensagemCopiado.innerText = "";
-                }, 2000); 
-            }
-        </script>
-        
-    </form>
+                    setTimeout(function() {
+                        mensagemCopiado.innerText = "";
+                    }, 2000); 
+                }
+            </script>
+            
+        </form>
+    </div>
 
 </body>
 </html>

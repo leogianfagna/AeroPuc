@@ -1,20 +1,21 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+#form{
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    display: flex;
 }
-
 form {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px; /* Ajuste o tamanho conforme necessário */
+    align-items: center;
+    justify-content: center;
+    
 }
 
 h1 {
@@ -62,9 +63,3 @@ button:hover {
     margin-bottom: 16px;
 }
 
-.logo{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    height: 150px;
-}
