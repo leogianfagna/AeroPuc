@@ -7,3 +7,53 @@
     justify-content: center;
     align-items: center;
 }
+
+.nav-bar{
+    /* ajustar o tamanho vertical */
+    height: 70px;
+}
+
+.nav-bar-elementos{
+    /* ajustar o tamanho vertical */
+    height: 70px;
+
+    /* ajustar com a borda da página */
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+body {
+    margin: 0; /* Remover a margem padrão do corpo do HTML */
+    padding: 0; /* Remover o preenchimento padrão do corpo do HTML */
+    background-color: rgb(223, 217, 217);
+}
+
+.container {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.div-central {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 30px;
+
+    overflow: hidden; /* Adicionado para corrigir o problema do overflow */
+}
+
+.div-esquerda {
+    
+    float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+    border: 3px black solid;
+}
+
+.div-direita {
+    
+    float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+    border: 3px black solid;
+}
+
+.descolar {
+    margin-left: -15%;
+    margin-top: 30%;
+}

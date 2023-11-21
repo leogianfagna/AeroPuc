@@ -46,5 +46,114 @@ button {
   justify-content: center;
   justify-items: center;
   text-align: center;
+}
 
+#cadastroCentral {
+  visibility: visible;
+  transition: opacity 1s ease-in-out;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cadastroCentralAvancado {
+  transition: opacity 1s ease-in-out;
+
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#invisivelDiv {
+  visibility: hidden;
+  height: 0;
+}
+
+#tabelaResultados {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+
+  transition: opacity 1s ease-in-out, height 3s ease-in-out;
+
+  justify-content: center;
+  align-items: center;
+}
+
+#mapaDeAssentos {
+  /* 
+  visibility: hidden;
+  height: 0;
+  */
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+#containerDados {
+  margin: auto;
+  width: 30%;
+  height: 30%;
+  padding: 10px;
+  
+  
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  text-align: start;
+  border-radius: 40px;
+  background-color: #ffffff;
+}
+
+/* para fazer a tabela nas mesmas margens da nav-bar */
+.tabela {
+    /* ajustar o tamanho vertical */
+    height: 70px;
+
+    /* ajustar com a borda da página */
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.flexConteiner {
+  display: flex;
+}
+
+.buttonMapaAssento {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 60px; /* Largura fixa */
+  height: 60px; /* Altura fixa */
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+.buttonMapaAssentoReservado {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 60px; /* Largura fixa */
+  height: 60px; /* Altura fixa */
+  margin: 4px 2px;
+  opacity: 0.6;
+  cursor: not-allowed;
 }

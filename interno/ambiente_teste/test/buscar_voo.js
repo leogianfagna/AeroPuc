@@ -26,6 +26,40 @@ function showStatusMessage(msg, error){
 }
   
 // funcao fetch tipo get
+function fetchBuscarOrigem(cidadeDestino) { // passando como parametro o numero do voo
+    return fetch(`http://localhost:3000/listarCidadesDestino?busca=${cidadeDestino}`) // passando como parametro o numero do voo
+        .then(response => response.json());
+}
+
+function buscarOrigem() {
+    const selectOrigem = document.getElementById("seuIdDoSelect");
+  
+    // Chama a função fetchBuscarOrigem passando a cidade de destino
+    fetchBuscarOrigem(cidadeDestino)
+      .then(data => {
+        if (data.status === 'SUCCESS') {
+          const cidades = data.payload;
+  
+          // Limpa as opções existentes no <select>
+          selectOrigem.innerHTML = '';
+  
+          // Adiciona uma opção para cada cidade no array
+          cidades.forEach(cidade => {
+            const option = document.createElement('option');
+            option.value = cidade;
+            option.textContent = cidade;
+            selectOrigem.appendChild(option);
+          });
+        } else {
+          console.error('Erro ao obter cidades de origem:', data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao fazer a requisição:', error);
+      });
+  }
+
+// funcao fetch tipo get
 function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
     return fetch(`http://localhost:3000/listarAssentosReservados?voo=${numeroVoo}`) // passando como parametro o numero do voo
         .then(response => response.json());
@@ -33,12 +67,9 @@ function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
   
   
 // função para fazer a listagem dos assentos
-function criarMapaAssentos(vooEscolhido){
+function criarMapaAssentos(){
     // conferir o dado enviado
     var pStatus = document.getElementById("statusReserva");
-    
-
-    /* não precisa mais pois agora é diretamente clicando no botão 
     var resultado;
     pStatus.className = "text-success";
 
@@ -52,10 +83,9 @@ function criarMapaAssentos(vooEscolhido){
         pStatus.textContent = "";
         resultado = true;
         pStatus.className = "text-danger";
-    } */
+    }
   
-    //const vooInserido = document.getElementById("vooEscolhido").value;
-    const vooInserido = vooEscolhido;
+    const vooInserido = document.getElementById("vooEscolhido").value;
     console.log("Voo inserido no html: ", vooInserido);
   
     // usar o fetch com o parametro (vai receber no typescript)
@@ -69,9 +99,6 @@ function criarMapaAssentos(vooEscolhido){
         const colunas = 6;
         const fileiras = 30;
         let cadeiraVez = 0;
-        let poltronaLetra = 65; // letra 'A' na tabela ASCII
-        let fileiraIdentificacao;
-        let letraExtra = "";
         
         // deve fazer a linha e depois imprimir, depois seguir para a proxima
     
@@ -81,7 +108,6 @@ function criarMapaAssentos(vooEscolhido){
             // passar pela linha inteira
             for (let j = 0; j < colunas; j++) {
                 cadeiraVez++; // conta em qual cadeira está
-                fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
     
                 // conferir se é um corredor
                 // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
@@ -95,20 +121,13 @@ function criarMapaAssentos(vooEscolhido){
     
                 // conferir se está ocupado ou desocupado
                 if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
-                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
                 } else {
-                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
                 }
             }
     
-            // nova coluna, pular linha e avançar uma letra para identificar as poltronas
             document.getElementById("mapaAssentos").innerHTML += `<br>`;
-            poltronaLetra++;
-
-            if (poltronaLetra === 91) {
-                poltronaLetra = 65;
-                letraExtra = "A";
-            }
         }
     
     
@@ -239,21 +258,18 @@ function buscarVoos(){
         return;
     }
 
-    // passou por todas as validações com sucesso
-    // agora é só dar fetch na tabela e imprimir a tabela
-    // + esconder a parte de preenchimento de dados
+    // passou por todos as checagens de dados e pode prosseguir
+    // então agora vai sumir com o <form> e mostrar a tabela
+    document.getElementById('tabelaResultados').style.visibility = 'visible';
+    console.log("AQUI PRRA");
     
+    // divTalvez.style.display = "block";
+
+
+
+    // limpar mensagem de erro se tiver
     showStatusMessage("", true);
-    var desaparecerDivDados = document.getElementById('cadastroCentral'); // usa a opacidade para dar efeito de fade
-    desaparecerDivDados.style.opacity = '0';
-    desaparecerDivDados.style.height = '0';
 
-    var mostrarDivTabela = document.getElementById('tabelaResultados');
-    mostrarDivTabela.style.opacity = '1';
-    mostrarDivTabela.style.height = 'auto';
-    mostrarDivTabela.style.visibility = 'visible';
-
-    // obtém os dados do HTML
     const dataPartidaFetch = document.getElementById("start").value;
     const destinoFetch = document.getElementById("localDestino").value;
     const origemFetch = document.getElementById("localPartida").value;
@@ -270,43 +286,18 @@ function buscarVoos(){
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
-              
-                rowData.forEach((cellData, index) => {
-                  const td = document.createElement('td');
-              
-                  // Verifique se a coluna é a coluna ID
-                  if (index === 0) {
-                    // declarando os atributos do mesmo estilo que o bootstrap
-                    const botaoExcluir = document.createElement('button');
-                    botaoExcluir.type = 'button'; 
-                    botaoExcluir.className = 'btn btn-outline-info';
-                    botaoExcluir.textContent = `Reservar`;
-                    // cada botão chama a função que é a criarMapaAssentos, passando como parâmetro o ID do voo
-                    botaoExcluir.addEventListener('click', () => criarMapaAssentos(`${cellData}`));
-                    td.appendChild(botaoExcluir);
 
-                    // adiciona a coluna de botões de exclusão
-                    /*
-                    const botaoExcluir = document.createElement('button');
-                    botaoExcluir.type = 'button'; // declarando os atributos do mesmo estilo que o bootstrap
-                    botaoExcluir.className = 'btn btn-danger';
-                    botaoExcluir.textContent = '🗑️';
-                    botaoExcluir.addEventListener('click', excluir(i)); // função excluir que passa i como argumento
-                    tdExcluir.appendChild(botaoExcluir);
-                    tr.appendChild(tdExcluir); */
-                  } else {
+                rowData.forEach(cellData => {
+                    const td = document.createElement('td');
                     td.textContent = cellData;
-                  }
-              
-                  tr.appendChild(td);
+                    tr.appendChild(td);
                 });
-              
-                // Aqui imprime o próximo tr, colocando um ID para identificar cada linha
+
+                // aqui imprime o proximo tr, colocando um ID para identificar cada linha
                 tr.id = i;
                 i++;
                 tabelaDeAeronaves.appendChild(tr);
-              });
-              
+            });
             
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);
@@ -327,23 +318,4 @@ function reservarCadeira(cadeiraReservada){
     sessionStorage.setItem("vooEscolhido", vooPreenchidoReserva);
 
     window.location.href = "/src/paginas/local/pagamento.html";
-}
-
-// função para mostrar a outra div, com todas as opções do escopo ao invés da div com opções básicas
-function opcoesAvancadas(){
-    // zerar a opacidade da div simples
-    var desaparecerDivDados = document.getElementById('invisivelDiv'); // usa a opacidade para dar efeito de fade
-    var checarMarcacaoCheckbox = document.getElementById("flexSwitchCheckDefault");
-
-    if (checarMarcacaoCheckbox.checked) {
-        // checkbox marcado = mostrar as opções avançadas
-        desaparecerDivDados.style.visibility = 'visible';
-        desaparecerDivDados.style.height = 'auto';
-    } else {
-        // checkbox desmarcada = esconder as opções avançadas
-        desaparecerDivDados.style.visibility = 'hidden';
-        desaparecerDivDados.style.height = 0;
-    }
-
-
 }

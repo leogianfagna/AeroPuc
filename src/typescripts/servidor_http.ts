@@ -97,6 +97,47 @@ app.get("/listarClientes", async(req,res)=>{
   }
 });
 
+// função get para conseguir as cidades de origem, baseado na cidade 
+// destino que o usuário registrou
+app.get("/listarCidadesDestino", async(req,res)=>{
+  var busca = req.query.voo as string;
+  // busca = "Campinas";
+
+  let cr: CustomResponse = {
+      status: "ERROR", 
+      message: "", 
+      payload: undefined,
+  };
+  
+  try {
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+
+    const connection = await oracledb.getConnection(connAttibs);
+
+    let resultadoConsulta = await connection.execute("SELECT origem FROM trajetos WHERE destino = 'campinas' ORDER BY origem ASC");
+    console.log("Busca SQL: ", resultadoConsulta);
+  
+    await connection.close();
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+    cr.payload = resultadoConsulta.rows;
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    res.send(cr);  
+  }
+});
+
 // clientes = executar select somente na cadeira reservada
 app.get("/listarAssentosReservados", async(req,res)=>{
   const numeroVoo = req.query.voo as string;
@@ -140,7 +181,8 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
   var dataPartida = req.query.dataPreenchida as string;
-  var dataChegada = req.query.voo as string;
+  var localViagemDestino = req.query.localDestino as string;
+  // var dataChegada = req.query.voo as string;
 
   console.log("Data recebida:", dataPartida);
 
@@ -157,12 +199,22 @@ app.get("/buscarVoosLista", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     }
 
-    //dataPartida = '2023-11-01';
-    //dataChegada = '2023-11-11';
-
     const connection = await oracledb.getConnection(connAttibs);
-    //let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
     let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data = '${dataPartida}'`);
+
+    /* 
+    CONSULTA QUE USA A DATA DE CHEGADA PARA BUSCAR
+    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
+    */
+    
+    /* FAZENDO!
+    let resultadoConsulta = await connection.execute(`
+      SELECT * 
+      FROM voos v 
+      INNER JOIN trajetos t
+      ON TO_CHAR(v.trajeto) = t.origem 
+      WHERE data = '${dataPartida}'
+    `); */
 
     await connection.close();
     cr.status = "SUCCESS"; 
@@ -1230,7 +1282,7 @@ app.put("/alterarVoo", async(req,res)=>{
   const trajeto = req.body.trajeto as number;
   const aeronave = req.body.aeronave as string; 
   const horario_ida = req.body.horario_ida as string;
-  const horario_volta = req.body.hoario_volta as string;
+  const horario_volta = req.body.horario_volta as string;
   const valor = req.body.valor as string;
   
   let cr: CustomResponse = {
@@ -1248,7 +1300,8 @@ app.put("/alterarVoo", async(req,res)=>{
 
     const cmdUpdateAero = `UPDATE voos SET data = :2,
      trajeto = :3, aeronave = :4, horario_ida = :5, horario_volta = :6, valor = :7 WHERE id = :1`
-    const dados = [id,data,trajeto,aeronave,horario_ida,horario_volta,valor];
+    const dados = [id, data, trajeto, aeronave, horario_ida, horario_volta, valor];
+    console.log("Dados inseridos: ", dados);
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
