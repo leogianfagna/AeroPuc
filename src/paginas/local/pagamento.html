@@ -39,16 +39,13 @@
             <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
 
             <label for="numeroCartao">Número do Cartão:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+            <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
     
             <label for="validadeCartao">Data de Validade:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:04/27" required><br>
+            <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
 
             <label for="cvcCartao">cvc: </label>
             <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
-
-            <input type="submit" value="Confirmar">
-
         </div>
         
         <div id="cartao_debito_campos" class="campos">
@@ -57,16 +54,13 @@
             <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
 
             <label for="numeroCartao">Número do Cartão:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+            <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
     
             <label for="validadeCartao">Data de Validade:</label>
-            <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:04/27" required><br>
+            <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
 
             <label for="cvcCartao">cvc: </label>
             <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
-
-            <input type="submit" value="Confirmar">
-
         </div>
 
         
@@ -99,10 +93,15 @@
             }
         
             function realizarPagamento() {
+                const ncartao = document.getElementById("numeroCartao").value;
+                if(ncartao === "1234"){
+                    window.location.href="/src/paginas/local/pagamentoNaoAutorizado.html";
+                }
+                else{
                 window.location.href = "/src/paginas/local/pagamento_confirmado.html";
                 const emailInserido = document.getElementById("email").value;
                 console.log("set salvo como:", emailInserido);
-                sessionStorage.setItem("pagamentoEmail", emailInserido);
+                sessionStorage.setItem("pagamentoEmail", emailInserido);}
             }
 
             function copiarNumeroPix() {

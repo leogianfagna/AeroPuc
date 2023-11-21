@@ -44,7 +44,7 @@
                     const localPartidaSelect = document.getElementById('localDestino');
 
                     data.payload.forEach(rowData => {
-                      // a consulta só retorna origem (SELECT origem FROM trajetos)
+                      // a consulta só retorna destino (SELECT destino FROM trajetos)
                       const option = document.createElement('option');
                       option.value = rowData[0]; // value do <select> para usar na outra busca
                       option.textContent = rowData[0]; // o que aparece no <select>
