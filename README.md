@@ -3,6 +3,7 @@ Trabalho do Projeto Integrador, grupo 8 de 2023.
 
 ## Membros:
 Leonardo Ferraro Gianfagna - 18174490
+Renan Negri Cecolin - 23012651
 [INSERIR NOME DE VOCÊS AQUI]
 
 # Sobre o projeto
