@@ -86,6 +86,19 @@ button {
   align-items: center;
 }
 
+#mapaDeAssentos {
+  /* 
+  visibility: hidden;
+  height: 0;
+  */
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+}
+
 #containerDados {
   margin: auto;
   width: 30%;
@@ -113,4 +126,34 @@ button {
 
 .flexConteiner {
   display: flex;
+}
+
+.buttonMapaAssento {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 60px; /* Largura fixa */
+  height: 60px; /* Altura fixa */
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+.buttonMapaAssentoReservado {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 60px; /* Largura fixa */
+  height: 60px; /* Altura fixa */
+  margin: 4px 2px;
+  opacity: 0.6;
+  cursor: not-allowed;
 }

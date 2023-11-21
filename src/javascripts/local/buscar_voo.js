@@ -69,6 +69,9 @@ function criarMapaAssentos(vooEscolhido){
         const colunas = 6;
         const fileiras = 30;
         let cadeiraVez = 0;
+        let poltronaLetra = 65; // letra 'A' na tabela ASCII
+        let fileiraIdentificacao;
+        let letraExtra = "";
         
         // deve fazer a linha e depois imprimir, depois seguir para a proxima
     
@@ -78,6 +81,7 @@ function criarMapaAssentos(vooEscolhido){
             // passar pela linha inteira
             for (let j = 0; j < colunas; j++) {
                 cadeiraVez++; // conta em qual cadeira está
+                fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
     
                 // conferir se é um corredor
                 // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
@@ -91,13 +95,20 @@ function criarMapaAssentos(vooEscolhido){
     
                 // conferir se está ocupado ou desocupado
                 if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
-                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-info" style="margin: 3px" disabled>🪑</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px">${fileiraIdentificacao}</button>`;
                 } else {
-                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="btn btn-info" style="margin: 3px">🪑</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
                 }
             }
     
+            // nova coluna, pular linha e avançar uma letra para identificar as poltronas
             document.getElementById("mapaAssentos").innerHTML += `<br>`;
+            poltronaLetra++;
+
+            if (poltronaLetra === 91) {
+                poltronaLetra = 65;
+                letraExtra = "A";
+            }
         }
     
     
