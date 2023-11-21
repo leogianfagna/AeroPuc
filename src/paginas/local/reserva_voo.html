@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,63 +31,64 @@
   <div id="cadastroCentral">
     <div style="margin:50px" id="containerDados">
       <form style="margin: 25px">
+        <!-- cidade de chegada -->
+        <label for="localDestino" class="form-label">Destino:</label>
+        <select id="localDestino" name="localDestino" class="form-control">
+          <option value="0">Selecionar</option>
+          <script>
+            // script de impressão de todas as origens possíveis
+            fetch('http://localhost:3000/listarDestinos')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'SUCCESS') {
+                    const localPartidaSelect = document.getElementById('localDestino');
+
+                    data.payload.forEach(rowData => {
+                      // a consulta só retorna origem (SELECT origem FROM trajetos)
+                      const option = document.createElement('option');
+                      option.value = rowData[0]; // value do <select> para usar na outra busca
+                      option.textContent = rowData[0]; // o que aparece no <select>
+
+                      localPartidaSelect.appendChild(option);
+                    });
+
+                } else {
+                    console.error(`Erro ao obter dados: ${data.message}`);
+                }
+            })
+            .catch(error => console.error('Erro ao conectar:', error));
+
+          </script>
+        </select>
 
         <!-- cidade de partida -->
         <label for="localPartida" class="form-label">Partida:</label>
         <select id="localPartida" name="localPartida" class="form-control">
           <option value="0">Selecionar</option>
-          <option value="Campinas">Campinas</option>
-          <option value="Belo Horizonte">Belo Horizonte</option>
-          <option value="Brasília">Brasília</option>
-          <option value="Buenos Aires">Buenos Aires</option>
-          <option value="Campinas">Campinas</option>
-          <option value="Cidade do México">Cidade do México</option>
-          <option value="Confins">Confins</option>
-          <option value="Dallas">Dallas</option>
-          <option value="Florianópolis">Florianópolis</option>
-          <option value="Foz do Iguaçu">Foz do Iguaçu</option>
-          <option value="Frankfurt">Frankfurt</option>
-          <option value="Guarulhos">Guarulhos</option>
-          <option value="Manaus">Manaus</option>
-          <option value="Miami">Miami</option>
-          <option value="Montreal">Montreal</option>
-          <option value="Nova Delhi">Nova Delhi</option>
-          <option value="Porto Alegre">Porto Alegre</option>
-          <option value="Recife">Recife</option>
-          <option value="Rio de Janeiro">Rio de Janeiro</option>
-          <option value="Salvador">Salvador</option>
-          <option value="Santiago">Santiago</option>
-          <option value="São José dos Pinhais">São José dos Pinhais</option>
-          <option value="São Paulo">São Paulo</option>
-        </select>
-    
-        <!-- cidade de chegada -->
-        <label for="localDestino" class="form-label">Destino:</label>
-        <select id="localDestino" name="localDestino" class="form-control">
-          <option value="0">Selecionar</option>
-          <option value="Campinas">Campinas</option>
-          <option value="Belo Horizonte">Belo Horizonte</option>
-          <option value="Brasília">Brasília</option>
-          <option value="Buenos Aires">Buenos Aires</option>
-          <option value="Campinas">Campinas</option>
-          <option value="Cidade do México">Cidade do México</option>
-          <option value="Confins">Confins</option>
-          <option value="Dallas">Dallas</option>
-          <option value="Florianópolis">Florianópolis</option>
-          <option value="Foz do Iguaçu">Foz do Iguaçu</option>
-          <option value="Frankfurt">Frankfurt</option>
-          <option value="Guarulhos">Guarulhos</option>
-          <option value="Manaus">Manaus</option>
-          <option value="Miami">Miami</option>
-          <option value="Montreal">Montreal</option>
-          <option value="Nova Delhi">Nova Delhi</option>
-          <option value="Porto Alegre">Porto Alegre</option>
-          <option value="Recife">Recife</option>
-          <option value="Rio de Janeiro">Rio de Janeiro</option>
-          <option value="Salvador">Salvador</option>
-          <option value="Santiago">Santiago</option>
-          <option value="São José dos Pinhais">São José dos Pinhais</option>
-          <option value="São Paulo">São Paulo</option>
+          <script>
+            // script de impressão de todas as origens possíveis
+            fetch('http://localhost:3000/listarPartida')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'SUCCESS') {
+                    const localPartidaSelect = document.getElementById('localPartida');
+
+                    data.payload.forEach(rowData => {
+                      // a consulta só retorna partida (SELECT origem FROM trajetos)
+                      const option = document.createElement('option');
+                      option.value = rowData[0]; // value do <select> para usar na outra busca
+                      option.textContent = rowData[0]; // o que aparece no <select>
+
+                      localPartidaSelect.appendChild(option);
+                    });
+
+                } else {
+                    console.error(`Erro ao obter dados: ${data.message}`);
+                }
+            })
+            .catch(error => console.error('Erro ao conectar:', error));
+
+          </script>
         </select>
 
         <!-- div que é padrão desabilitada, onde tem todas as opções do escopo do projeto -->
