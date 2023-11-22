@@ -7,9 +7,10 @@ function idVooInserido(){
     const vooInserido = document.getElementById("vooEscolhido").value;
     
     if (parseInt(vooInserido) > 0) {
+        sessionStorage.setItem("vooSelecionado", vooInserido); // salvar o num do voo escolhido para ser usado depois
         resultado = true;
     }
-  
+    
     return resultado; 
 }
   
@@ -316,7 +317,7 @@ function buscarVoos(){
 
 function reservarCadeira(cadeiraReservada){
     // controle
-    const vooPreenchidoReserva = document.getElementById("vooEscolhido").value;
+    const vooPreenchidoReserva = document.getElementById("vooSelecionado");
     console.log("Foi reservado a cadeira: ", cadeiraReservada);
     sessionStorage.setItem("reservaCadeira", cadeiraReservada);
     
@@ -333,7 +334,7 @@ function reservarCadeira(cadeiraReservada){
 function opcoesAvancadas(){
     // zerar a opacidade da div simples
     var desaparecerDivDados = document.getElementById('invisivelDiv'); // usa a opacidade para dar efeito de fade
-    var checarMarcacaoCheckbox = document.getElementById("flexSwitchCheckDefault");
+    var checarMarcacaoCheckbox = document.getElementById("alterarOpcoesAvancadas");
 
     if (checarMarcacaoCheckbox.checked) {
         // checkbox marcado = mostrar as opções avançadas

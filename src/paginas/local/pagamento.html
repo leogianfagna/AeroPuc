@@ -28,7 +28,7 @@
           .catch(error => console.error('Erro ao carregar o arquivo:', error));
     </script>
 
-    <h1>Detalhes do Pagamento</h1><br>
+    <h1 style="margin-top: 20px;">Detalhes do Pagamento</h1><br>
     <div id="form">
         <form>
 
@@ -43,37 +43,37 @@
             <label for="nome">Nome completo:</label>
             <input type="text" id="nome" name="nome" required><br>
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Ex:exemplo@email.com" required><br>
+            <input type="text" id="email" name="email" placeholder="exemplo@email.com" required><br>
             
             
             <div id="cartao_credito_campos" class="campos">
                 
                 <label for="nomeCartao">Nome no cartão:</label>
-                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
+                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex.: NOME SOBRENOME" required><br>
 
-                <label for="numeroCartao">Número do Cartão:</label>
-                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+                <label for="numeroCartao">Número do cartão:</label>
+                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex.: 1234 5678 5814 9711" required><br>
         
-                <label for="validadeCartao">Data de Validade:</label>
-                <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
+                <label for="validadeCartao">Data de validade:</label>
+                <input type="month" id="validadeCartao" name="validadeCartao" min="2023-12" required/><br>
 
-                <label for="cvcCartao">cvc: </label>
-                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
+                <label for="cvcCartao">CVC:</label>
+                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex.: 234" required><br>
             </div>
             
             <div id="cartao_debito_campos" class="campos">
 
                 <label for="nomeCartao">Nome no cartão:</label>
-                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex:Mastercard" required><br>
+                <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Ex.: NOME SOBRENOME" required><br>
 
-                <label for="numeroCartao">Número do Cartão:</label>
-                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex:1234 5678 5814 9711" required><br>
+                <label for="numeroCartao">Número do cartão:</label>
+                <input type="text" id="numeroCartao" name="numeroCartao" placeholder="Ex.: 1234 5678 5814 9711" required><br>
         
-                <label for="validadeCartao">Data de Validade:</label>
-                <input type="text" id="validadeCartao" name="validadeCartao" placeholder="Ex:04/27" required><br>
+                <label for="validadeCartao">Data de validade:</label>
+                <input type="month" id="validadeCartao" name="validadeCartao" min="2023-12" required/><br>
 
-                <label for="cvcCartao">cvc: </label>
-                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex:234" required><br>
+                <label for="cvcCartao">CVC:</label>
+                <input type="text" id="cvcCartao" name="cvcCartao"placeholder="Ex.: 234" required><br>
             </div>
 
             
