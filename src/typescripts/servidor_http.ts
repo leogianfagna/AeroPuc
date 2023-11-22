@@ -61,6 +61,42 @@ app.get("/listarAeronaves", async(req,res)=>{
   }
 });
 
+// aeronaves = executar select
+app.get("/listarMapaAssentos", async(req,res)=>{
+
+  let cr: CustomResponse = {
+      status: "ERROR", 
+      message: "", 
+      payload: undefined,
+  };
+  
+  try {
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+
+    const connection = await oracledb.getConnection(connAttibs);
+    let resultadoConsulta = await connection.execute("SELECT * FROM mapa_assentos ORDER BY voo ASC, assento ASC");
+  
+    await connection.close();
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+    cr.payload = resultadoConsulta.rows;
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    res.send(cr);  
+  }
+});
+
 // clientes = executar select
 app.get("/listarClientes", async(req,res)=>{
 

@@ -1,0 +1,292 @@
+CREATE SEQUENCE cidades_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+
+create table cidades(
+  id integer,
+  cidade varchar(30) primary key not null,
+  estado varchar(30) not null,
+  pais varchar(30) not null);
+insert into cidades values (cidades_id.nextval, 'Campinas','São Paulo','Brasil');
+insert into cidades values (cidades_id.nextval, 'Guarulhos', 'São Paulo', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Foz do Iguaçu', 'Paraná', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Rio de Janeiro', 'Rio de Janeiro', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Manaus', 'Amazonas', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Brasília', 'Distrito Federal', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Salvador', 'Bahia',  'Brasil');
+insert into cidades values (cidades_id.nextval, 'Confins', 'Minas Gerais', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Belo Horizonte', 'Minas Gerais', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'São José dos Pinhais', 'Paraná', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'São Paulo', 'São Paulo','Brasil');
+insert into cidades values (cidades_id.nextval, 'Recife', 'Pernambuco', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Porto Alegre', 'Rio Grande do Sul', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Florianópolis', 'Santa Catarina', 'Brasil');
+insert into cidades values (cidades_id.nextval, 'Miami', 'Flórida', 'Estados Unidos');
+insert into cidades values (cidades_id.nextval, 'Buenos Aires', 'Buenos Aires', 'Argentina');
+insert into cidades values (cidades_id.nextval, 'Montreal', 'Quebec', 'Canadá');
+insert into cidades values (cidades_id.nextval, 'Santiago', 'Pudahuel','Chile');
+insert into cidades values (cidades_id.nextval, 'Dallas', 'Texas', 'Estados Unidos');
+insert into cidades values (cidades_id.nextval, 'Cidade do México', 'Distrito Federal', 'México');
+insert into cidades values (cidades_id.nextval, 'Frankfurt', 'Hessen', 'Alemanha');
+insert into cidades values (cidades_id.nextval, 'Nova Delhi','Haryana', 'índia');
+select * from cidades;
+
+
+
+
+
+CREATE SEQUENCE aeronaves_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+create table aeronaves(
+  id integer not null,
+  numero_identificacao integer not null,
+  modelo varchar(30) primary key not null,
+  fabricante varchar(30) not null,
+  ano_fabricacao integer not null,
+  assentos integer not null);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1234	,'Airbus A320',	'Airbus'	,1987	,75);
+insert into aeronaves VALUES(aeronaves_id.nextval, 5678	,'Boeing 737',	'Boeing',	1967	,85);
+insert into aeronaves VALUES(aeronaves_id.nextval, 9012	,'Boeing 777'	,'Boeing'	,1993	,100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 3454	,'CRJ 1000'	,'Bombardier'	,2010	,100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 7945	,'Embraer E-195'	,'Embraer'	,2002	,66);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1426	,'Boeing 727'	,'Boeing'	,1984	,100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 7817	,'Airbus A330'	,'Airbus'	,1992	,100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1418	,'Boeing 747'	,'Boeing'	,1969	,90);
+insert into aeronaves VALUES(aeronaves_id.nextval, 9829	,'Boeing 787'	,'Boeing'	,2007	,40);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1110	,'Boeing 767'	,'Boeing'	,1991	,75);
+select * from aeronaves;
+
+
+
+
+
+
+CREATE SEQUENCE aeroportos_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+create table aeroportos(
+  id integer primary key not null,
+  aeroporto varchar(100) not null,
+  cidade varchar(30),
+  constraint FK_cidade foreign key(cidade) references cidades(cidade) on delete cascade);
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Viracopos','Campinas');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de São Paulo-Guarulhos','Guarulhos');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Foz do IguaçuCataratas','Foz do Iguaçu');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional do Rio de Janeiro - Galeão'	,'Rio de Janeiro');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Manaus Eduardo Gomes'	,'Manaus');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Brasília'	,'Brasília');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães'	,'Salvador');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Confins - Tancredo Neves'	,'Confins');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto de Belo HorizontePampulha-MG - Carlos Drummond de Andrade'	,'Belo Horizonte');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional Afonso Pena'	,'São José dos Pinhais');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto de São PauloCongonhas (CGH) – Deputado Freitas Nobre',	'São Paulo');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Santos Dumont'	,'Rio de Janeiro');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional do RecifeGuararapes - Gilberto Freyre'	,'Recife');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional Porto Alegre Salgado Filho'	,'Porto Alegre');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Florianópolis - Hercílio Luz',	'Florianópolis');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de Miami'	,'Miami');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroparque Jorge Newbery'	,'Buenos Aires');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional Pierre Elliott Trudeau',	'Montreal');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Arturo Merino Benitez International Airport'	,'Santiago');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional de DallasFort Worth'	,'Dallas');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional Benito Juárez'	,'Cidade do México');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto de Frankfurt'	,'Frankfurt');
+insert into aeroportos (id,aeroporto, cidade) values (aeroportos_id.nextval,'Aeroporto Internacional Indira Gandhi'	,'Nova Delhi');
+select * from aeroportos;
+
+
+
+
+
+CREATE SEQUENCE trajetos_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+create table trajetos(
+  id integer primary key not null,
+  origem varchar(100) not null,
+  destino varchar(100) not null,
+  duracao varchar(30) not null,
+  tipo varchar(30) not null);
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional do Rio de Janeiro - Galeão','1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Foz do IguaçuCataratas','1h 35m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Manaus Eduardo Gomes','3h 45m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Brasília','1h 45m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães','2h 20m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Miami','5h 55m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de São Paulo-Guarulhos',   'Aeroporto Internacional de Confins - Tancredo Neves', '1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de São Paulo-Guarulhos',	'Aeroporto Internacional Afonso Pena', '1h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto de São PauloCongonhas (CGH) – Deputado Freitas Nobre',	'Aeroporto de Belo HorizontePampulha-MG - Carlos Drummond de Andrade', '1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Santos Dumont',	'Aeroporto Internacional do RecifeGuararapes - Gilberto Freyre','1h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional Porto Alegre Salgado Filho',	'Aeroporto Internacional de Florianópolis - Hercílio Luz','1h', 	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroparque Jorge Newbery',	'Aeroporto Internacional de Miami','6h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional Pierre Elliott Trudeau',	'Arturo Merino Benitez International Airport','53m',	'SOMENTE IDA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de DallasFort Worth',	'Aeroporto Internacional Benito Juárez','2h 46m',	'SOMENTE IDA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto de Frankfurt',	'Aeroporto Internacional Indira Gandhi','5h 55m',	'SOMENTE IDA');
+select * from trajetos;
+
+
+
+
+
+CREATE SEQUENCE voos_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+
+create table voos(
+  id integer primary key not null,
+  data varchar(30) not null,
+  trajeto integer,
+  aeronave varchar(30),
+  horario_ida varchar(30) not null,
+  horario_volta varchar(30) not null,
+  valor varchar(30) not null,
+  constraint FK_trajeto foreign key(trajeto) references trajetos(id) on delete cascade,
+  constraint FK_aeronaves foreign key(aeronave) references aeronaves(modelo) on delete cascade);
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-01',	1	,'Airbus A320', '06:00',	    '10:00',         'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-02',	1	,'Airbus A320', '18:00',	'11:00',	     'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-03',	1	,'Airbus A320', '10:00',	'12:00',	     'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-04',    1	,'Airbus A320', '06:00',	    '13:00',	     'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-05',	2	,'Boeing 737',  '15:00',	'14:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-06',	2	,'Boeing 737',  '20:00',	'15:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-07',	2	,'Boeing 737',  '07:00',	    '16:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-08',	2	,'Boeing 737',  '10:00',	'17:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-09',	3	,'Boeing 777',  '11:00',	'18:00',	     'R$ 2.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-10',	3	,'Boeing 777',  '19:00',	'19:00',	     'R$ 2.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-11',	3	,'Boeing 777',  '20:00',	'20:00',	     'R$ 2.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-12',	3	,'Boeing 777',  '08:00',	    '21:00',	     'R$ 2.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-13',	4	,'CRJ 1000',    '22:00',    '22:00',	     'R$ 1.050,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-14',	4	,'CRJ 1000',    '23:00',	'23:00',         'R$ 1.050,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-15',	4	,'CRJ 1000',     '07:30',	'00:00',	     'R$ 1.050,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-16',	5	,'CRJ 1000',     '01:00',	'01:00',	         'R$ 1.600,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-17',	5	,'Embraer E-195','05:30',	'02:00',	         'R$ 1.600,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-18',	5	,'Embraer E-195','16:00',	'03:00',          'R$ 1.600,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-19',	6	,'Embraer E-195','04:00',	'04:00',	         'R$ 2.700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-20',	6	,'Embraer E-195','10:00',	'05:00',	         'R$ 2.700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-21',	6	,'Boeing 727'	,'23:30',	'06:00',	         'R$ 2.700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-22',	7	,'Boeing 727'	,'03:00',	'07:00',	         'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-23',	7	,'Boeing 727'	,'08:00',    '08:00',	         'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-24',	7	,'Boeing 727'	,'10:30',	'09:00',	         'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-25',	8	,'Airbus A330'	,'10:00',	'10:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-26',	8	,'Airbus A330'	,'22:00',	'11:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-27',	9	,'Airbus A330'	,'12:00',	'12:00',         'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-28',    9	,'Airbus A330'	,'08:00',	'13:00',	     'R$ 700,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-29',	10	,'Boeing 747',  '14:00',	'14:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-30',	10	,'Boeing 747',  '22:30',	'15:00',	     'R$ 950,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-01',	11	,'Boeing 747',  '07:00',     '16:00',	     'R$ 650,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-02',	11	,'Boeing 747',  '17:00',	'17:00',	     'R$ 650,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-03',    12	,'Boeing 787',  '01:50',	    '18:00',	     'R$ 3.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-04',	12	,'Boeing 787',  '19:00',	'19:00',	     'R$ 3.100,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-05',	13	,'Boeing 787',  '20:00',	'20:00',	     'R$ 1.800,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-06',	13	,'Boeing 787',  '21:00',	'21:00',	     'R$ 1.800,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-07',	14	,'Boeing 767'	,'05:40',	'22:00',	     'R$ 1.750,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-08',	14	,'Boeing 767'	,'21:30',	'23:00',	     'R$ 1.750,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-09',	15	,'Boeing 767'	,'03:00',	'00:00',	     'R$ 3.000,00'); 
+insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-10',	15	,'Boeing 767'	,'11:50',	'01:00',	         'R$ 3.000,00'); 
+select * from voos;
+
+
+
+
+
+CREATE SEQUENCE clientes_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+create table cliente(
+  id integer primary key not null,
+  nome varchar (30) not null,
+  email varchar (30) not null,
+  assento varchar(3) not null,
+  voo integer,
+  constraint FK_voo foreign key (voo) references voos(id) on delete cascade);
+insert into cliente(id, nome, email, assento, voo) values(clientes_id.nextval,'Mateus','mateusmistro1@gmail.com','A1',7);
+select * from cliente;
+
+
+
+
+CREATE SEQUENCE assentos_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1;
+create table assentos(
+  id integer primary key not null,
+  assento integer not null,
+  status varchar(30) not null,
+  aeronave varchar(30),
+  constraint FK_aeronave foreign key(aeronave) references aeronaves(modelo) on delete cascade);
+  
+
+  
+  
+CREATE SEQUENCE mapa_assentos_id
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1;
+create table mapa_assentos(
+  id integer primary key not null,
+  id_assento integer,
+  assento varchar(3) not null,
+  status varchar (30) not null,
+  bilhete integer not null,
+  voo integer,
+  constraint FK_id_assento foreign key(id_assento) references assentos(id) on delete cascade,
+  constraint FK__voo foreign key(voo) references voos(id) on delete cascade);
+
+
+
+
+
+create or replace trigger trg_gerar_assentos
+after insert on aeronaves 
+for each row
+declare
+	v_numero_assentos integer :=0; 
+begin
+	v_numero_assentos := :new.assentos;
+	loop
+		insert into assentos(id,assento,status,aeronave) 
+		values(assentos_id.nextval, v_numero_assentos, 'normal',:new.modelo);
+		v_numero_assentos := v_numero_assentos -1;
+		if v_numero_assentos = 0 then 
+        exit;
+		end if;
+	end loop;
+end;
+
+
+
+
+
+CREATE OR REPLACE TRIGGER trg_gerar_mapa_assentos
+AFTER INSERT ON voos
+FOR EACH ROW
+DECLARE
+    v_aeronave varchar(30);
+    v_assentos_aeronave integer := 0;
+    v_id_assento_aeronave integer := 0;
+BEGIN
+    v_aeronave := :new.aeronave;
+    SELECT assentos INTO v_assentos_aeronave FROM aeronaves WHERE modelo = v_aeronave;    
+
+    FOR i IN 1..v_assentos_aeronave LOOP
+        SELECT id INTO v_id_assento_aeronave FROM assentos WHERE assento = i AND aeronave = v_aeronave;
+
+        IF v_id_assento_aeronave IS NOT NULL THEN
+            INSERT INTO mapa_assentos (id, id_assento, assento, status, bilhete, voo)            
+            VALUES (mapa_assentos_id.nextval, v_id_assento_aeronave, i, 'Disponível', 0, :new.id);
+        END IF;
+    END LOOP;
+END;
