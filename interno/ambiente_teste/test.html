@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>oi</title>
+</head>
+<body>
+    <script>
+        function showStatusMessage(msg, error){
+            var pStatus = document.getElementById("status");
+            
+            if (error === true) {
+                pStatus.className = "text-danger"; // de acordo com o bootstrap
+            } else {
+                pStatus.className = "text-success";
+            }
+
+            pStatus.textContent = msg;
+        }
+
+        // funcao fetch tipo PUT
+        function fetchAlterar(body) {
+            const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+            };
+
+            return fetch('http://localhost:3000/reservarCadeira', requestOptions)
+            .then(T => T.json())
+        }
+
+        function reservarCadeira(){
+
+            // obtem os dados inseridos no html
+            const vooInserido = 1;
+            const cadeiraSeleciona = 5;
+
+            // promise
+            fetchAlterar({
+                // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
+                vooReserva: vooInserido, 
+                cadeiraReserva: cadeiraSeleciona })
+                
+                .then(resultado => {
+                    
+                    // obteve resposta
+                    
+                    if(resultado.status === "SUCCESS") {
+                        showStatusMessage("Aeronave cadastrada!", false);
+                    } else {
+                        showStatusMessage("Erro ao cadastrar aeronave: " + resultado.message, true);
+                        console.log(resultado.message);
+                    }
+                })
+                
+                .catch(()=>{
+                    showStatusMessage("Erro técnico ao cadastrar. Contate o suporte.", true);
+                    console.log("Falha grave ao cadastrar.");
+                });
+        }
+
+    </script>
+    <div>
+        <button type="button" onclick="reservarCadeira();">Pagar</button>
+        <p id="status"></p>
+    </div>
+</body>
+</html>

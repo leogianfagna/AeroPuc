@@ -90,7 +90,7 @@
                 <span id="mensagemCopiado" style="color: green;"></span>
             </div>
             
-            <button type="button" onclick="realizarPagamento();">Pagar</button>
+            <button type="button" onclick="reservarCadeira();">Pagar</button>
             
             <script>
                 function mostrarCampos(valor) {
@@ -110,28 +110,6 @@
                         camposPix.style.display = "block";
                     }
                 }
-            
-                function realizarPagamento() {
-                     // Verifica se os campos obrigatórios estão preenchidos
-                    var nome = document.getElementById("nome").value;
-                    var email = document.getElementById("email").value;
-                    var numeroCartao = document.getElementById("numeroCartao").value;
-
-                    if (!nome || !email || !numeroCartao) {
-                        alert("Por favor, preencha todos os campos obrigatórios.");
-                        return; // Não prossegue se algum campo estiver vazio
-                    }
-
-                    // Verifica se o número do cartão é válido
-                    if (!validarNumeroCartao(numeroCartao)) {
-                        window.location.href="/src/paginas/local/pagamentoNaoAutorizado.html";
-                        return;
-                    }
-                    
-                    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
-                    const emailInserido = document.getElementById("email").value;
-                    console.log("set salvo como:", emailInserido);
-                    sessionStorage.setItem("pagamentoEmail", emailInserido);}
 
                 function validarNumeroCartao(numeroCartao) {
                     // Verifica se o número do cartão tem exatamente 16 dígitos
@@ -158,6 +136,7 @@
             
         </form>
     </div>
+    <p id="status"></p>
 
 </body>
 </html>

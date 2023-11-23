@@ -4,16 +4,6 @@
     - envia os dados para o banco de dados já com o assento reservado [X]
 */
 
-function aaa() { 
-    const emailInserido = document.getElementById("email").value;
-    const nomeInserido = document.getElementById("nome").value;
-
-    sessionStorage.setItem("pagamentoNome", nomeInserido);
-    sessionStorage.setItem("pagamentoEmail", emailInserido);
-
-    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
-}
-
 // funcoes de tratamento de dados recebidos
 
 /*
@@ -76,7 +66,7 @@ function fetchInserir(body) {
     .then(T => T.json())
 }
 
-// funcao para inserir o cliente
+// funcao para inserir o cliente na tabela de clientes, ao mesmo tempo que chamar a função para reservar o assento se der certo
 function realizarPagamento(){
     /*
     if(!preencheuCidade()){
@@ -104,13 +94,11 @@ function realizarPagamento(){
     sessionStorage.setItem("pagamentoNome", nomeInserido);
     sessionStorage.setItem("pagamentoEmail", emailInserido);
 
-    
-
     // promise
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
-        nome: nomeInserido, 
-        email: emailInserido, 
+        nome: nomeInserido,
+        email: emailInserido,
         assento: assentoInserido,
         voo: vooInserido
     }).then(resultado => {
@@ -127,7 +115,56 @@ function realizarPagamento(){
             console.log("Falha grave ao cadastrar.")
         });
 
-    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+    
+    reservarCadeira();
+    // window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+}
+
+// funções para reservar a cadeira
+function fetchAlterar(body) {
+    const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+    };
+
+    return fetch('http://localhost:3000/reservarCadeira', requestOptions)
+    .then(T => T.json())
+}
+
+function reservarCadeira(){
+
+    // obtem os dados para a inserção
+    const vooInserido = sessionStorage.getItem("vooEscolhido");;
+    const cadeiraSelecionada = sessionStorage.getItem("assentoReservado");
+    //window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+    console.log("teste1");
+
+    // promise
+    fetchAlterar({
+        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
+        vooReserva: vooInserido, 
+        cadeiraReserva: cadeiraSelecionada })
+        
+        .then(resultado => {
+            
+            // obteve resposta
+            
+            if(resultado.status === "SUCCESS") {
+                showStatusMessage("Aeronave cadastrada!", false);
+                console.log("teste1");
+            } else {
+                showStatusMessage("Erro ao cadastrar aeronave: " + resultado.message, true);
+                console.log(resultado.message);
+            }
+        })
+        
+        .catch(()=>{
+            showStatusMessage("Erro técnico ao cadastrar. Contate o suporte.", true);
+            console.log("Falha grave ao cadastrar.");
+        });
+
+        
 }
 
 

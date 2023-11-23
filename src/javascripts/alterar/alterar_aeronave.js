@@ -83,7 +83,7 @@ function showStatusMessage(msg, error){
 // funcao fetch tipo PUT
 function fetchAlterar(body) {
     const requestOptions = {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
@@ -148,13 +148,13 @@ function alterarAeronave(){
             if(resultado.status === "SUCCESS") {
                 showStatusMessage("Aeronave cadastrada!", false);
             } else {
-                showStatusMessage("Erro ao cadastrar aeronave: " + message, true);
+                showStatusMessage("Erro ao cadastrar aeronave: " + resultado.message, true);
                 console.log(resultado.message);
             }
         })
         
         .catch(()=>{
             showStatusMessage("Erro técnico ao cadastrar. Contate o suporte.", true);
-            console.log("Falha grave ao cadastrar.")
+            console.log("Falha grave ao cadastrar.");
         });
 }

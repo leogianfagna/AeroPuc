@@ -236,7 +236,7 @@ app.get("/buscarVoosLista", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data = '${dataPartida}'`);
+    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data_ida = '${dataPartida}'`);
 
     /* 
     CONSULTA QUE USA A DATA DE CHEGADA PARA BUSCAR
@@ -317,6 +317,55 @@ app.put("/inserirCliente", async(req,res)=>{
     if (conn!== undefined) {
       await conn.close();
     }
+    res.send(cr);  
+  }
+});
+
+// função para setar uma cadeira como indisponível, ou seja, reservada
+app.post("/reservarCadeira", async(req,res)=>{
+  const vooReserva = req.body.vooReserva as number;
+  const cadeiraReserva = req.body.cadeiraReserva as number;
+
+  let cr: CustomResponse = {
+    status: "ERROR",
+    message: "",
+    payload: undefined,
+  };
+
+  try {
+    const connection = await oracledb.getConnection({
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    });
+
+    console.log("voo: ", vooReserva);
+    console.log("voo: ", cadeiraReserva);
+    const cmdUpdateAero = `UPDATE mapa_assentos SET status = 'Indisponível' WHERE voo = :1 AND assento = :2`
+    const dados = [vooReserva, cadeiraReserva];
+
+    let resUpdate = await connection.execute(cmdUpdateAero, dados);
+    await connection.commit();
+    const rowsUpdated = resUpdate.rowsAffected;
+    console.log("Linhas afetadas:", rowsUpdated);
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
+      cr.status = "SUCCESS"; 
+      cr.message = "Aeronave alterada.";
+    } else {
+      cr.message = "Aeronave não alterada. Verifique se o código informado está correto.";
+      await connection.close();
+    }
+
+  } catch(e){
+    if(e instanceof Error){
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  }
+  finally {
     res.send(cr);  
   }
 });
@@ -420,7 +469,7 @@ app.delete("/excluirAeronave", async(req,res)=>{
 });
 
 // aeronaves = alterar
-app.put("/alterarAeronave", async(req,res)=>{
+app.post("/alterarAeronave", async(req,res)=>{
   const id = req.body.id as number;
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
@@ -441,13 +490,13 @@ app.put("/alterarAeronave", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
-    const cmdUpdateAero = `UPDATE aeronaves SET numero_identificacao = :2,
-     modelo = :3, fabricante = :4, ano_fabricacao = :5, assentos = :6 WHERE id = :1`
-    const dados = [id, registro, modelo, fabricante, anoFab, qtdeAssentos];
+    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = 'nada' WHERE id = 102`
+    // const dados = [id, registro];
 
-    let resUpdate = await connection.execute(cmdUpdateAero, dados);
+    let resUpdate = await connection.execute(cmdUpdateAero);
     await connection.commit();
     const rowsUpdated = resUpdate.rowsAffected;
+    console.log("Linhas afetadas:", rowsUpdated);
     
     if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 

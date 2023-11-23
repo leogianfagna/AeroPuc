@@ -1,69 +1,24 @@
-// uma função para pegar os dados preenchidos na reserva de voo e dar um select nos voos
-// que condizem com os dados preenchidos
-
-// funcao para conferir dados colocados
-function idVooInserido(){
-    let resultado = false;
-    const vooInserido = document.getElementById("vooEscolhido").value;
-    
-    if (parseInt(vooInserido) > 0) {
-        sessionStorage.setItem("vooSelecionado", vooInserido); // salvar o num do voo escolhido para ser usado depois
-        resultado = true;
-    }
-    
-    return resultado; 
-}
-  
-function showStatusMessage(msg, error){
-    var pStatus = document.getElementById("status");
-
-    if (error === true) {
-        pStatus.className = "text-danger"; // de acordo com o bootstrap
-    } else {
-        pStatus.className = "text-success";
-    }
-
-    pStatus.textContent = msg;
-}
-  
-// funcao fetch tipo get
-function fetchResgatar(numeroVoo) { // passando como parametro o numero do voo
-    return fetch(`http://localhost:3000/listarAssentosReservados?voo=${numeroVoo}`) // passando como parametro o numero do voo
+// Função "fetch" do tipo GET que RECEBE como parâmetro o número do voo e vai repassar esse parâmetro
+// para a próxima função que vai usá-la
+// tem como objetivo listar os assentos reservados do ID do voo que foi recebido
+// utiliza esse parâmetro para usar na condição da busca do Oracle, por exemplo, WHERE id = num
+function fetchResgatar(numeroVoo) {
+    return fetch(`http://localhost:3000/listarAssentosReservados?voo=${numeroVoo}`)
         .then(response => response.json());
 }
   
-  
-// função para fazer a listagem dos assentos
+// Função para criar o mapa de assentos interativo no HTML, pronta para o usuário clicar
+// e reservar o assento escolhido. Salva no sessionStorage o valor do voo pesquisado ao
+// clicar em "Reservar" para utilizar posteriormente no banco de dados
 function criarMapaAssentos(vooEscolhido){
-    // conferir o dado enviado
-    var pStatus = document.getElementById("statusReserva");
-    
-
-    /* não precisa mais pois agora é diretamente clicando no botão 
-    var resultado;
-    pStatus.className = "text-success";
-
-    if(!idVooInserido()){
-        pStatus.textContent = "ID do voo não preenchido corretamente.";
-        resultado = true;
-        pStatus.className = "text-danger";
-        return;
-    } else {
-        // limpar o dado caso ele tenha preenchido anteriormente de forma incorreta
-        pStatus.textContent = "";
-        resultado = true;
-        pStatus.className = "text-danger";
-    } */
-  
-    //const vooInserido = document.getElementById("vooEscolhido").value;
     const vooInserido = vooEscolhido;
-    console.log("Voo inserido no html: ", vooInserido);
+    sessionStorage.setItem("vooEscolhido", vooInserido);
   
     // usar o fetch com o parametro (vai receber no typescript)
     fetchResgatar(vooInserido)
       .then(data => {
         if (data.status === 'SUCCESS') {
-          const assentosReservados = data.payload.map(row => row[0][0]); // transformar o SELECT assentos em string
+          const assentosReservados = data.payload.map(row => row[0][0]); // transformar o SELECT assentos em array
           console.log('Assentos Reservados:', assentosReservados);
         
         // criando um array dos assentos reservados para imprimir
@@ -112,7 +67,6 @@ function criarMapaAssentos(vooEscolhido){
             }
         }
     
-    
       } else {
           console.error('Erro ao obter os assentos reservados:', data.message);
       }
@@ -121,7 +75,8 @@ function criarMapaAssentos(vooEscolhido){
     });
 }
 
-// vai tratar o dado inserido no tipo de passagem e exibir a nova <div>
+// Função que exibe opção de data de volta pois, caso seja só ida, não há
+// necessidade de exibir preenchimento da data de retorno
 function conferirTipoViagem(){
     var tipoSelecionado = document.getElementById("tipoPassagem").value;
     let resultado = false;
@@ -143,21 +98,19 @@ function conferirTipoViagem(){
 }
 
 
-// funções para tratar os dados inseridos
+// Função que trata das datas preenchidas. Se a data de volta for igual ou menor que a de ida
+// deve ser bloqueada e enviar mensagem. Usa o ID do tipoSelecionado e o valor se for IDA E VOLTA
+// será "ambos"
 function datasInvalidas() {
     var dataPartida = new Date();
     var dataVolta = new Date();
-    var tipoSelecionado = document.getElementById("tipoPassagem").value; // se não for ambos, não precisa validar
+    var tipoSelecionado = document.getElementById("tipoPassagem").value;
     var resultado = false;
 
     dataPartida = document.getElementById("start").value;
     dataVolta = document.getElementById("back").value;
 
-    // console.log("data partida: ", dataPartida);
-    // console.log("data volta: ", dataVolta);
-
-    if (tipoSelecionado === "ambos") {
-        // precisa validar
+    if (tipoSelecionado === "ambos") { // necessita validação
         if (dataPartida >= dataVolta) {
             console.log("as datas são inválidas");
         } else {
@@ -165,7 +118,6 @@ function datasInvalidas() {
             resultado = true;
         }
     } else {
-        // não precisa validar
         console.log("tudo certo, não precisa de validação");
         resultado = true;
     }
@@ -173,6 +125,7 @@ function datasInvalidas() {
     return resultado;
 }
 
+// Funções que tratam se os labels foram preenchidos, caso contrário, retornar mensagem para o usuário
 function selecionouPassagem(){
     let resultado = false;
     const tipoSelecionado = document.getElementById("tipoPassagem").value;
@@ -206,6 +159,8 @@ function selecionouCidadeDestino(){
     return resultado;
 }
 
+// Função que é utilizada para as mensagens ao usuário, através do elemento com o ID "status"
+// utilizando o padrão (classe) bootstrap
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -218,6 +173,12 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função que é chamada ao clicar na busca de voos, após preencher os espaços com as informações
+// que serão utilizadas no comando de query do Oracle. Essa função valida os dados recebidos
+// e depois usa um fetch no servidor para retornar os resultados da busca.
+//
+// Além disso, foi adicionado transições para esconder os formulários da tela que não serão
+// mais utilizados e deixar o ambiente mais limpo, utilizando style visibility, height e opacity
 function buscarVoos(){
 
     if(!selecionouPassagem()){
@@ -239,13 +200,10 @@ function buscarVoos(){
         showStatusMessage("Datas inválidas.", true);
         return;
     }
-
-    // passou por todas as validações com sucesso
-    // agora é só dar fetch na tabela e imprimir a tabela
-    // + esconder a parte de preenchimento de dados
     
+    // esconder o formulário
     showStatusMessage("", true);
-    var desaparecerDivDados = document.getElementById('cadastroCentral'); // usa a opacidade para dar efeito de fade
+    var desaparecerDivDados = document.getElementById('cadastroCentral');
     desaparecerDivDados.style.opacity = '0';
     desaparecerDivDados.style.height = '0';
 
@@ -254,13 +212,12 @@ function buscarVoos(){
     mostrarDivTabela.style.height = 'auto';
     mostrarDivTabela.style.visibility = 'visible';
 
-    // obtém os dados do HTML
+    // obter os dados do HTML
     const dataPartidaFetch = document.getElementById("start").value;
     const destinoFetch = document.getElementById("localDestino").value;
     const origemFetch = document.getElementById("localPartida").value;
 
-    // um fetch que envia a data enviada como parâmetro lá pro typescript
-    // tem que usar o encode por se tratar de uma data
+    // função que vai utilizar parâmetros inseridos no HTML
     fetch(`http://localhost:3000/buscarVoosLista?dataPreenchida=${encodeURIComponent(dataPartidaFetch)}&localDestino=$${encodeURIComponent(destinoFetch)}`)
     .then(response => response.json())
     .then(data => {
@@ -286,15 +243,6 @@ function buscarVoos(){
                     botaoExcluir.addEventListener('click', () => criarMapaAssentos(`${cellData}`));
                     td.appendChild(botaoExcluir);
 
-                    // adiciona a coluna de botões de exclusão
-                    /*
-                    const botaoExcluir = document.createElement('button');
-                    botaoExcluir.type = 'button'; // declarando os atributos do mesmo estilo que o bootstrap
-                    botaoExcluir.className = 'btn btn-danger';
-                    botaoExcluir.textContent = '🗑️';
-                    botaoExcluir.addEventListener('click', excluir(i)); // função excluir que passa i como argumento
-                    tdExcluir.appendChild(botaoExcluir);
-                    tr.appendChild(tdExcluir); */
                   } else {
                     td.textContent = cellData;
                   }
@@ -315,22 +263,17 @@ function buscarVoos(){
     }).catch(error => console.error('Erro ao conectar:', error));
 }
 
+// Função que é chamada ao clicar na cadeira no mapa de assentos, ela apenas vai salvar a cadeira
+// escolhida localmente pois só vai inserir no banco após o pagamento. Depois, abrir a página de
+// pagamento
 function reservarCadeira(cadeiraReservada){
-    // controle
-    const vooPreenchidoReserva = document.getElementById("vooSelecionado");
-    console.log("Foi reservado a cadeira: ", cadeiraReservada);
-    sessionStorage.setItem("reservaCadeira", cadeiraReservada);
-    
-    console.log("Foi escolhido o voo: ", vooPreenchidoReserva);
-
-    // variáveis para uso posterior
+    sessionStorage.setItem("reservaCadeira", cadeiraReservada); // conferir qual é o correto aqui
     sessionStorage.setItem("assentoReservado", cadeiraReservada);
-    sessionStorage.setItem("vooEscolhido", vooPreenchidoReserva);
-
     window.location.href = "/src/paginas/local/pagamento.html";
 }
 
-// função para mostrar a outra div, com todas as opções do escopo ao invés da div com opções básicas
+// Função que exibe mais opções na busca, todas as que são especificadas no escopo usando
+// uma condição de habilitada/desabilitada com style visibility e height
 function opcoesAvancadas(){
     // zerar a opacidade da div simples
     var desaparecerDivDados = document.getElementById('invisivelDiv'); // usa a opacidade para dar efeito de fade
@@ -345,6 +288,4 @@ function opcoesAvancadas(){
         desaparecerDivDados.style.visibility = 'hidden';
         desaparecerDivDados.style.height = 0;
     }
-
-
 }
