@@ -5,7 +5,8 @@ Trabalho do Projeto Integrador, grupo 8 de 2023.
 Leonardo Ferraro Gianfagna - 18174490
 Renan Negri Cecolin - 23012651
 Mateus Colferai Mistro - 23002896
-[INSERIR NOME DE VOCÊS AQUI]
+Samuel Arantes dos Santos Prado - 23013858
+Gustavo Giotto Avelar - 23000567
 
 # Sobre o projeto
 Informações sobre esse projeto.
@@ -28,6 +29,9 @@ Dentro do projeto, separamos de forma organizada os elementos. Diretamente no re
   - **\assets**: imagens e arquivo css para personalização das páginas
   - **\javascripts**: scripts na linguagem .js com diversas funcionalidades e objetivos
   - **\paginas**: todos os arquivos .html
+    - **\admin**: arquivos .html do módulo 1 (administrador)
+    - **\local**: arquivos .html do módulo 2 (cliente)
+    - **index.html** : página de início
   - **\typescripts**: arquivo que roda o servidor em .ts
     
 ### Funcionamento do servidor

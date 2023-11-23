@@ -1281,7 +1281,7 @@ app.get("/listarDestinos", async(req,res)=>{
     }
     
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT destino FROM trajetos");
+    let resultadoConsulta = await connection.execute("SELECT DISTINCT destino FROM trajetos");
   
     await connection.close();
     cr.status = "SUCCESS"; 
@@ -1317,7 +1317,7 @@ app.get("/listarPartida", async(req,res)=>{
     }
     
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT origem FROM trajetos");
+    let resultadoConsulta = await connection.execute("SELECT DISTINCT origem FROM trajetos");
   
     await connection.close();
     cr.status = "SUCCESS"; 

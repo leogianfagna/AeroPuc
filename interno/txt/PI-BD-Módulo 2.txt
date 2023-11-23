@@ -116,22 +116,23 @@ create table trajetos(
   destino varchar(100) not null,
   duracao varchar(30) not null,
   tipo varchar(30) not null);
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional do Rio de Janeiro - Galeão','1h 15m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Foz do IguaçuCataratas','1h 35m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Manaus Eduardo Gomes','3h 45m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Brasília','1h 45m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Salvador - Deputado Luís Eduardo Magalhães','2h 20m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de Viracopos',	'Aeroporto Internacional de Miami','5h 55m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de São Paulo-Guarulhos',   'Aeroporto Internacional de Confins - Tancredo Neves', '1h 15m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de São Paulo-Guarulhos',	'Aeroporto Internacional Afonso Pena', '1h 30m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto de São PauloCongonhas (CGH) – Deputado Freitas Nobre',	'Aeroporto de Belo HorizontePampulha-MG - Carlos Drummond de Andrade', '1h 15m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Santos Dumont',	'Aeroporto Internacional do RecifeGuararapes - Gilberto Freyre','1h 30m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional Porto Alegre Salgado Filho',	'Aeroporto Internacional de Florianópolis - Hercílio Luz','1h', 	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroparque Jorge Newbery',	'Aeroporto Internacional de Miami','6h 30m',	'IDA E VOLTA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional Pierre Elliott Trudeau',	'Arturo Merino Benitez International Airport','53m',	'SOMENTE IDA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto Internacional de DallasFort Worth',	'Aeroporto Internacional Benito Juárez','2h 46m',	'SOMENTE IDA');
-insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Aeroporto de Frankfurt',	'Aeroporto Internacional Indira Gandhi','5h 55m',	'SOMENTE IDA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Rio de Janeiro','1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Foz do Iguaçu','1h 35m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Manaus','3h 45m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Brasília','1h 45m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Salvador','2h 20m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Campinas',	'Miami','5h 55m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Guarulhos',   'Confins', '1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Guarulhos',	'São José dos Pinhais', '1h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'São Paulo',	'Belo Horizonte', '1h 15m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Rio de Janeiro',	'Recife','1h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Porto Alegre',	'Florianópolis','1h', 	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Buenos Aires',	'Miami','6h 30m',	'IDA E VOLTA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Montreal',	'Santiago','53m',	'SOMENTE IDA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Dallas',	'Cidade do México','2h 46m',	'SOMENTE IDA');
+insert into trajetos (id,origem,destino,duracao,tipo) values(trajetos_id.nextval,'Frankfurt',	'Nova Delhi','5h 55m',	'SOMENTE IDA');
 select * from trajetos;
+
 
 
 
@@ -142,10 +143,10 @@ MINVALUE 1
 START WITH 1
 INCREMENT BY 1
 CACHE 100;
-
 create table voos(
   id integer primary key not null,
-  data varchar(30) not null,
+  data_ida varchar(30) not null,
+  data_volta varchar(30),
   trajeto integer,
   aeronave varchar(30),
   horario_ida varchar(30) not null,
@@ -153,47 +154,47 @@ create table voos(
   valor varchar(30) not null,
   constraint FK_trajeto foreign key(trajeto) references trajetos(id) on delete cascade,
   constraint FK_aeronaves foreign key(aeronave) references aeronaves(modelo) on delete cascade);
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-01',	1	,'Airbus A320', '06:00',	    '10:00',         'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-02',	1	,'Airbus A320', '18:00',	'11:00',	     'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-03',	1	,'Airbus A320', '10:00',	'12:00',	     'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-04',    1	,'Airbus A320', '06:00',	    '13:00',	     'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-05',	2	,'Boeing 737',  '15:00',	'14:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-06',	2	,'Boeing 737',  '20:00',	'15:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-07',	2	,'Boeing 737',  '07:00',	    '16:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-08',	2	,'Boeing 737',  '10:00',	'17:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-09',	3	,'Boeing 777',  '11:00',	'18:00',	     'R$ 2.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-10',	3	,'Boeing 777',  '19:00',	'19:00',	     'R$ 2.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-11',	3	,'Boeing 777',  '20:00',	'20:00',	     'R$ 2.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-12',	3	,'Boeing 777',  '08:00',	    '21:00',	     'R$ 2.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-13',	4	,'CRJ 1000',    '22:00',    '22:00',	     'R$ 1.050,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-14',	4	,'CRJ 1000',    '23:00',	'23:00',         'R$ 1.050,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-15',	4	,'CRJ 1000',     '07:30',	'00:00',	     'R$ 1.050,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-16',	5	,'CRJ 1000',     '01:00',	'01:00',	         'R$ 1.600,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-17',	5	,'Embraer E-195','05:30',	'02:00',	         'R$ 1.600,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-18',	5	,'Embraer E-195','16:00',	'03:00',          'R$ 1.600,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-19',	6	,'Embraer E-195','04:00',	'04:00',	         'R$ 2.700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-20',	6	,'Embraer E-195','10:00',	'05:00',	         'R$ 2.700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-21',	6	,'Boeing 727'	,'23:30',	'06:00',	         'R$ 2.700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-22',	7	,'Boeing 727'	,'03:00',	'07:00',	         'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-23',	7	,'Boeing 727'	,'08:00',    '08:00',	         'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-24',	7	,'Boeing 727'	,'10:30',	'09:00',	         'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-25',	8	,'Airbus A330'	,'10:00',	'10:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-26',	8	,'Airbus A330'	,'22:00',	'11:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-27',	9	,'Airbus A330'	,'12:00',	'12:00',         'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-28',    9	,'Airbus A330'	,'08:00',	'13:00',	     'R$ 700,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-29',	10	,'Boeing 747',  '14:00',	'14:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-30',	10	,'Boeing 747',  '22:30',	'15:00',	     'R$ 950,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-01',	11	,'Boeing 747',  '07:00',     '16:00',	     'R$ 650,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-02',	11	,'Boeing 747',  '17:00',	'17:00',	     'R$ 650,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-03',    12	,'Boeing 787',  '01:50',	    '18:00',	     'R$ 3.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-04',	12	,'Boeing 787',  '19:00',	'19:00',	     'R$ 3.100,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-05',	13	,'Boeing 787',  '20:00',	'20:00',	     'R$ 1.800,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-06',	13	,'Boeing 787',  '21:00',	'21:00',	     'R$ 1.800,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-07',	14	,'Boeing 767'	,'05:40',	'22:00',	     'R$ 1.750,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-08',	14	,'Boeing 767'	,'21:30',	'23:00',	     'R$ 1.750,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-09',	15	,'Boeing 767'	,'03:00',	'00:00',	     'R$ 3.000,00'); 
-insert into voos (id,data,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-10',	15	,'Boeing 767'	,'11:50',	'01:00',	         'R$ 3.000,00'); 
-select * from voos;
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-01','2023-11-08',	1	,'Airbus A320', '06:00',	    '07:15',         'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-02','2023-11-09',	1	,'Airbus A320', '18:00',	'19:15',	     'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-03','2023-11-10',	1	,'Airbus A320', '10:00',	'11:15',	     'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-04','2023-11-11',    1	,'Airbus A320', '06:00',	    '07:15',	     'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-05','2023-11-12',	2	,'Boeing 737',  '15:00',	'16:35',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-06','2023-11-13',	2	,'Boeing 737',  '20:00',	'15:35',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-07','2023-11-14',	2	,'Boeing 737',  '07:00',	    '08:35',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-08','2023-11-15',	2	,'Boeing 737',  '10:00',	'11:35',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-09','2023-11-16',	3	,'Boeing 777',  '11:00',	'14:45',	     'R$ 2.100,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-10','2023-11-17',	3	,'Boeing 777',  '19:00',	'22:45',	     'R$ 2.100,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-11','2023-11-18',	3	,'Boeing 777',  '20:00',	'23:45',	     'R$ 2.100,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-12','2023-11-19',	3	,'Boeing 777',  '08:00',	    '11:45',	     'R$ 2.100,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-13','2023-11-20',	4	,'CRJ 1000',    '22:00',    '23:45',	     'R$ 1.050,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-14','2023-11-21',	4	,'CRJ 1000',    '23:00',	'00:45',         'R$ 1.050,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-15','2023-11-22',	4	,'CRJ 1000',     '07:30',	'09:15',	     'R$ 1.050,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-16','2023-11-23',	5	,'CRJ 1000',     '01:00',	'03:20',	         'R$ 1.600,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-17','2023-11-24',	5	,'Embraer E-195','05:30',	'07:50',	         'R$ 1.600,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-18','2023-11-25',	5	,'Embraer E-195','16:00',	'18:20',          'R$ 1.600,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-19','2023-11-26',	6	,'Embraer E-195','04:00',	'09:55',	         'R$ 2.700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-20','2023-11-27',	6	,'Embraer E-195','10:00',	'15:55',	         'R$ 2.700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-21','2023-11-28',	6	,'Boeing 727'	,'23:30',	'05:25',	         'R$ 2.700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-22','2023-11-29',	7	,'Boeing 727'	,'03:00',	'04:15',	         'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-23','2023-11-30',	7	,'Boeing 727'	,'08:00',    '09:15',	         'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-24','2023-12-01',	7	,'Boeing 727'	,'10:30',	'11:45',	         'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-25','2023-12-02',	8	,'Airbus A330'	,'10:00',	'11:30',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-26','2023-12-03',	8	,'Airbus A330'	,'22:00',	'23:30',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-27','2023-12-04',	9	,'Airbus A330'	,'12:00',	'13:15',         'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-28','2023-12-05',   9	,'Airbus A330'	,'08:00',	'09:15',	     'R$ 700,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-29','2023-12-06',	10	,'Boeing 747',  '14:00',	'15:30',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-11-30','2023-12-07',	10	,'Boeing 747',  '22:30',	'00:00',	     'R$ 950,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-01','2023-12-08',	11	,'Boeing 747',  '07:00',     '08:00',	     'R$ 650,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-02','2023-12-09',	11	,'Boeing 747',  '17:00',	'18:00',	     'R$ 650,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-03','2023-12-10',    12	,'Boeing 787',  '01:50',	    '07:20',	     'R$ 3.100,00'); 
+insert into voos (id,data_ida,data_volta,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-04','2023-12-11',	12	,'Boeing 787',  '19:00',	'01:30',	     'R$ 3.100,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-05',	13	,'Boeing 787',  '20:00',	'20:53',	     'R$ 1.800,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-06',	13	,'Boeing 787',  '21:00',	'21:53',	     'R$ 1.800,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-07',	14	,'Boeing 767'	,'05:40',	'08:26',	     'R$ 1.750,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-08',	14	,'Boeing 767'	,'21:30',	'00:16',	     'R$ 1.750,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-09',	15	,'Boeing 767'	,'03:00',	'08:55',	     'R$ 3.000,00'); 
+insert into voos (id,data_ida,trajeto,aeronave,horario_ida,horario_volta,valor) values(voos_id.nextval,'2023-12-10',	15	,'Boeing 767'	,'11:50',	'17:45',	         'R$ 3.000,00'); 
+select*from voos;
 
 
 
@@ -227,10 +228,12 @@ create table assentos(
   status varchar(30) not null,
   aeronave varchar(30),
   constraint FK_aeronave foreign key(aeronave) references aeronaves(modelo) on delete cascade);
-  
 
-  
-  
+
+
+
+
+
 CREATE SEQUENCE mapa_assentos_id
 MINVALUE 1
 START WITH 1
@@ -238,7 +241,7 @@ INCREMENT BY 1;
 create table mapa_assentos(
   id integer primary key not null,
   id_assento integer,
-  assento varchar(3) not null,
+  assento integer not null,
   status varchar (30) not null,
   bilhete integer not null,
   voo integer,
