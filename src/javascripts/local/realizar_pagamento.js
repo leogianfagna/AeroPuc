@@ -1,51 +1,10 @@
-/* função para o botão de realizar o pagamento, ela:
-    - confere se preencheu corretamente [X]
-    - salva as variáveis como email para impressão [X]
-    - envia os dados para o banco de dados já com o assento reservado [X]
-*/
-
-// funcoes de tratamento de dados recebidos
-
-/*
-function preencheuCidade(){
-    let resultado = false;
-    const cidadeInformada = document.getElementById("cidade").value;
-    
-    if (cidadeInformada.length > 0) {
-        resultado = true;
-    }
-    
-    return resultado;
-}
-
-function preencheuEstado(){
-    let resultado = false;
-    const estadoInformado = document.getElementById("estado").value;
-    
-    if (estadoInformado.length > 0) {
-        resultado = true;
-    }
-
-    return resultado;
-}
-
-function preencheuPais(){
-    let resultado = false;
-    const paisInformado = document.getElementById("pais").value;
-    
-    if (paisInformado.length > 0) {
-        resultado = true;
-    }
-
-    return resultado;
-}
-*/
-
+// Função que é utilizada para as mensagens ao usuário, através do elemento com o ID "status"
+// utilizando o padrão (classe) bootstrap
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
     if (error === true){
-        pStatus.className = "text-danger"; // de acordo com o bootstrap
+        pStatus.className = "text-danger";
     } else {
         pStatus.className = "text-success";
     }
@@ -54,7 +13,7 @@ function showStatusMessage(msg, error){
 }
 
 
-// funcao fetch tipo PUT
+// Função fetch tipo PUT para cadastrar o novo cliente no banco de dados
 function fetchInserir(body) {
     const requestOptions = {
       method: 'PUT',
@@ -66,25 +25,11 @@ function fetchInserir(body) {
     .then(T => T.json())
 }
 
-// funcao para inserir o cliente na tabela de clientes, ao mesmo tempo que chamar a função para reservar o assento se der certo
+// Função que insere os dados do cliente na tabela, salva variáveis para serem utilizadas na reserva
+// de cadeira usando sessionStorage e chama a função reservarCadeira(), que é a função responsável
+// para dar PUT na tabela de assentos
 function realizarPagamento(){
-    /*
-    if(!preencheuCidade()){
-        showStatusMessage("Cidade não preenchida.", true);  
-        return;
-    }
-
-    if(!preencheuEstado()){
-        showStatusMessage("Estado não preenchido.", true);
-        return;
-    }
-
-    if(!preencheuPais()){
-        showStatusMessage("País não preenchido.", true);
-        return;
-    } */
-
-    // obtém os dados do html
+    // declaração de variáveis
     const emailInserido = document.getElementById("email").value;
     const nomeInserido = document.getElementById("nome").value;
     var assentoInserido = sessionStorage.getItem("assentoReservado");
@@ -94,33 +39,30 @@ function realizarPagamento(){
     sessionStorage.setItem("pagamentoNome", nomeInserido);
     sessionStorage.setItem("pagamentoEmail", emailInserido);
 
-    // promise
     fetchInserir({
-        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         nome: nomeInserido,
         email: emailInserido,
         assento: assentoInserido,
         voo: vooInserido
     }).then(resultado => {
-            // obteve resposta
             if(resultado.status === "SUCCESS") {
-                showStatusMessage("Cidade cadastrada!", false);
+                sconsole.log("Cliente cadastrado!");
             } else {
                 showStatusMessage("Erro ao cadastrar cidade...: " + message, true);
                 console.log(resultado.message);
             }
         })
         .catch(()=>{
-            showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
+            showStatusMessage("Erro técnico ao cadastrar! Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
 
-    
     reservarCadeira();
-    // window.location.href = "/src/paginas/local/pagamento_confirmado.html";
+    window.location.href = "/src/paginas/local/pagamento_confirmado.html";
 }
 
-// funções para reservar a cadeira
+// Função fetch do tipo POST que comunica com o servidor http pelo typescript, utilizando o comando Oracle
+// UPDATE no mapa de assentos, será passado como dados o voo e a cadeira selecionada (número)
 function fetchAlterar(body) {
     const requestOptions = {
     method: 'POST',
@@ -132,39 +74,28 @@ function fetchAlterar(body) {
     .then(T => T.json())
 }
 
+// Função chamada no momento de clicar em "pagar" que vai reservar a cadeira, utilizando a função fetchAlterar
 function reservarCadeira(){
-
-    // obtem os dados para a inserção
     const vooInserido = sessionStorage.getItem("vooEscolhido");;
     const cadeiraSelecionada = sessionStorage.getItem("assentoReservado");
-    //window.location.href = "/src/paginas/local/pagamento_confirmado.html";
-    console.log("teste1");
 
-    // promise
     fetchAlterar({
-        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         vooReserva: vooInserido, 
         cadeiraReserva: cadeiraSelecionada })
         
         .then(resultado => {
-            
-            // obteve resposta
-            
             if(resultado.status === "SUCCESS") {
-                showStatusMessage("Aeronave cadastrada!", false);
-                console.log("teste1");
+                console.log("Assento reservado!", false);
             } else {
-                showStatusMessage("Erro ao cadastrar aeronave: " + resultado.message, true);
+                showStatusMessage("Erro ao reservar assento: " + resultado.message, true);
                 console.log(resultado.message);
             }
         })
         
         .catch(()=>{
-            showStatusMessage("Erro técnico ao cadastrar. Contate o suporte.", true);
-            console.log("Falha grave ao cadastrar.");
-        });
-
-        
+            showStatusMessage("Erro técnico ao reservar. Contate o suporte.", true);
+            console.log("Falha grave ao reservar.");
+        }); 
 }
 
 
