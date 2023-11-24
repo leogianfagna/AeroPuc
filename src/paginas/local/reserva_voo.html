@@ -33,12 +33,13 @@
       <form style="margin: 25px">
         <!-- cidade de chegada -->
         <label for="localDestino" class="form-label">Destino:</label>
-        <select id="localDestino" name="localDestino" class="form-control">
+        <select id="localDestino" name="localDestino" class="form-control" onchange="mostrarOpcoesDePartida()">
           <option value="0">Selecionar</option>
           
           <script>
-            // script de impressão de todas as origens possíveis
-            fetch('http://localhost:3000/listarDestinos')
+            // script de impressão de todas as origens possíveis baseado no destino inserido
+
+            fetch(`http://localhost:3000/listarDestinos`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'SUCCESS') {
@@ -68,27 +69,7 @@
           <option value="0">Selecionar</option>
           
           <script>
-            // script de impressão de todas as origens possíveis
-            fetch('http://localhost:3000/listarPartida')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'SUCCESS') {
-                    const localPartidaSelect = document.getElementById('localPartida');
-
-                    data.payload.forEach(rowData => {
-                      // a consulta só retorna partida (SELECT origem FROM trajetos)
-                      const option = document.createElement('option');
-                      option.value = rowData[0]; // value do <select> para usar na outra busca
-                      option.textContent = rowData[0]; // o que aparece no <select>
-
-                      localPartidaSelect.appendChild(option);
-                    });
-
-                } else {
-                    console.error(`Erro ao obter dados: ${data.message}`);
-                }
-            })
-            .catch(error => console.error('Erro ao conectar:', error));
+            
 
           </script>
         </select>

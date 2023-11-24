@@ -226,7 +226,7 @@ function buscarVoos(){
     const origemFetch = document.getElementById("localPartida").value;
 
     // função que vai utilizar parâmetros inseridos no HTML
-    fetch(`http://localhost:3000/buscarVoosLista?dataPreenchida=${encodeURIComponent(dataPartidaFetch)}&localDestino=$${encodeURIComponent(destinoFetch)}`)
+    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(destinoFetch)}&localPartida=${encodeURIComponent(origemFetch)}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
@@ -296,4 +296,32 @@ function opcoesAvancadas(){
         desaparecerDivDados.style.visibility = 'hidden';
         desaparecerDivDados.style.height = 0;
     }
+}
+
+// Função para preencher todas as opções <select> das cidades de origem em relação a cidade de
+// partida preenchida pelo usuário. Ele se atualiza automaticamente, sendo possível apenas
+// colocar no origem as cidades que possuem disponibilidade
+function mostrarOpcoesDePartida(){
+    
+    var cidadeDestinoInserido = document.getElementById("localDestino").value;
+    fetch(`http://localhost:3000/listarPartida?localDestino=${encodeURIComponent(cidadeDestinoInserido)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'SUCCESS') {
+            const localPartidaSelect = document.getElementById('localPartida');
+            localPartidaSelect.innerHTML = '';
+
+            data.payload.forEach(rowData => {
+              const option = document.createElement('option');
+              option.value = rowData[0]; // value do <select> para usar na outra busca
+              option.textContent = rowData[0]; // o que aparece no <select>
+
+              localPartidaSelect.appendChild(option);
+            });
+
+        } else {
+            console.error(`Erro ao obter dados: ${data.message}`);
+        }
+    })
+    .catch(error => console.error('Erro ao conectar:', error));
 }

@@ -216,11 +216,12 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // buscar os voos baseado nas datas e informações inseridas
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
-  var dataPartida = req.query.dataPreenchida as string;
+  // var dataPartida = req.query.dataPreenchida as string;
   var localViagemDestino = req.query.localDestino as string;
-  // var dataChegada = req.query.voo as string;
+  var localViagemOrigem = req.query.localPartida as string;
 
-  console.log("Data recebida:", dataPartida);
+  console.log("Local destino:", localViagemDestino);
+  console.log("Local partida:", localViagemOrigem);
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -236,7 +237,7 @@ app.get("/buscarVoosLista", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data_ida = '${dataPartida}'`);
+    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data_ida = '${localViagemDestino}'`);
 
     /* 
     CONSULTA QUE USA A DATA DE CHEGADA PARA BUSCAR
@@ -1300,8 +1301,10 @@ app.get("/listarDestinos", async(req,res)=>{
   }
 });
 
-// resgatar todos os aeroportos de partida possíveis
+// resgatar todos os aeroportos de partida possíveis, baseado no destino inserido acima
 app.get("/listarPartida", async(req,res)=>{
+  var localViagemDestino = req.query.localDestino as string;
+  console.log("resgatou: ", localViagemDestino);
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -1317,7 +1320,7 @@ app.get("/listarPartida", async(req,res)=>{
     }
     
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT DISTINCT origem FROM trajetos");
+    let resultadoConsulta = await connection.execute(`SELECT DISTINCT origem FROM trajetos WHERE destino = '${localViagemDestino}'`);
   
     await connection.close();
     cr.status = "SUCCESS"; 
