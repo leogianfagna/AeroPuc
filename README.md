@@ -2,11 +2,12 @@
 Trabalho do Projeto Integrador, grupo 8 de 2023.
 
 ## Membros:
-Leonardo Ferraro Gianfagna - 18174490
-Renan Negri Cecolin - 23012651
-Mateus Colferai Mistro - 23002896
-Samuel Arantes dos Santos Prado - 23013858
 Gustavo Giotto Avelar - 23000567
+Leonardo Ferraro Gianfagna - 18174490
+Mateus Colferai Mistro - 23002896
+Renan Negri Cecolin - 23012651
+Samuel Arantes dos Santos Prado - 23013858
+
 
 # Sobre o projeto
 Informações sobre esse projeto.

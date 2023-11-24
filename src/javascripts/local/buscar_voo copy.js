@@ -185,18 +185,18 @@ function showStatusMessage(msg, error){
 function buscarVoos(){
     var selecaoOpcoesAvancadas = document.getElementById("alterarOpcoesAvancadas");
 
-    if(!selecionouCidadeDestino()){
-        showStatusMessage("Cidade de destino não selecionada.", true);
-        return;
-    }
-
-    if(!selecionouCidadePartida()){
-        showStatusMessage("Cidade de partida não selecionada.", true);
-        return;
-    }
-
     if (selecaoOpcoesAvancadas.checked) {
-        // conferir os demais dados
+        // conferir todos os dados
+
+        if(!selecionouCidadeDestino()){
+            showStatusMessage("Cidade de destino não selecionada.", true);
+            return;
+        }
+
+        if(!selecionouCidadePartida()){
+            showStatusMessage("Cidade de partida não selecionada.", true);
+            return;
+        }
 
         if(!selecionouPassagem()){
             showStatusMessage("Tipo de passagem não selecionado.", true);  
@@ -205,6 +205,18 @@ function buscarVoos(){
 
         if(!datasInvalidas()){
             showStatusMessage("Datas inválidas.", true);
+            return;
+        }
+    } else {
+        // conferir apenas dados básicos
+        
+        if(!selecionouCidadeDestino()){
+            showStatusMessage("Cidade de destino não selecionada.", true);
+            return;
+        }
+
+        if(!selecionouCidadePartida()){
+            showStatusMessage("Cidade de partida não selecionada.", true);
             return;
         }
     }
