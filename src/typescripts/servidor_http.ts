@@ -194,7 +194,8 @@ app.get("/listarAssentosReservados", async(req,res)=>{
     const connection = await oracledb.getConnection(connAttibs);
     
     console.log("Num recebido: ", numeroVoo);
-    let resultadoConsulta = await connection.execute("select assento from mapa_assentos where status = 'indisponível' and voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
+    let resultadoConsulta = await connection.execute("select assento from mapa_assentos where status = 'Indisponível' and voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
+    console.log("resultado consulta: ", resultadoConsulta);
   
     await connection.close();
     cr.status = "SUCCESS"; 
@@ -237,6 +238,8 @@ app.get("/buscarVoosLista", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
+    // let resultadoConsulta = await connection.execute(`SELECT id FROM trajetos WHERE destino = '${localViagemDestino}'`);
+    
     let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data_ida = '${localViagemDestino}'`);
 
     /* 

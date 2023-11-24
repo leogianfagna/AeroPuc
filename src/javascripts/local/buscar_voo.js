@@ -18,58 +18,62 @@ function criarMapaAssentos(vooEscolhido){
     fetchResgatar(vooInserido)
       .then(data => {
         if (data.status === 'SUCCESS') {
-          const assentosReservados = data.payload.map(row => row[0][0]); // transformar o SELECT assentos em array
-          console.log('Assentos Reservados:', assentosReservados);
+            const assentosReservados = data.payload.map(row => row[0]); // transformar o SELECT assentos em array
+            console.log('Assentos Reservados:', assentosReservados);
+            
+            // criando um array dos assentos reservados para imprimir
+            const colunas = 6;
+            const fileiras = 30;
+            let cadeiraVez = 0;
+            let poltronaLetra = 65; // letra 'A' na tabela ASCII
+            let fileiraIdentificacao;
+            let letraExtra = "";
+            
+            // deve fazer a linha e depois imprimir, depois seguir para a proxima
         
-        // criando um array dos assentos reservados para imprimir
-        const colunas = 6;
-        const fileiras = 30;
-        let cadeiraVez = 0;
-        let poltronaLetra = 65; // letra 'A' na tabela ASCII
-        let fileiraIdentificacao;
-        let letraExtra = "";
+            // passar por todas as colunas
+            for (let i = 0; i < fileiras; i++) {
         
-        // deve fazer a linha e depois imprimir, depois seguir para a proxima
-    
-        // passar por todas as colunas
-        for (let i = 0; i < fileiras; i++) {
-    
-            // passar pela linha inteira
-            for (let j = 0; j < colunas; j++) {
-                cadeiraVez++; // conta em qual cadeira está
-                fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
-    
-                // conferir se é um corredor
-                // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
-                if (j === colunas/2) {
-                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
-                }
-    
-                // AQUI VAI TER QUE SER ASSIM:
-                // ele nao pode conferir posição por posição, vai ter que conferir se o numero cadeiraVez
-                // tem algum resultado no array!!!
-    
-                // conferir se está ocupado ou desocupado
-                if (assentosReservados.includes(cadeiraVez.toString())) { //colocar toString única forma de funcionar
-                    document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px">${fileiraIdentificacao}</button>`;
-                } else {
-                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
-                }
-            }
-    
-            // nova coluna, pular linha e avançar uma letra para identificar as poltronas
-            document.getElementById("mapaAssentos").innerHTML += `<br>`;
-            poltronaLetra++;
+                // passar pela linha inteira
+                for (let j = 0; j < colunas; j++) {
+                    cadeiraVez++; // conta em qual cadeira está
+                    fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
+        
+                    // conferir se é um corredor
+                    // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
+                    if (j === colunas/2) {
+                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
+                    }
+        
+                    // AQUI VAI TER QUE SER ASSIM:
+                    // ele nao pode conferir posição por posição, vai ter que conferir se o numero cadeiraVez
+                    // tem algum resultado no array!!!
 
-            if (poltronaLetra === 91) {
-                poltronaLetra = 65;
-                letraExtra = "A";
+                    
+        
+                    // conferir se está ocupado ou desocupado
+                    console.log("cadeira vez: " + cadeiraVez + ", assentos reservados: " + assentosReservados);
+                    console.log("resultado do include = ", assentosReservados.includes(cadeiraVez.toString()));
+                    if (assentosReservados.includes(parseInt(cadeiraVez))) { //colocar toString única forma de funcionar
+                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
+                    } else {
+                        document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                    }
+                }
+        
+                // nova coluna, pular linha e avançar uma letra para identificar as poltronas
+                document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                poltronaLetra++;
+
+                if (poltronaLetra === 91) {
+                    poltronaLetra = 65;
+                    letraExtra = "A";
+                }
             }
-        }
     
-      } else {
-          console.error('Erro ao obter os assentos reservados:', data.message);
-      }
+        } else {
+            console.error('Erro ao obter os assentos reservados:', data.message);
+        }
     }).catch(error => {
           console.error('Erro ao fazer a requisição:', error);
     });
@@ -226,7 +230,7 @@ function buscarVoos(){
     const origemFetch = document.getElementById("localPartida").value;
 
     // função que vai utilizar parâmetros inseridos no HTML
-    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(destinoFetch)}&localPartida=${encodeURIComponent(origemFetch)}`)
+    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(dataPartidaFetch)}&localPartida=${encodeURIComponent(origemFetch)}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
