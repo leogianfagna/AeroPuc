@@ -34,14 +34,25 @@ function selecionouAeronave(){
     return resultado;
 }
 
-function preencheuData(){
+function preencheuDataida(){
     let resultado = false;
-    const data = document.getElementById("data").value;
+    const data = document.getElementById("data_ida").value;
     
-    if(data.length > 0) {
+    if (data.length > 0) {
         resultado = true;
     }
+    
+    return resultado;
+}
 
+function preencheuDatavolta(){
+    let resultado = false;
+    const data = document.getElementById("data_volta").value;
+    
+    if (data.length > 0) {
+        resultado = true;
+    }
+    
     return resultado;
 }
 
@@ -93,7 +104,7 @@ function showStatusMessage(msg, error){
 // funcao fetch tipo PUT
 function fetchAlterar(body) {
     const requestOptions = {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
@@ -133,14 +144,20 @@ function alterarVoo(){
         return;
     }
 
-    if (!preencheuData()) {
-        showStatusMessage("Data não foi preenchida.", true);
+    if(!preencheuDataida()){
+        showStatusMessage("Preencha a data de ida.", true);
+        return;
+    }
+
+    if(!preencheuDatavolta()){
+        showStatusMessage("Preencha a data de volta.", true);
         return;
     }
 
     // obtem os dados inseridos no html
     const identificadorInserido = document.getElementById("id").value;
-    const dataInserida = document.getElementById("data").value;
+    const dataIdaInserida = document.getElementById("data_ida").value;
+    const dataVoltaInserida = document.getElementById("data_volta").value;
     const trajetoInserido = document.getElementById("trajeto").value;
     const aeronaveInserida = document.getElementById("aeronave").value;
     const horarioIdaInserido = document.getElementById("horarioIda").value;
@@ -155,7 +172,8 @@ function alterarVoo(){
     fetchAlterar({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         id: parseInt(identificadorInserido),
-        data: dataInserida, 
+        data_ida: dataIdaInserida, 
+        data_volta: dataVoltaInserida,
         trajeto: parseInt(trajetoInserido), 
         aeronave: aeronaveInserida,
         horario_ida: horarioIdaInserido,

@@ -1,7 +1,7 @@
 // funcoes de tratamento de dados recebidos
 function selecionouOrigem(){
     let resultado = false; 
-    var origem = document.getElementById("aeroportoOrigem");
+    var origem = document.getElementById("cidadeOrigem");
     var valorSelecionado = origem.value;
     
     if (valorSelecionado !== "0"){
@@ -13,7 +13,7 @@ function selecionouOrigem(){
 
 function selecionouDestino(){
     let resultado = false; 
-    var destino = document.getElementById("aeroportoDestino");
+    var destino = document.getElementById("cidadeDestino");
     var valorSelecionado = destino.value;
     
     if (valorSelecionado !== "0"){
@@ -94,8 +94,8 @@ function inserirTrajeto(){
     }
 
     // obtem os dados inseridos no html
-    const origemInserida = document.getElementById("aeroportoOrigem").value;
-    const destinoInserido = document.getElementById("aeroportoDestino").value;
+    const origemInserida = document.getElementById("cidadeOrigem").value;
+    const destinoInserido = document.getElementById("cidadeDestino").value;
     const duracaoInserida = document.getElementById("duração").value;
     const tipoCaminhoInserido = document.getElementById("tipo").value;
 
@@ -109,9 +109,9 @@ function inserirTrajeto(){
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){
-            showStatusMessage("Aeronave cadastrada!", false);
+            showStatusMessage("Trajeto cadastrado!", false);
             }else{
-            showStatusMessage("Erro ao cadastrar aeronave...: " + message, true);
+            showStatusMessage("Erro ao cadastrar trajeto...: " + message, true);
             console.log(resultado.message);
             }
         })

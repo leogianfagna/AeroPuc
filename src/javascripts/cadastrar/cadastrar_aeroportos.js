@@ -1,16 +1,15 @@
 // funcoes de tratamento de dados recebidos
 function selecionouCidade(){
     let resultado = false; 
-    var cidade = document.getElementById("cidade");
-    var valorSelecionado = cidade.value;
+    var cidade = document.getElementById("cidade").value;
+    var id_cidade = parseInt(cidade);
     
-    if (valorSelecionado !== "0") {
+    if (id_cidade > 0) {
         resultado = true;
     }
-    
-    return resultado;
-}
 
+    return resultado; 
+}
 function preencheuNome(){
     let resultado = false;
     const nomeAeroporto = document.getElementById("aeroportoNome").value;

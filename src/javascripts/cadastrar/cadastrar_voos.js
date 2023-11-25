@@ -23,9 +23,20 @@ function selecionouAeronave(){
     return resultado;
 }
 
-function preencheuData(){
+function preencheuDataida(){
     let resultado = false;
-    const data = document.getElementById("data").value;
+    const data = document.getElementById("data_ida").value;
+    
+    if (data.length > 0) {
+        resultado = true;
+    }
+    
+    return resultado;
+}
+
+function preencheuDatavolta(){
+    let resultado = false;
+    const data = document.getElementById("data_volta").value;
     
     if (data.length > 0) {
         resultado = true;
@@ -119,13 +130,19 @@ function inserirVoo(){
         return;
     }
 
-    if(!preencheuData()){
-        showStatusMessage("Preencha a data.", true);
+    if(!preencheuDataida()){
+        showStatusMessage("Preencha a data de ida.", true);
+        return;
+    }
+
+    if(!preencheuDatavolta()){
+        showStatusMessage("Preencha a data de volta.", true);
         return;
     }
 
     // obtem os dados inseridos no html
-    const dataInserida = document.getElementById("data").value;
+    const dataIdaInserida = document.getElementById("data_ida").value;
+    const dataVoltaInserida = document.getElementById("data_volta").value;
     const trajetoInserido = document.getElementById("trajeto").value;
     const aeronaveInserida = document.getElementById("aeronave").value;
     const horarioIdaInserido = document.getElementById("horarioIda").value;
@@ -135,7 +152,8 @@ function inserirVoo(){
     // promise
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
-        data: dataInserida, 
+        data_ida: dataIdaInserida, 
+        data_volta: dataVoltaInserida,
         trajeto: trajetoInserido, 
         aeronave: aeronaveInserida,
         horario_ida: horarioIdaInserido,
@@ -146,7 +164,7 @@ function inserirVoo(){
             if(resultado.status === "SUCCESS"){
                 showStatusMessage("Voo cadastrado!", false);
             } else {
-                showStatusMessage("Erro ao cadastrar aeronave...: " + message, true);
+                showStatusMessage("Erro ao cadastrar voo...: " + message, true);
                 console.log(resultado.message);
             }
         })

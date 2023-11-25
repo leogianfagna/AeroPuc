@@ -57,34 +57,27 @@
                     <div class="col">
                         <!-- escolher aeronave -->
                         <label for="aeronave" class="form-label">Aeronave utilizada</label>
-                        <select id="aeronave" name="aeronave" class="form-select" aria-label="Default select example">
-                            <option value="0">Selecionar</option>
-                            <option value="Airbus A320">Airbus A320</option>
-                            <option value="Airbus A330">Airbus A330</option>
-                            <option value="Boeing 727">Boeing 727</option>
-                            <option value="Boeing 737">Boeing 737</option>
-                            <option value="Boeing 747">Boeing 747</option>
-                            <option value="Boeing 767">Boeing 767</option>
-                            <option value="Boeing 777">Boeing 777</option>
-                            <option value="Boeing 787">Boeing 787</option>
-                            <option value="CRJ 1000">CRJ 1000</option>
-                            <option value="Embraer E-195">Embraer E-195</option>   
-                        </select>
+                        <input id="aeronave" name="aeronave" type="text" class="form-control">
                     </div>
                 </div>
-                <div class="row" style="margin-top: 10px">
+                <div class="row" style="margin-top: 30px">
                     <div class="col">
-                        <!-- data -->
-                        <label for="data" class="form-label">Data de partida</label>
-                        <input id="data" name="data" type="date" class="form-control" placeholder="Ex.: 10/01/2024">
+                        <!-- data ida -->
+                        <label for="data_ida" class="form-label">Data de partida</label>
+                        <input id="data_ida" name="data_ida" type="date" class="form-control" placeholder="Ex.: 10/01/2024">
                     </div>
+                    <div class="col">
+                        <!-- data volta -->
+                        <label for="data_volta" class="form-label">Data de volta</label>
+                        <input id="data_volta" name="data_volta" type="date" class="form-control" placeholder="Ex.: 10/01/2024">
+                    </div>
+            
                     <div class="col">
                         <!-- valor da passagem -->
                         <label for="valor" class="form-label">Valor da passagem</label>
                         <input id="valor" name="valor" type="text" class="form-control" placeholder="Ex.: 750.30">
                     </div>
-                </div>
-                <div class="row" style="margin-top: 10px">
+                    <div class="row" style="margin-top: 10px"></div>
                     <div class="col">
                         <!-- horário saída -->
                         <label for="horarioIda" class="form-label">Horário saída</label>

@@ -12,7 +12,7 @@ function id(){
 
 function selecionouOrigem(){
     let resultado = false; 
-    var origem = document.getElementById("aeroportoOrigem");
+    var origem = document.getElementById("cidadeOrigem");
     var valorSelecionado = origem.value;
     
     if (valorSelecionado !== "0") {
@@ -24,7 +24,7 @@ function selecionouOrigem(){
 
 function selecionouDestino(){
     let resultado = false; 
-    var destino = document.getElementById("aeroportoDestino");
+    var destino = document.getElementById("cidadeDestino");
     var valorSelecionado = destino.value;
     
     if (valorSelecionado !== "0") {
@@ -69,6 +69,17 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+function fetchInserir(body) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    };
+
+    return fetch('http://localhost:3000/alterarTrajeto', requestOptions)
+    .then(T => T.json())
+}
+
 function AlterarTrajeto(){
     if (!id()) {
         showStatusMessage("ID não foi preenchido.",true);
@@ -94,4 +105,37 @@ function AlterarTrajeto(){
         showStatusMessage("Tipo de passagem não foi preenchido.", true);
         return;
     }
+
+    // obtem os dados inseridos no html
+    const idInserido = document.getElementById("id").value;
+    const origemInserida = document.getElementById("cidadeOrigem").value;
+    const destinoInserido = document.getElementById("cidadeDestino").value;
+    const duracaoInserida = document.getElementById("duração").value;
+    const tipoCaminhoInserido = document.getElementById("tipo").value;
+
+    // promise
+    fetchInserir({
+        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
+        idInserido: idInserido,
+        origem: origemInserida, 
+        destino: destinoInserido,
+        duracao: duracaoInserida,
+        tipo: tipoCaminhoInserido })
+        .then(resultado => {
+            // obteve resposta
+            if(resultado.status === "SUCCESS"){
+            showStatusMessage("Trajeto alterado!", false);
+            }else{
+            showStatusMessage("Erro ao alterar trajeto...: " + message, true);
+            console.log(resultado.message);
+            }
+        })
+        .catch(()=>{
+            showStatusMessage("Erro técnico ao alterar... Contate o suporte.", true);
+            console.log("Falha grave ao alterar.")
+        });
 }
+
+
+
+
