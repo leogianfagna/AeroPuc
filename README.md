@@ -20,7 +20,7 @@ Para esse projeto funcionar, foi criado e estruturado em nosso projeto alguns el
 
 ### Estrutura dos arquivos
 Dentro do projeto, separamos de forma organizada os elementos. Diretamente no repositório do projeto, temos:
-- **.env**: contém as credenciais paraa conexão do banco. Como se trata de um trabalho de faculdade, não foi necessário deixar esse arquivo como sigiloso;
+- **.env**: contém as credenciais para conexão do banco. Como se trata de um trabalho de faculdade, não foi necessário deixar esse arquivo como sigiloso;
 - **tsconfig.json**: configura o uso do typescript que foi utilizado para fazer a aplicação back-end, usando o framework express;
 - **package.json** e **package-lock.json**: declara os módulos usados (que serão instalados) e informações sobre o projeto
 
@@ -53,7 +53,7 @@ Esse projeto possui utiliza as tabelas voos, aeroportos, cidades e trajetos para
 A tabela cliente e assentos funciona para conseguir armazenar as compras e identificar qual assento foi reservado naquele determinado voo.
 
 ## Como usar
-Se você está lendo isso, provavelmente já está com o projeot baixado, mas caso não esteja:
+Se você está lendo isso, provavelmente já está com o projeto baixado, mas caso não esteja:
 1. Usando o IDE Vscode, clone o repositório em algum diretório escolhido usando um novo terminal:
     1. `cd desktop`
     2. `git clone https://github.com/leogianfagna/pi_aeropuc.git`
