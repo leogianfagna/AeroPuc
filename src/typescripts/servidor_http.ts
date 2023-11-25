@@ -421,23 +421,26 @@ app.put("/inserirAeroporto", async(req,res)=>{
   const cidade = req.body.cidade as number;
 
   let conn;
-  
+
   try {
     conn = await oracledb.getConnection({
-        user: process.env.ORACLE_DB_USER,
-        password: process.env.ORACLE_DB_PASSWORD,
-        connectionString: process.env.ORACLE_CONN_STR,
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
     });
 
-    const cmdInsertAero = `INSERT INTO aeroportos 
-    VALUES(aeroportos_id.nextval,:1, :2)`
+    const cmdInsertAero = `INSERT INTO aeroportos
+    (id, aeroporto, cidade)
+    VALUES (500, Campinas, Teste)`;
+
     const dados = [aeroporto, cidade];
     
-    let resInsert = await conn.execute(cmdInsertAero, dados);
+    let resInsert = await conn.execute(cmdInsertAero);
     await conn.commit();
     const rowsInserted = resInsert.rowsAffected;
+    console.log("Colunas afetadas: ", rowsInserted);
     
-    if (rowsInserted !== undefined &&  rowsInserted === 1) {
+    if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
       cr.message = "Aeroporto inserido.";
     }
