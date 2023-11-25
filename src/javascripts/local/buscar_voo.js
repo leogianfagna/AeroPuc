@@ -224,13 +224,21 @@ function buscarVoos(){
     mostrarDivTabela.style.height = 'auto';
     mostrarDivTabela.style.visibility = 'visible';
 
-    // obter os dados do HTML
-    const dataPartidaFetch = document.getElementById("start").value;
-    const destinoFetch = document.getElementById("localDestino").value;
-    const origemFetch = document.getElementById("localPartida").value;
+    // obter os dados do HTML e já prepara para enviar ao fetch (com encodeURIComponent)
+    const dataPartidaFetch = encodeURIComponent(document.getElementById("start").value);
+    const dataVoltaFetch = encodeURIComponent(document.getElementById("back").value);
+    const destinoFetch = encodeURIComponent(document.getElementById("localDestino").value);
+    const origemFetch = encodeURIComponent(document.getElementById("localPartida").value);
+    const incluiVoltaNaPassagem = encodeURIComponent(document.getElementById("tipoPassagem").value);
+    var tipoDeBuscaSimplesOuAvancada = "simples";
+    var checarMarcacaoCheckbox = document.getElementById("alterarOpcoesAvancadas");
+
+    if (checarMarcacaoCheckbox.checked) {
+        tipoDeBuscaSimplesOuAvancada = "avancado";
+    }
 
     // função que vai utilizar parâmetros inseridos no HTML
-    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(destinoFetch)}&localPartida=${encodeURIComponent(origemFetch)}&dataPreenchida=${encodeURIComponent(dataPartidaFetch)}`)
+    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${destinoFetch}&localPartida=${origemFetch}&dataPreenchida=${dataPartidaFetch}&tipoDeVoo=${incluiVoltaNaPassagem}&tipoBusca=${tipoDeBuscaSimplesOuAvancada}&dataVoltaPreenchida=${dataVoltaFetch}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {

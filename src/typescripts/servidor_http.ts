@@ -217,12 +217,12 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // buscar os voos baseado nas datas e informações inseridas
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
-  var dataPartida = req.query.dataPreenchida as string;
-  var localViagemDestino = req.query.localDestino as string;
-  var localViagemOrigem = req.query.localPartida as string;
-
-  console.log("Local destino:", localViagemDestino);
-  console.log("Local partida:", localViagemOrigem);
+  var dataPartidaVoo = req.query.dataPreenchida as string;
+  var dataVoltaVoo = req.query.dataVoltaPreenchida as string;
+  var cidadeDestinoViagem = req.query.localDestino as string;
+  var cidadeOrigemViagem = req.query.localPartida as string;
+  var incluiVoltaNaPassagem = req.query.tipoDeVoo as string;
+  var tipoDeBuscaSimplesOuAvancada = req.query.tipoBusca as string;
 
   let cr: CustomResponse = {
       status: "ERROR", 
@@ -238,10 +238,22 @@ app.get("/buscarVoosLista", async(req,res)=>{
     }
 
     const connection = await oracledb.getConnection(connAttibs);
-    // let resultadoConsulta = await connection.execute(`SELECT id FROM trajetos WHERE destino = '${localViagemDestino}'`);
+    let resultadoConsulta;
     
-    let resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${localViagemOrigem}' AND trajetos.destino = '${localViagemDestino}' AND voos.data_ida = '${dataPartida}'`); // AND voos.data_volta = '2023-11-08'
-
+    if (tipoDeBuscaSimplesOuAvancada === "avancado") {
+      // consulta complexa onde além das localizações confere DATA PARTIDA e TIPO DE VIAGEM
+      if (incluiVoltaNaPassagem === "ida") {
+        // por ser apenas IDA, o campo de DATA_VOLTA deve ser vazio
+        resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta =''`);
+      } else {
+        // campo DATA_VOLTA deve ser preenchido por se tratar de uma passagem IDA E VOLTA
+        resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta = '${dataVoltaVoo}'`);
+      }
+    } else {
+      // consulta simples onde só é levado ORIGEM e DESTINO
+      resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}'`);
+    }
+    
     await connection.close();
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
