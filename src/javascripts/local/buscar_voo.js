@@ -230,7 +230,7 @@ function buscarVoos(){
     const origemFetch = document.getElementById("localPartida").value;
 
     // função que vai utilizar parâmetros inseridos no HTML
-    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(dataPartidaFetch)}&localPartida=${encodeURIComponent(origemFetch)}`)
+    fetch(`http://localhost:3000/buscarVoosLista?localDestino=${encodeURIComponent(destinoFetch)}&localPartida=${encodeURIComponent(origemFetch)}&dataPreenchida=${encodeURIComponent(dataPartidaFetch)}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {

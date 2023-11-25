@@ -217,7 +217,7 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // buscar os voos baseado nas datas e informações inseridas
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
-  // var dataPartida = req.query.dataPreenchida as string;
+  var dataPartida = req.query.dataPreenchida as string;
   var localViagemDestino = req.query.localDestino as string;
   var localViagemOrigem = req.query.localPartida as string;
 
@@ -240,21 +240,7 @@ app.get("/buscarVoosLista", async(req,res)=>{
     const connection = await oracledb.getConnection(connAttibs);
     // let resultadoConsulta = await connection.execute(`SELECT id FROM trajetos WHERE destino = '${localViagemDestino}'`);
     
-    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data_ida = '${localViagemDestino}'`);
-
-    /* 
-    CONSULTA QUE USA A DATA DE CHEGADA PARA BUSCAR
-    let resultadoConsulta = await connection.execute(`SELECT * FROM voos WHERE data BETWEEN '${dataPartida}' AND '${dataChegada}'`);
-    */
-    
-    /* FAZENDO!
-    let resultadoConsulta = await connection.execute(`
-      SELECT * 
-      FROM voos v 
-      INNER JOIN trajetos t
-      ON TO_CHAR(v.trajeto) = t.origem 
-      WHERE data = '${dataPartida}'
-    `); */
+    let resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${localViagemOrigem}' AND trajetos.destino = '${localViagemDestino}' AND voos.data_ida = '${dataPartida}'`); // AND voos.data_volta = '2023-11-08'
 
     await connection.close();
     cr.status = "SUCCESS"; 
