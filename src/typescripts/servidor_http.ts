@@ -386,10 +386,10 @@ app.post("/alterarAeronave", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
-    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = 'nada' WHERE id = 102`
-    // const dados = [id, registro];
+    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, numero_identificacao = :2, ano_fabricacao = :3, assentos = :4 WHERE id = :5`
+    const dados = [fabricante, registro, anoFab, qtdeAssentos, id];
 
-    let resUpdate = await connection.execute(cmdUpdateAero);
+    let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
     const rowsUpdated = resUpdate.rowsAffected;
     console.log("Linhas afetadas:", rowsUpdated);
@@ -497,10 +497,15 @@ app.delete("/excluirAeroporto", async(req,res)=>{
 });
 
 // aeroportos - alterar
-app.put("/alterarAeroporto", async(req,res)=>{
-  const id = req.body.id as number;
-  const aeroporto = req.body.aeroporto as string;
-  const cidade = req.body.cidade as string;
+app.post("/alterarAeroporto", async(req,res)=>{
+  const id = req.body.idAeroporto as number;
+  const aeroporto = req.body.cidadeLocalizada as string;
+  const cidade = req.body.nomeAeroporto as string;
+
+  console.log("ID: ", id);
+  console.log("ID2: ", aeroporto);
+  console.log("ID3: ", cidade);
+
 
   try {
     const connection = await oracledb.getConnection({
@@ -509,15 +514,15 @@ app.put("/alterarAeroporto", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
-    const cmdUpdateAero = `UPDATE aeroportos SET aeroporto = :2,
-     cidade = :3 WHERE id = :1`
-    const dados = [id, aeroporto,cidade];
+    const cmdUpdateAero = `UPDATE aeroportos SET aeroporto = :1, cidade = :2 WHERE id = 101`
+    const dados = [aeroporto, cidade];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     
     await connection.commit();
     await connection.close();
     const rowsUpdated = resUpdate.rowsAffected;
+    console.log("Linhas afetadas:", rowsUpdated);
     
     if (rowsUpdated !== undefined && rowsUpdated === 1) {
       cr.status = "SUCCESS"; 

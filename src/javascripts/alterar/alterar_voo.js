@@ -161,17 +161,18 @@ function alterarVoo(){
         horario_ida: horarioIdaInserido,
         horario_volta: horarioVoltaInserido,
         valor: precoVooInserido })
-        .then(resultado => {
-            // obteve resposta
-            if(resultado.status === "SUCCESS") {
-                showStatusMessage("Voo alterado!", false);
-            } else {
-                showStatusMessage("Erro ao alterar voo: " + resultado.message, true);
-                console.log(resultado.message);
-            }
-        })
-        .catch(()=>{
-            showStatusMessage("Erro técnico ao alterar! Contate o suporte.", true);
-            console.log("Falha grave ao alterar.")
-        });
+
+    .then(resultado => {
+        // obteve resposta
+        if(resultado.status === "SUCCESS") {
+            showStatusMessage("Voo alterado!", false);
+        } else {
+            showStatusMessage("Erro ao alterar voo: " + resultado.message, true);
+            console.log(resultado.message);
+        }
+    })
+    .catch(()=>{
+        showStatusMessage("Erro técnico ao alterar! Contate o suporte.", true);
+        console.log("Falha grave ao alterar.")
+    });
 }
