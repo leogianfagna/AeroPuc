@@ -213,7 +213,7 @@ app.put("/inserirCliente", async(req,res)=>{
 
     const cmdInsertAero = `INSERT INTO cliente
     (id, nome, email, assento, voo)
-    VALUES (aeronaves_id.nextval, :1, :2, :3, :4)`;
+    VALUES (clientes_id.nextval, :1, :2, :3, :4)`;
 
     const dados = [nome, email, assento, voo];
     let resInsert = await conn.execute(cmdInsertAero, dados);
