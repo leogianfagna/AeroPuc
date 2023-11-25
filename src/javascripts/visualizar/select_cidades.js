@@ -1,7 +1,4 @@
-// Assume que a resposta tem a seguinte estrutura:
-// { status: 'SUCCESS', message: 'Dados obtidos', payload: [ /*...dados...*/ ] }
-
-fetch('http://localhost:3000/listarCidades')
+fetch(`http://localhost:3000/queryTabelasAdministrativas?tabelaParaExecutarSelect=${"cidades"}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {

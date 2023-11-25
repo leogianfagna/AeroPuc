@@ -1,4 +1,4 @@
-fetch('http://localhost:3000/listarAeroportos')
+fetch(`http://localhost:3000/queryTabelasAdministrativas?tabelaParaExecutarSelect=${"aeroportos"}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
