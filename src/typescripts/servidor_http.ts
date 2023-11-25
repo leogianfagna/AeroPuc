@@ -386,8 +386,8 @@ app.post("/alterarAeronave", async(req,res)=>{
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
-    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, numero_identificacao = :2, ano_fabricacao = :3, assentos = :4 WHERE id = :5`
-    const dados = [fabricante, registro, anoFab, qtdeAssentos, id];
+    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, numero_identificacao = :2, ano_fabricacao = :3, assentos = :4, modelo = :5 WHERE id = :6`
+    const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, id];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
