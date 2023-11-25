@@ -240,18 +240,19 @@ app.get("/buscarVoosLista", async(req,res)=>{
     const connection = await oracledb.getConnection(connAttibs);
     let resultadoConsulta;
     
+    const queryBancoDeDados = "voos.trajeto, voos.data_ida, voos.data_volta, voos.aeronave, voos.horario_ida, voos.horario_volta, voos.valor";
     if (tipoDeBuscaSimplesOuAvancada === "avancado") {
       // consulta complexa onde além das localizações confere DATA PARTIDA e TIPO DE VIAGEM
       if (incluiVoltaNaPassagem === "ida") {
         // por ser apenas IDA, o campo de DATA_VOLTA deve ser vazio
-        resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta =''`);
+        resultadoConsulta = await connection.execute(`SELECT ${queryBancoDeDados} FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta =''`);
       } else {
         // campo DATA_VOLTA deve ser preenchido por se tratar de uma passagem IDA E VOLTA
-        resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta = '${dataVoltaVoo}'`);
+        resultadoConsulta = await connection.execute(`SELECT ${queryBancoDeDados} FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}' AND voos.data_ida = '${dataPartidaVoo}' AND voos.data_volta = '${dataVoltaVoo}'`);
       }
     } else {
       // consulta simples onde só é levado ORIGEM e DESTINO
-      resultadoConsulta = await connection.execute(`SELECT voos.* FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}'`);
+      resultadoConsulta = await connection.execute(`SELECT ${queryBancoDeDados} FROM voos JOIN trajetos ON voos.trajeto = trajetos.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}'`);
     }
     
     await connection.close();
