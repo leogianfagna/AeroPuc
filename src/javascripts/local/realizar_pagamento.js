@@ -12,6 +12,85 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função para validar os dados recebidos na tela de pagamento, que é baseado conforme a tela
+// de pagamento
+function validarDadosRecebidos(){
+    var resultado = false;
+    var mensagemDeErro;
+    var pStatus = document.getElementById("status");
+
+    const tipoDePagamento = document.getElementById("metodo_pagamento").value;
+    const emailDoUsuarioInserido = document.getElementById("email").value;
+    const nomeDoUsuarioInserido = document.getElementById("nome").value;
+    const nomeNoCartaoInserido = document.getElementById("nomeCartao").value;
+    const numeroDoCartaoInserido = document.getElementById("numeroCartao").value;
+    var validadeDoCartaoInserido = new Date();
+    validadeDoCartaoInserido = document.getElementById("validadeCartao").value;
+    const cvcDoCartaoInserido = document.getElementById("cvcCartao").value;
+
+    console.log("validade: ", validadeDoCartaoInserido);
+
+    if (tipoDePagamento === "n/a") {
+        mensagemDeErro = "Uma forma de pagamento deve ser selecionada.";
+    }
+
+    if (tipoDePagamento === "cartao_credito" || tipoDePagamento === "cartao_debito") {
+        if (emailDoUsuarioInserido.length > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "E-mail inválido.";
+        }
+
+        if (nomeDoUsuarioInserido.length > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "Nome completo inválido.";
+        }
+
+        if (nomeNoCartaoInserido.length > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "Nome completo no cartão inválido.";
+        }
+
+        if (numeroDoCartaoInserido > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "Número do cartão inválido.";
+        }
+
+        if (validadeDoCartaoInserido > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "Validade do cartão inválida.";
+        }
+
+        if (cvcDoCartaoInserido > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "CVC do cartão inválido.";
+        }
+
+    }
+
+    if (tipoDePagamento === "pix") {
+        if (emailDoUsuarioInserido.length > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "E-mail inválido.";
+        }
+
+        if (nomeDoUsuarioInserido.length > 0) {
+            resultado = true;
+        } else {
+            mensagemDeErro = "Nome completo inválido.";
+        }
+    }
+    
+    pStatus.textContent = mensagemDeErro;
+    return resultado;
+}
+
 
 // Função fetch tipo PUT para cadastrar o novo cliente no banco de dados
 function fetchInserir(body) {

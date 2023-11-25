@@ -1,0 +1,129 @@
+.fundoCor {
+  background-color: black;
+}
+
+.imagemCapa {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-bar{
+  /* ajustar o tamanho vertical */
+  height: 70px;
+}
+
+.nav-bar-elementos{
+  /* ajustar o tamanho vertical */
+  height: 70px;
+
+  /* ajustar com a borda da página */
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+body {
+  margin: 0; /* Remover a margem padrão do corpo do HTML */
+  padding: 0; /* Remover o preenchimento padrão do corpo do HTML */
+  background-color: rgb(223, 217, 217);
+}
+
+.container {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.adicionar-borda {
+  border: 5px solid green;
+}
+
+.adicionar-borda-2 {
+  border: 5px solid rgb(128, 0, 53);
+}
+
+.div-central {
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 30px;
+
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 40px;
+  background-color: #ffffff;
+}
+
+.div-esquerda {
+  
+  float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+  border: 3px black solid;
+}
+
+.div-direita {
+  
+  float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+  border: 3px black solid;
+}
+
+.descolar {
+  margin-left: -15%;
+  margin-top: 30%;
+}
+
+#container-de-pagamento {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #77ADE2;
+}
+
+.porcentagemDivPai {
+  margin: 3%;
+}
+
+.custom-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%; /* Largura do botão */
+  margin-bottom: 30px;
+}
+
+.custom-button span {
+  flex-grow: 1; /* Expande para ocupar o espaço disponível */
+}
+
+.botao-selecao-forma-pagamento {
+  background-color: #D9E6E6;
+  width: 100%;
+  display: flex;
+}
+
+.alinhar-texto-verticalmente {
+  display: flex;
+  align-items: center;
+}
+
+#alterarReserva {
+  margin: 10%;
+  display: flex;
+  text-align: center;
+  height: 150px;
+  text-align: center;
+  line-height: 50%;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  color: #303130;
+}
+
+.remover-hyper-link {
+  color: inherit;
+  text-decoration: none;
+}
