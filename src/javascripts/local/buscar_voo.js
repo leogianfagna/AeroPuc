@@ -42,7 +42,7 @@ function criarMapaAssentos(vooEscolhido){
                     // conferir se é um corredor
                     // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
                     if (j === colunas/2) {
-                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="btn btn-light" disabled></button>`;
+                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonCorredor" disabled></button>`;
                     }
         
                     // AQUI VAI TER QUE SER ASSIM:

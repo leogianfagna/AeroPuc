@@ -145,3 +145,14 @@ opções avançadas seja selecionada */
 #talvez {
   display: none;
 }
+
+/* Cria o estilo dos botões que estão reservados */
+.buttonCorredor {
+  background-color: #9acab9;
+  text-align: center;
+  text-decoration: none;
+  width: 20px; /* Largura fixa */
+  height: 20px; /* Altura fixa */
+  opacity: 0;
+  cursor: default;
+}
