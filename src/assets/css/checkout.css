@@ -99,3 +99,11 @@ para garantir que as divs fiquem lado a lado */
   justify-content: center;
   color: #303130;
 }
+
+/*Div com os estilos do qr-code*/
+.qr-code{
+  display: flex;
+  justify-content: center;          
+  align-items: center;
+  margin: 0;
+}
