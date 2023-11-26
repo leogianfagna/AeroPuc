@@ -1,29 +1,17 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-
+/* Centraliza do título do cabeçalho central */
 h1 {
   text-align: center;
   color: #333;
 }
-  
-form {
-  max-width: 400px;
-  margin: auto;
-}
-  
-label {
-  display: block;
-  margin-bottom: 8px;
-}
-  
+
+/* Cria margens e melhor formatação na seleção de opções de busca de voos */
 select, input {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
 }
-  
+
+/* Define os estilos do botão de busca de voo */
 button {
   background-color: #4CAF50;
   color: white;
@@ -33,21 +21,15 @@ button {
   cursor: pointer;
 }
 
-.logo{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    height: 150px;
-}
-
+/* Estilo para a div que contém os assentos impressos para centralizar todos os botões */
 .mapaAssentos {
   align-items: center;
-  /* border: 5px solid; */
   justify-content: center;
   justify-items: center;
   text-align: center;
 }
 
+/* Container que recebe as opções de cadastro, como padrão habilitada e recebe os dados básicos */
 #cadastroCentral {
   visibility: visible;
   transition: opacity 1s ease-in-out;
@@ -58,6 +40,8 @@ button {
   align-items: center;
 }
 
+/* Container que recebe as opções avançadas, está como desabilitada e muda a visibilidade caso as
+opções avançadas seja selecionada */
 #cadastroCentralAvancado {
   transition: opacity 1s ease-in-out;
 
@@ -70,11 +54,13 @@ button {
   align-items: center;
 }
 
+/* Classe para criar divs invisíveis */
 #invisivelDiv {
   visibility: hidden;
   height: 0;
 }
 
+/* Div que recebe a tabela onde serão encaixados as linhas dos voos encontrados */
 #tabelaResultados {
   visibility: hidden;
   opacity: 0;
@@ -86,11 +72,8 @@ button {
   align-items: center;
 }
 
+/* Criar estilos para receber o mapa de assentos */
 #mapaDeAssentos {
-  /* 
-  visibility: hidden;
-  height: 0;
-  */
   justify-content: center;
   align-items: center;
   width: auto;
@@ -99,13 +82,14 @@ button {
   border-radius: 20px;
 }
 
+/* Personalizar a disposição dos itens no cadastro */
 #containerDados {
   margin: auto;
   width: 30%;
   height: 30%;
   padding: 10px;
-  
-  
+
+
   align-items: center;
   justify-content: center;
   justify-items: center;
@@ -114,20 +98,19 @@ button {
   background-color: #ffffff;
 }
 
-/* para fazer a tabela nas mesmas margens da nav-bar */
+/* Criar estilos para a tabela dos resultados dos voos se encaixar com as margens do site */
 .tabela {
-    /* ajustar o tamanho vertical */
-    height: 70px;
-
-    /* ajustar com a borda da página */
-    margin-left: 15%;
-    margin-right: 15%;
+  height: 70px;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
-.flexConteiner {
+/* Estilo para container flex, para os itens se encaixarem livremente */
+.flexContainer {
   display: flex;
 }
 
+/* Cria o estilo dos botões que simulam cada assento, com tamanhos fixos */
 .buttonMapaAssento {
   background-color: #04AA6D;
   border: none;
@@ -142,7 +125,7 @@ button {
   cursor: pointer;
 }
 
-
+/* Cria o estilo dos botões que estão reservados */
 .buttonMapaAssentoReservado {
   background-color: #04AA6D;
   border: none;
@@ -156,4 +139,9 @@ button {
   margin: 4px 2px;
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Para a div que aparece somente se o tipo de voo for IDA E VOLTA, caso contrário, não irá aparecer */
+#talvez {
+  display: none;
 }

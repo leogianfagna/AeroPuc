@@ -7,9 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="/src/assets/css/reserva_voo.css">
   <script src="/src/javascripts/local/buscar_voo.js"></script>
-  <!--
-  <img class="logo" src="/src/assets/images/aeropuc_logo.jpeg" alt="foto_logo">
-  -->
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -27,10 +24,17 @@
         })
         .catch(error => console.error('Erro ao carregar o arquivo:', error));
   </script>
+
+  <!-- 
+    Parte 1 do HTML: Div para preenchimento dos dados para a busca de voos, enquanto ela
+    estiver habilitada, a outra parte do HTML estará invisível e vice-versa
+  -->
   <div id="cadastroCentral">
+
+    <!-- Cria o container com as opções de busca -->
     <div style="margin:50px" id="containerDados">
+
       <form style="margin: 25px">
-        <!-- cidade de chegada -->
         <label for="localDestino" class="form-label">Destino:</label>
         <select id="localDestino" name="localDestino" class="form-control" onchange="mostrarOpcoesDePartida()">
           <option value="0">Selecionar</option>
@@ -41,37 +45,35 @@
             fetch(`http://localhost:3000/listarDestinos`)
             .then(response => response.json())
             .then(data => {
-                if (data.status === 'SUCCESS') {
-                    const localPartidaSelect = document.getElementById('localDestino');
+              if (data.status === 'SUCCESS') {
+                const localPartidaSelect = document.getElementById('localDestino');
 
-                    data.payload.forEach(rowData => {
-                      // a consulta só retorna destino (SELECT destino FROM trajetos)
-                      const option = document.createElement('option');
-                      option.value = rowData[0]; // value do <select> para usar na outra busca
-                      option.textContent = rowData[0]; // o que aparece no <select>
+                data.payload.forEach(rowData => {
+                  // a consulta só retorna destino (SELECT destino FROM trajetos)
+                  const option = document.createElement('option');
+                  option.value = rowData[0]; // value do <select> para usar na outra busca
+                  option.textContent = rowData[0]; // o que aparece no <select>
 
-                      localPartidaSelect.appendChild(option);
-                    });
+                  localPartidaSelect.appendChild(option);
+                });
 
-                } else {
-                    console.error(`Erro ao obter dados: ${data.message}`);
-                }
+              } else {
+                console.error(`Erro ao obter dados: ${data.message}`);
+              }
             })
             .catch(error => console.error('Erro ao conectar:', error));
 
           </script>
         </select>
 
-        <!-- cidade de partida -->
         <label for="localPartida" class="form-label">Partida:</label>
         <select id="localPartida" name="localPartida" class="form-control">
           <option value="0">Selecionar</option>
         </select>
 
-        <!-- div que é padrão desabilitada, onde tem todas as opções do escopo do projeto -->
+        <!-- Div que é padrão desabilitada, onde tem todas as opções do escopo do projeto -->
         <div id="invisivelDiv">
       
-          <!-- tipo de passagem -->
           <label for="tipoPassagem" class="form-label">Tipo de passagem:</label>
           <select id="tipoPassagem" name="tipoPassagem" onchange="conferirTipoViagem()" class="form-control">
             <option value="0">Selecionar</option>
@@ -79,62 +81,71 @@
             <option value="ida">Somente ida</option>
           </select>
 
-          <!-- data partida -->
           <label for="start" class="form-label">Data partida:</label>
           <input type="date" id="start" class="form-control" name="trip-start" value="2023-12-01" min="2023-11-01" max="2026-12-31"/>
-          <!-- data volta (se o tipo de voo for IDA e VOLTA) -->
-          <style>
-            /* cria um estilo que deixa a div invisível */
-            #talvez {
-              display: none;
-            }
-          </style>
+
+          <!-- Div possibilidade, que muda o estilo para block caso o tipo de voo seja IDA E VOLTA-->
           <div id="talvez">
             <label for="back" class="form-label">Data volta:</label>
             <input type="date" id="back" class="form-control" name="trip-back" min="2023-11-01" max="2026-12-31"/>
           </div>
+
         </div>
-        <div class="flexConteiner">
+
+        <!-- Container de busca de dados-->
+        <div class="flexContainer">
           <button type="button" id="btnProcurar" onclick="buscarVoos();">Buscar</button>
           <div class="form-check form-switch" style="margin-left: 20px; margin-top: 10px;">
             <input class="form-check-input" type="checkbox" role="switch" id="alterarOpcoesAvancadas" onclick="opcoesAvancadas();">
             <label class="form-check-label" for="alterarOpcoesAvancadas">Opções avançadas</label>
           </div>
         </div>
+
+        <!-- Mensagem de erro -->
         <p id="status" style="margin-top: 8px;"></p>
       </form>
-      <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
-
     </div>
   </div>
+
+  <!-- Parte 2: Div que vai se criando condicionalmente com os resultados das buscas -->
   <div id="tabelaResultados">
+
+    <!-- Cabeçalho -->
     <h1 style="margin-top: 20px;">Escolher o voo</h1>
     <p class="lead" style="text-align: center;">Use as opções abaixo para escolher sua passagem.</p>
+
+    <!-- Recebe a tabela de opções de voos encontrados -->
     <div class="tabela">
       <a type="button" class="btn btn-primary" style="margin: 10px;" href="/src/paginas/local/reserva_voo.html">Alterar busca</a>
-      <table class="table table-light table-striped">
-        <!-- thead da tabela (cabeçalho) -->
-        <thead>
-          <tr>
-            <th scope="col">Ação</th>  
-            <th scope="col">Data partida</th>
-            <th scope="col">Data volta</th>
-            <th scope="col">Modelo do avião</th>
-            <th scope="col">Horário de partida</th>
-            <th scope="col">Horário de chegada</th>
-            <th scope="col">Valor</th>
-          </tr>
-        </thead>
-        <!-- tbody da tabela (as informações) -->
-        <tbody id="tabelaDeAeronaves" class="align-middle">
-          <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="container" style="margin-top:100px" id="mapaDeAssentos">
-    <div id="mapaAssentos" class="mapaAssentos">
-      <!-- aqui vem a impressão do mapa -->
+      <div id="insercaoVoosEncontrados">
+        <table class="table table-light table-striped">
+          
+          <thead>
+            <tr>
+              <th scope="col">Ação</th>  
+              <th scope="col">Data partida</th>
+              <th scope="col">Data volta</th>
+              <th scope="col">Modelo do avião</th>
+              <th scope="col">Horário de partida</th>
+              <th scope="col">Horário de chegada</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+
+          <!-- Linhas da tabela: serão adicionadas via JavaScript com os resultados dos voos encontrados -->
+          <tbody id="tabelaDeAeronaves" class="align-middle">
+          </tbody>
+
+        </table>
+      </div>
+
+      <!-- Div para centralizar abaixo dos voos encontrados, criada para encaixar o mapa de assentos -->
+      <div class="container" id="mapaDeAssentos">
+
+        <!-- Div que recebe a inserção do mapa de assentos via JavaScript -->
+        <div id="mapaAssentos" class="mapaAssentos"></div>
+      
+      </div>
     </div>
   </div>
 </body>
