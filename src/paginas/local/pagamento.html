@@ -6,7 +6,7 @@
     <title>Agendar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/src/assets/css/checkout.css">
-    <script src="/src/javascripts/local/buscar_voo.js"></script>
+    <script src="/src/javascripts/local/realizar_pagamento.js"></script>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -24,24 +24,32 @@
             })
         .catch(error => console.error('Erro ao carregar o arquivo:', error));
     </script>
+    <!-- Div principal -->
     <div class="div-central" style="margin-bottom: 50px;">
-        <!-- div conteiner para encaixar todos os recursos -->
-
+        
+        <!-- Div para encaixar os elementos um do lado do outro -->
         <div class="container-fluid">
-            <!-- div que vai deixar os elementos principais alinhados -->
+            
+            <!-- Div que deixa em forma de linha -->
             <div class="row flex-md-row">
+
+                <!-- Lado 1: seleção de tipo de pagamento -->
                 <div class="col-sm">
                     <h1 class="fs-4 fw-bold" style="margin-top: 20px;">Métodos de pagamento</h1>
                     <p class="lead fs-6" style="margin-top: -8px; margin-bottom: 50px;">Escolha um método de pagamento abaixo</p>
+
+                    <!-- Botão do PIX: Cria um botão para selecionar pagamentos em PIX -->
                     <div class="porcentagemDivPai">
                         <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">                 
                             <span>
                                 <img src="/src/assets/images/pix_logo.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">PIX</span>
-                            <span style="text-align: end; margin-left: 60%;" class="lead fs-6">Clique para escolher</span>
+                            <span style="text-align: end; margin-left: 48%;" class="lead fs-6">Clique para escolher</span>
                         </button>
                     </div>
+
+                    <!-- Botão do Crédito: Cria um botão para selecionar pagamentos em cartão de crédito -->
                     <div class="porcentagemDivPai">
                         <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">
                             
@@ -49,9 +57,11 @@
                                 <img src="/src/assets/images/credit_card.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">CRÉDITO</span>
-                            <span style="text-align: end; margin-left: 50%;" class="lead fs-6">Clique para escolher</span>
+                            <span style="text-align: end; margin-left: 35%;" class="lead fs-6">Clique para escolher</span>
                         </button>
                     </div>
+                    
+                    <!-- Botão do Débito: Cria um botão para selecionar pagamentos em cartão de débito -->
                     <div class="porcentagemDivPai">
                         <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">
                             
@@ -59,79 +69,76 @@
                                 <img src="/src/assets/images/credit_card.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">DÉBITO</span>
-                            <span style="text-align: end; margin-left: 52%;" class="lead fs-6">Clique para escolher</span>
+                            <span style="text-align: end; margin-left: 38%;" class="lead fs-6">Clique para escolher</span>
                         </button>
                     </div>
+
+                    <!-- Hyper link para voltar nas opções de reserva-->
                     <div id="alterarReserva">
                         <a href="/src/paginas/local/reserva_voo.html" class="fs-5 fw-bold remover-hyper-link">← Alterar reserva</a>
                     </div>
+
                 </div>
+
+                <!-- Lado 2: inserir dados de pagamento -->
                 <div class="col-sm" id="container-de-pagamento">
                     <div class="porcentagemDivPai">
                         <h1 class="fs-4 fw-bold" style="margin-top: 20px;">Detalhes do pagamento</h1>
                         <p class="lead fs-6" style="margin-top: -8px; margin-bottom: 50px;">Cartão de crédito</p>
 
-                        <!-- div para fazer o tipo de cartão 
-                        <div class="container-fluid">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                Default radio
-                                </label>
+                        <!-- Formulário com informações para o cliente preencher -->
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="nomeCompletoUsuario" placeholder="Leônidas">
+                                <label for="nomeCompletoUsuario" class="form-label">Nome completo</label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                Default checked radio
-                                </label>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="emailUsuario" placeholder="name@example.com">
+                                <label for="emailUsuario">E-mail</label>
                             </div>
-                        </div>
-                        -->
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Nome completo</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">E-mail</label>
-                        </div>
-                        <br>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Nome no cartão</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Número do cartão</label>
-                        </div>
-                        <div class="row">
-                            <div class="col form-floating mb-3">
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                    <label for="floatingInput">Data de validade</label>
+                            <br>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="nomeNoCartaoUsuario" placeholder="name@example.com">
+                                <label for="nomeNoCartaoUsuario">Nome no cartão</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="numeroDoCartaoUsuario" placeholder="name@example.com">
+                                <label for="numeroDoCartaoUsuario">Número do cartão</label>
+                            </div>
+                            <div class="row">
+                                <div class="col form-floating mb-3">
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" id="dataValidadeCartaoUsuario" placeholder="name@example.com">
+                                        <label for="dataValidadeCartaoUsuario">Data de validade</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="cvvCartaoUsuario" placeholder="Password">
+                                        <label for="cvvCartaoUsuario">CVV</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                    <label for="floatingPassword">CVV</label>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
+
                         <div>
                             <p style="text-align: center;" class="lead">-----------------------------------------------------</p>   
                         </div>
+
+                        <!-- Cria um botão de confirmação -->
                         <div>
-                            <button class="custom-button btn btn-success">
+                            <button class="botao-customizado-confirmacao btn btn-success" onclick="realizarPagamento()">
                                 <!-- <span style="text-align: start; margin-left: 10px;">R$700,00</span> -->
                                 <span style="text-align: end; margin-right: 10px;">Confirmar →</span>
-                              </button>
+                            </button>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
         <p style="text-align: center; margin-top: 20px;" class="lead">Para suporte, ligue (19) 3232-3232</p>
+        <p id="status"></p>
     </div>
 </body>
 </html>

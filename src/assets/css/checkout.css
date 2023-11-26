@@ -1,46 +1,15 @@
-.fundoCor {
-  background-color: black;
-}
-
-.imagemCapa {
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.nav-bar{
-  /* ajustar o tamanho vertical */
-  height: 70px;
-}
-
-.nav-bar-elementos{
-  /* ajustar o tamanho vertical */
-  height: 70px;
-
-  /* ajustar com a borda da página */
-  margin-left: 15%;
-  margin-right: 15%;
-}
-
 body {
   margin: 0; /* Remover a margem padrão do corpo do HTML */
   padding: 0; /* Remover o preenchimento padrão do corpo do HTML */
   background-color: rgb(223, 217, 217);
 }
 
-.container {
-  margin-left: 15%;
-  margin-right: 15%;
-}
-
+/* Estilo de teste para adicionar uma borda e visualizar de forma clara as <div> */
 .adicionar-borda {
   border: 5px solid green;
 }
 
-.adicionar-borda-2 {
-  border: 5px solid rgb(128, 0, 53);
-}
-
+/* Cria um espaço para encaixar todos os recursos */
 .div-central {
   margin-left: 15%;
   margin-right: 15%;
@@ -52,34 +21,25 @@ body {
   background-color: #ffffff;
 }
 
+/* Para dividir a div-central em dois, lado esquerdo e direito, usando o estilo "float"
+para garantir que as divs fiquem lado a lado */
 .div-esquerda {
-  
-  float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+  float: left;
   border: 3px black solid;
 }
 
 .div-direita {
-  
-  float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
+  float: left;
   border: 3px black solid;
 }
 
-.descolar {
-  margin-left: -15%;
-  margin-top: 30%;
-}
-
-#container-de-pagamento {
-  padding: 10px;
-  border-radius: 20px;
-  background-color: #77ADE2;
-}
-
+/* Estilo para colocar em divs que ficam dentro de outras e acumular um espaço menos da div pai*/
 .porcentagemDivPai {
   margin: 3%;
 }
 
-.custom-button {
+/* Estilos para customizar o botão que preenche 100% do tamanho da div */
+.botao-customizado-confirmacao {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -95,21 +55,38 @@ body {
   margin-bottom: 30px;
 }
 
-.custom-button span {
-  flex-grow: 1; /* Expande para ocupar o espaço disponível */
+/* Expande para ocupar o espaço disponível */
+.botao-customizado-confirmacao span {
+  flex-grow: 1; 
 }
 
+/* Cria o botão para escolher forma de pagamento */
 .botao-selecao-forma-pagamento {
   background-color: #D9E6E6;
   width: 100%;
   display: flex;
 }
 
+/* Alinha textos de forma vertical dentro de botões ou divs */
 .alinhar-texto-verticalmente {
   display: flex;
   align-items: center;
 }
 
+/* Estilo que remove as formatações de hyper link de um texto */
+.remover-hyper-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Lado direito, onde encaixa o espaço para as informações de pagamento */
+#container-de-pagamento {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #77ADE2;
+}
+
+/* Div para criar o hyper link de voltar a página */
 #alterarReserva {
   margin: 10%;
   display: flex;
@@ -121,9 +98,4 @@ body {
   justify-items: center;
   justify-content: center;
   color: #303130;
-}
-
-.remover-hyper-link {
-  color: inherit;
-  text-decoration: none;
 }
