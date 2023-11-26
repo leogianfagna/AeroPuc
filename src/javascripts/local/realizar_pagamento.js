@@ -27,6 +27,20 @@ function showStatusMessage(msg, error){
     }
 }
 
+// Função que vai simular um cartão inválido, caso tenha uma sequência de números específicos
+function simularCartaoInvalido(){
+    const dadoInserido = document.getElementById("numeroDoCartaoUsuario").value;
+    var numeroEmString = dadoInserido.toString();
+    console.log(numeroEmString.includes("5555"));
+
+    if (numeroEmString.includes("5555")) {
+        return false;
+    }
+
+    return true;
+
+}
+
 // Funções em sequência para validar os dados inseridos no HTML
 function nomeCompletoValido(){
     let resultado = false;
@@ -149,6 +163,11 @@ function realizarPagamento(){
     
         if(!codigoSegurancaCartaoValido()){
             showStatusMessage("CVV do cartão não inserido ou inválido.", true);  
+            return;
+        }
+
+        if(!simularCartaoInvalido()){
+            showStatusMessage("Esse cartão não pode ser validado. Confira o número do cartão e as informações corretas.", true);  
             return;
         }
     }
