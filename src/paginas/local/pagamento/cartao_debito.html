@@ -40,37 +40,37 @@
 
                     <!-- Botão do PIX: Cria um botão para selecionar pagamentos em PIX -->
                     <div class="porcentagemDivPai">
-                        <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">                 
+                        <a class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente" href="/src/paginas/local/pagamento/pix.html">                 
                             <span>
                                 <img src="/src/assets/images/pix_logo.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">PIX</span>
                             <span style="text-align: end; margin-left: 48%;" class="lead fs-6">Clique para escolher</span>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Botão do Crédito: Cria um botão para selecionar pagamentos em cartão de crédito -->
                     <div class="porcentagemDivPai">
-                        <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">
+                        <a class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente" href="/src/paginas/local/pagamento/cartao_credito.html">
                             
                             <span>
                                 <img src="/src/assets/images/credit_card.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">CRÉDITO</span>
                             <span style="text-align: end; margin-left: 35%;" class="lead fs-6">Clique para escolher</span>
-                        </button>
+                        </a>
                     </div>
                     
                     <!-- Botão do Débito: Cria um botão para selecionar pagamentos em cartão de débito -->
                     <div class="porcentagemDivPai">
-                        <button class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente">
+                        <a class="botao-selecao-forma-pagamento btn btn-light alinhar-texto-verticalmente" href="/src/paginas/local/pagamento/cartao_debito.html">
                             
                             <span>
                                 <img src="/src/assets/images/credit_card.png" alt="Descrição da imagem" style="width: 48px; height: 48px;">
                             </span>
                             <span style="text-align: start; margin-left: 15px;" class="fs-4 fw-bold">DÉBITO</span>
                             <span style="text-align: end; margin-left: 38%;" class="lead fs-6">Clique para escolher</span>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Hyper link para voltar nas opções de reserva-->
@@ -84,7 +84,7 @@
                 <div class="col-sm" id="container-de-pagamento">
                     <div class="porcentagemDivPai">
                         <h1 class="fs-4 fw-bold" style="margin-top: 20px;">Detalhes do pagamento</h1>
-                        <p class="lead fs-6" style="margin-top: -8px; margin-bottom: 50px;">Cartão de crédito</p>
+                        <p class="lead fs-6" style="margin-top: -8px; margin-bottom: 50px;">Cartão de débito</p>
 
                         <!-- Formulário com informações para o cliente preencher -->
                         <form>
@@ -127,7 +127,7 @@
 
                         <!-- Cria um botão de confirmação -->
                         <div>
-                            <button class="botao-customizado-confirmacao btn btn-success" onclick="realizarPagamento()" id="ehaquicarai">
+                            <button class="botao-customizado-confirmacao btn btn-success" onclick="realizarPagamento()">
                                 <!-- <span style="text-align: start; margin-left: 10px;">R$700,00</span> -->
                                 <span style="text-align: end; margin-right: 10px;">Confirmar →</span>
                             </button>

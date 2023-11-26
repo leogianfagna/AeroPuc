@@ -289,7 +289,7 @@ function buscarVoos(){
 function reservarCadeira(cadeiraReservada){
     sessionStorage.setItem("reservaCadeira", cadeiraReservada); // conferir qual é o correto aqui
     sessionStorage.setItem("assentoReservado", cadeiraReservada);
-    window.location.href = "/src/paginas/local/pagamento.html";
+    window.location.href = "/src/paginas/local/pagamento/cartao_credito.html";
 }
 
 // Função que exibe mais opções na busca, todas as que são especificadas no escopo usando

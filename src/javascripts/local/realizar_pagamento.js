@@ -1,3 +1,18 @@
+// Função que, através da página que o usuário está, define qual o tipo de pagamento selecionado
+// Criado pois, caso a forma seja PIX, não exige a validação de dados de cartão de crédito
+function conferirTipoDePagamento(){
+    const caminhoPaginaAtual = window.location.pathname;
+
+    var separarDiretorios = caminhoPaginaAtual.split('/');
+    var nomePagina = separarDiretorios[separarDiretorios.length - 1]; // Resgatar o último item do array
+
+    if (nomePagina === "cartao_credito.html" || nomePagina === "cartao_debito.html") {
+        return "cartao";
+    } else {
+        return nomePagina;
+    }
+}
+
 // Função que é utilizada para as mensagens ao usuário, através de um Modal com o ID "modalMensagemErro"
 // Caso seja inválido, exibe o Modal que está no HTML 
 function showStatusMessage(msg, error){
@@ -96,11 +111,13 @@ function fetchInserir(body) {
 // para dar PUT na tabela de assentos
 function realizarPagamento(){
     // declaração de variáveis
-
+    const tipoDePagamentoSelecionadoUsuario = window.location.pathname;
     const emailInserido = document.getElementById("emailUsuario").value;
     const nomeInserido = document.getElementById("nomeCompletoUsuario").value;
     var assentoInserido = sessionStorage.getItem("assentoReservado");
     var vooInserido = sessionStorage.getItem("vooEscolhido");
+
+    console.log(conferirTipoDePagamento());
 
     // conferir dados inseridos
     if(!nomeCompletoValido()){
@@ -113,25 +130,29 @@ function realizarPagamento(){
         return;
     }
 
-    if(!nomeCartaoValido()){
-        showStatusMessage("Nome no cartão não inserido ou inválido.", true);  
-        return;
+    if (conferirTipoDePagamento() === "cartao") {
+        
+        if(!nomeCartaoValido()){
+            showStatusMessage("Nome no cartão não inserido ou inválido.", true);  
+            return;
+        }
+    
+        if(!numeroCartaoValido()){
+            showStatusMessage("Número do cartão não inserido ou inválido.", true);  
+            return;
+        }
+    
+        if(!validadeCartaoValido()){
+            showStatusMessage("Validade do cartão não inserida ou inválida.", true);  
+            return;
+        }
+    
+        if(!codigoSegurancaCartaoValido()){
+            showStatusMessage("CVV do cartão não inserido ou inválido.", true);  
+            return;
+        }
     }
-
-    if(!numeroCartaoValido()){
-        showStatusMessage("Número do cartão não inserido ou inválido.", true);  
-        return;
-    }
-
-    if(!validadeCartaoValido()){
-        showStatusMessage("Validade do cartão não inserida ou inválida.", true);  
-        return;
-    }
-
-    if(!codigoSegurancaCartaoValido()){
-        showStatusMessage("CVV do cartão não inserido ou inválido.", true);  
-        return;
-    }
+    
 
     // salva nas variáveis
     sessionStorage.setItem("pagamentoNome", nomeInserido);
