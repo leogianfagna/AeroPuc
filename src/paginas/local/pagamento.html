@@ -127,7 +127,7 @@
 
                         <!-- Cria um botão de confirmação -->
                         <div>
-                            <button class="botao-customizado-confirmacao btn btn-success" onclick="realizarPagamento()">
+                            <button class="botao-customizado-confirmacao btn btn-success" onclick="realizarPagamento()" id="ehaquicarai">
                                 <!-- <span style="text-align: start; margin-left: 10px;">R$700,00</span> -->
                                 <span style="text-align: end; margin-right: 10px;">Confirmar →</span>
                             </button>
@@ -139,6 +139,24 @@
         </div>
         <p style="text-align: center; margin-top: 20px;" class="lead">Para suporte, ligue (19) 3232-3232</p>
         <p id="status"></p>
+    </div>
+
+    <!-- Cria o modal para o tratamento de erros, que será exibido somente em caso de dados inválidos -->
+    <div class="modal fade" id="modalMensagemErro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Não foi possível realizar pagamento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensagemModal">teste</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendi</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

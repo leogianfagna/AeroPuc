@@ -1,15 +1,15 @@
-// Função que é utilizada para as mensagens ao usuário, através do elemento com o ID "status"
-// utilizando o padrão (classe) bootstrap
+// Função que é utilizada para as mensagens ao usuário, através de um Modal com o ID "modalMensagemErro"
+// Caso seja inválido, exibe o Modal que está no HTML 
 function showStatusMessage(msg, error){
-    var pStatus = document.getElementById("status");
+   
+    if (error === true) {
+        const myModal = new bootstrap.Modal(document.getElementById('modalMensagemErro'));
     
-    if (error === true){
-        pStatus.className = "text-danger";
-    } else {
-        pStatus.className = "text-success";
-    }
+        var pStatus = document.getElementById("mensagemModal");
+        pStatus.textContent = msg;
 
-    pStatus.textContent = msg;
+        myModal.show();
+    }
 }
 
 // Funções em sequência para validar os dados inseridos no HTML
