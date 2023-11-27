@@ -29,10 +29,10 @@ Dentro do projeto, separamos de forma organizada os elementos. Diretamente no re
   - **\agregados**: conjunto html que é repetitivo e utilizado em diversos outros arquivos
   - **\assets**: imagens e arquivo css para personalização das páginas
   - **\javascripts**: scripts na linguagem .js com diversas funcionalidades e objetivos
+  - **index.html** : página de início
   - **\paginas**: todos os arquivos .html
     - **\admin**: arquivos .html do módulo 1 (administrador)
     - **\local**: arquivos .html do módulo 2 (cliente)
-    - **index.html** : página de início
   - **\typescripts**: arquivo que roda o servidor em .ts
     
 ### Funcionamento do servidor
