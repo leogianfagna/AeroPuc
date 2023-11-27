@@ -1020,3 +1020,35 @@ app.post("/alterarVoo", async(req,res)=>{
     res.send(cr);  
   }
 });
+
+
+// mostar linhas e colunas das aeronaves
+app.get("/listarLinhasEColunas", async(req,res)=>{
+  const numeroVoo = req.query.voo as string;
+  
+  try {
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+    
+    const connection = await oracledb.getConnection(connAttibs);
+    let resultadoConsulta = await connection.execute("SELECT v.id as id_voo, a.colunas as numero_de_colunas, a.fileiras as numero_de_fileiras FROM voos v JOIN aeronaves a ON v.aeronave = a.id WHERE v.id = :numeroVoo",[numeroVoo]);
+
+
+    await connection.close();
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+
+  } catch(e) {
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    res.send(cr);  
+  }
+});
