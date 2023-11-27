@@ -10,7 +10,7 @@ function fetchResgatar(numeroVoo) {
 // Função para criar o mapa de assentos interativo no HTML, pronta para o usuário clicar
 // e reservar o assento escolhido. Salva no sessionStorage o valor do voo pesquisado ao
 // clicar em "Reservar" para utilizar posteriormente no banco de dados
-function criarMapaAssentos(vooEscolhido){
+function criarMapaAssentos(vooEscolhido, cadeiraSelecionadaNoMapa){
     const vooInserido = vooEscolhido;
     sessionStorage.setItem("vooEscolhido", vooInserido);
   
@@ -20,6 +20,9 @@ function criarMapaAssentos(vooEscolhido){
         if (data.status === 'SUCCESS') {
             const assentosReservados = data.payload.map(row => row[0]); // transformar o SELECT assentos em array
             console.log('Assentos Reservados:', assentosReservados);
+
+            const divReceberMapaAssentos = document.getElementById('mapaAssentos');
+            divReceberMapaAssentos.innerHTML = ''; // Limpa o conteúdo atual
             
             // criando um array dos assentos reservados para imprimir
             const colunas = 6;
@@ -28,6 +31,16 @@ function criarMapaAssentos(vooEscolhido){
             let poltronaLetra = 65; // letra 'A' na tabela ASCII
             let fileiraIdentificacao;
             let letraExtra = "";
+
+            // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
+            // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
+            if (cadeiraSelecionadaNoMapa === undefined) {
+                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
+                document.getElementById("mapaAssentos").innerHTML += `<br>`;
+            } else {
+                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
+                document.getElementById("mapaAssentos").innerHTML += `<br>`;
+            }
             
             // deve fazer a linha e depois imprimir, depois seguir para a proxima
         
@@ -54,10 +67,13 @@ function criarMapaAssentos(vooEscolhido){
                     // conferir se está ocupado ou desocupado
                     console.log("cadeira vez: " + cadeiraVez + ", assentos reservados: " + assentosReservados);
                     console.log("resultado do include = ", assentosReservados.includes(cadeiraVez.toString()));
-                    if (assentosReservados.includes(parseInt(cadeiraVez))) { //colocar toString única forma de funcionar
+
+                    if (assentosReservados.includes(parseInt(cadeiraVez))) {
                         document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
+                    } else if (cadeiraVez === cadeiraSelecionadaNoMapa) {
+                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoSelecionado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
                     } else {
-                        document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                        document.getElementById("mapaAssentos").innerHTML += `<button onClick="criarMapaAssentos(${vooInserido}, ${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
                     }
                 }
         
@@ -70,10 +86,22 @@ function criarMapaAssentos(vooEscolhido){
                     letraExtra = "A";
                 }
             }
-    
+
+            // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
+            // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
+            if (cadeiraSelecionadaNoMapa === undefined) {
+                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
+            } else {
+                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
+            }
+            
+
         } else {
             console.error('Erro ao obter os assentos reservados:', data.message);
         }
+
+        
+
     }).catch(error => {
           console.error('Erro ao fazer a requisição:', error);
     });
@@ -287,7 +315,6 @@ function buscarVoos(){
 // escolhida localmente pois só vai inserir no banco após o pagamento. Depois, abrir a página de
 // pagamento
 function reservarCadeira(cadeiraReservada){
-    sessionStorage.setItem("reservaCadeira", cadeiraReservada); // conferir qual é o correto aqui
     sessionStorage.setItem("assentoReservado", cadeiraReservada);
     window.location.href = "/src/paginas/local/pagamento/cartao_credito.html";
 }

@@ -141,6 +141,22 @@ opções avançadas seja selecionada */
   cursor: not-allowed;
 }
 
+/* Cria o estilo do botão (assento) que foi escolhido pelo usuário */
+.buttonMapaAssentoSelecionado {
+  background-color: #0a25a0;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 60px; /* Largura fixa */
+  height: 60px; /* Altura fixa */
+  margin: 4px 2px;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Para a div que aparece somente se o tipo de voo for IDA E VOLTA, caso contrário, não irá aparecer */
 #talvez {
   display: none;
