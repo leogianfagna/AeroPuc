@@ -102,8 +102,14 @@ para garantir que as divs fiquem lado a lado */
 
 /*Div com os estilos do qr-code*/
 .qr-code{
-  display: flex;
+  
   justify-content: center;          
   align-items: center;
-  margin: 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/*Div com os estilos do código pix*/
+.codigo-pix {
+  margin-top: 10px;
 }

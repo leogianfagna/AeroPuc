@@ -97,9 +97,13 @@
                                 <input type="email" class="form-control" id="emailUsuario" placeholder="name@example.com">
                                 <label for="emailUsuario">E-mail</label>
                             </div>
+                            <!-- Imagem e botão para copiar o QR Code -->
                             <div class="qr-code">
-                                <img src="/src/assets/images/OIP.jpeg" alt="QR Code" style="width: 200px; height: auto ;">
+                                <img src="/src/assets/images/OIP.jpeg" alt="QR Code" style="width: 200px; height: auto;">
+                                <p id="codigoPix" style="text-align: center;">00020101021226AeroPuc-Pix</p>
+                                <button class="btn btn-primary" onclick="copiarCodigoPix()">Copiar Código PIX</button>
                             </div>
+
                         </form>
 
                         <div>

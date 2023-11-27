@@ -238,4 +238,24 @@ function reservarCadeira(){
         }); 
 }
 
+function copiarCodigoPix() {
+    // Seleciona o elemento de texto que contém o código do PIX
+    var codigoPixElemento = document.getElementById('codigoPix');
 
+    // Cria um campo de texto temporário
+    var campoTemporario = document.createElement('textarea');
+    campoTemporario.value = codigoPixElemento.innerText;
+
+    // Adiciona o campo temporário à página
+    document.body.appendChild(campoTemporario);
+
+    // Seleciona e copia o texto no campo temporário
+    campoTemporario.select();
+    document.execCommand('copy');
+
+    // Remove o campo temporário da página
+    document.body.removeChild(campoTemporario);
+
+    // Exibe uma mensagem informando que o código foi copiado
+    alert('Código do PIX copiado para a área de transferência!');
+}
