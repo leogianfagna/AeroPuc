@@ -1,4 +1,4 @@
-// funcao para verificar se o id foi preenchido
+// Função para verificar se o ID do item a ser excluído foi preenchido
 function ids(){
     let resultado = false;
     const id = document.getElementById("id").value;
@@ -10,7 +10,8 @@ function ids(){
     return resultado; 
 }
 
-// funcao para exibir mensagem de erro
+// Função que é utilizada para as mensagens ao usuário, através do elemento com o ID "status"
+// utilizando o padrão (classe) bootstrap
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -23,7 +24,7 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
-// funcao fetch do tipo delete
+// Função FETCH do tipo DELETAR que será usada para apagar uma linha da tabela
 function fetchDeletar(body) {
     const requestOptions = {
       method: 'DELETE',
@@ -35,7 +36,7 @@ function fetchDeletar(body) {
     .then(T => T.json())
 }
 
-// funcao de excluir
+// Função para excluir um aeroporto da tabela
 function excluir(){
     
     if (!ids()) {

@@ -1,3 +1,6 @@
+// Função FETCH que executa uma busca no banco usando o comando SELECT * FROM <nome da tabela>
+// O nome da tabela é passada como um argumento para utilizar a mesma função typescript
+
 fetch(`http://localhost:3000/queryTabelasAdministrativas?tabelaParaExecutarSelect=${"cliente"}`)
     .then(response => response.json())
     .then(data => {

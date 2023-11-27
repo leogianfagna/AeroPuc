@@ -245,6 +245,7 @@ function buscarVoos(){
     var desaparecerDivDados = document.getElementById('cadastroCentral');
     desaparecerDivDados.style.opacity = '0';
     desaparecerDivDados.style.height = '0';
+    desaparecerDivDados.style.visibility = 'hidden';
 
     var mostrarDivTabela = document.getElementById('tabelaResultados');
     mostrarDivTabela.style.opacity = '1';
