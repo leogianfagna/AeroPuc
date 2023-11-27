@@ -6,105 +6,105 @@ function fetchResgatar(numeroVoo) {
     return fetch(`http://localhost:3000/listarAssentosReservados?voo=${numeroVoo}`)
         .then(response => response.json());
 }
-  
+
 // Função para criar o mapa de assentos interativo no HTML, pronta para o usuário clicar
 // e reservar o assento escolhido. Salva no sessionStorage o valor do voo pesquisado ao
 // clicar em "Reservar" para utilizar posteriormente no banco de dados
 function criarMapaAssentos(vooEscolhido, cadeiraSelecionadaNoMapa){
     const vooInserido = vooEscolhido;
     sessionStorage.setItem("vooEscolhido", vooInserido);
-  
-    // usar o fetch com o parametro (vai receber no typescript)
-    fetchResgatar(vooInserido)
-      .then(data => {
+
+    // Função fetch que vai retornar em um array [colunas, assentos] do avião responsável pelo voo a ser reservado
+    fetch(`http://localhost:3000/listarLinhasEColunas?idDoVoo=${vooEscolhido}`)
+    .then(response => response.json())
+    .then(data => {
         if (data.status === 'SUCCESS') {
-            const assentosReservados = data.payload.map(row => row[0]); // transformar o SELECT assentos em array
-            console.log('Assentos Reservados:', assentosReservados);
-
-            const divReceberMapaAssentos = document.getElementById('mapaAssentos');
-            divReceberMapaAssentos.innerHTML = ''; // Limpa o conteúdo atual
+            const resultado = data.payload;
+            const NumeroDeColunasDoAviao = resultado[0];
+            const NumeroDeAssentosDoAviao = resultado[1];
             
-            // criando um array dos assentos reservados para imprimir
-            const colunas = 6;
-            const fileiras = 30;
-            let cadeiraVez = 0;
-            let poltronaLetra = 65; // letra 'A' na tabela ASCII
-            let fileiraIdentificacao;
-            let letraExtra = "";
+        // Função fetch que retorna os assentos reservados no banco de dados do voo escolhido para a reserva.
+        // Caso seja sucesso, cria e imprime o mapa de assentos no HTML, usando o número de colunas e total
+        // de assentos da função anterior como parâmetro para a impressão
+        fetchResgatar(vooInserido)
+        .then(data => {
+            if (data.status === 'SUCCESS') {
+                const assentosReservados = data.payload.map(row => row[0]); // Transformar o SELECT assentos (resultado da query) em array
+                console.log('Assentos Reservados:', assentosReservados);
 
-            // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
-            // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
-            if (cadeiraSelecionadaNoMapa === undefined) {
-                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
-                document.getElementById("mapaAssentos").innerHTML += `<br>`;
-            } else {
-                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
-                document.getElementById("mapaAssentos").innerHTML += `<br>`;
-            }
+                const divReceberMapaAssentos = document.getElementById('mapaAssentos');
+                divReceberMapaAssentos.innerHTML = ''; // Limpa o conteúdo atual
+                
+                const fileirasAviao = NumeroDeAssentosDoAviao / NumeroDeColunasDoAviao;
+                let cadeiraVez = 0;
+                let poltronaLetra = 65; // letra 'A' na tabela ASCII
+                let fileiraIdentificacao;
+                let letraExtra = "";
+
+                // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
+                // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
+                if (cadeiraSelecionadaNoMapa === undefined) {
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                } else {
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
+                    document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                }
             
-            // deve fazer a linha e depois imprimir, depois seguir para a proxima
-        
-            // passar por todas as colunas
-            for (let i = 0; i < fileiras; i++) {
-        
-                // passar pela linha inteira
-                for (let j = 0; j < colunas; j++) {
-                    cadeiraVez++; // conta em qual cadeira está
-                    fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
-        
-                    // conferir se é um corredor
-                    // lógica é pegar colunas e dividir por 2, quando for esse resultado, pula
-                    if (j === colunas/2) {
-                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonCorredor" disabled></button>`;
+                // For para as colunas
+                for (let i = 0; i < fileirasAviao; i++) {
+            
+                    // For para cada assento da coluna. É aqui que ele imprime os botões (assentos) ou corredor
+                    for (let j = 0; j < NumeroDeColunasDoAviao; j++) {
+                        cadeiraVez++;
+                        fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
+            
+                        // Conferir se é um corredor
+                        if (j === NumeroDeColunasDoAviao / 2) {
+                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonCorredor" disabled></button>`;
+                        }
+
+                        // Checa se o ARRAY de assentosReservados possui o número cadeiraVez, para entender qual tipo de botão deve ser impresso
+                        if (assentosReservados.includes(parseInt(cadeiraVez))) {
+                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
+                        } else if (cadeiraVez === cadeiraSelecionadaNoMapa) {
+                            document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoSelecionado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
+                        } else {
+                            document.getElementById("mapaAssentos").innerHTML += `<button onClick="criarMapaAssentos(${vooInserido}, ${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                        }
                     }
-        
-                    // AQUI VAI TER QUE SER ASSIM:
-                    // ele nao pode conferir posição por posição, vai ter que conferir se o numero cadeiraVez
-                    // tem algum resultado no array!!!
+            
+                    // Criar uma nova coluna, pular linha e avançar uma letra para identificar as poltronas
+                    document.getElementById("mapaAssentos").innerHTML += `<br>`;
+                    poltronaLetra++;
 
-                    
-        
-                    // conferir se está ocupado ou desocupado
-                    console.log("cadeira vez: " + cadeiraVez + ", assentos reservados: " + assentosReservados);
-                    console.log("resultado do include = ", assentosReservados.includes(cadeiraVez.toString()));
-
-                    if (assentosReservados.includes(parseInt(cadeiraVez))) {
-                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoReservado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
-                    } else if (cadeiraVez === cadeiraSelecionadaNoMapa) {
-                        document.getElementById("mapaAssentos").innerHTML += `<button type="button" class="buttonMapaAssentoSelecionado" style="margin: 3px" disabled>${fileiraIdentificacao}</button>`;
-                    } else {
-                        document.getElementById("mapaAssentos").innerHTML += `<button onClick="criarMapaAssentos(${vooInserido}, ${cadeiraVez});" type="button" class="buttonMapaAssento" style="margin: 3px">${fileiraIdentificacao}</button>`;
+                    if (poltronaLetra === 91) {
+                        poltronaLetra = 65;
+                        letraExtra = "A";
                     }
                 }
-        
-                // nova coluna, pular linha e avançar uma letra para identificar as poltronas
-                document.getElementById("mapaAssentos").innerHTML += `<br>`;
-                poltronaLetra++;
 
-                if (poltronaLetra === 91) {
-                    poltronaLetra = 65;
-                    letraExtra = "A";
+                // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
+                // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
+                if (cadeiraSelecionadaNoMapa === undefined) {
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
+                } else {
+                    document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
                 }
-            }
+                
 
-            // Criação do botão de confirmação de assento. Passa como variável para reservar a cadeira escolhida e confere
-            // se ela foi definida (ou seja, o usuário clicou em um assento para escolher)
-            if (cadeiraSelecionadaNoMapa === undefined) {
-                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px" disabled>Confirmar assento</button>`;
             } else {
-                document.getElementById("mapaAssentos").innerHTML += `<button onClick="reservarCadeira(${cadeiraSelecionadaNoMapa});" type="button" class="btn btn-primary" style="margin: 5px">Confirmar assento</button>`;
+                console.error('Erro ao obter os assentos reservados:', data.message);
             }
-            
-
-        } else {
-            console.error('Erro ao obter os assentos reservados:', data.message);
-        }
-
-        
 
     }).catch(error => {
           console.error('Erro ao fazer a requisição:', error);
     });
+        } else {
+            console.error(`Erro ao obter dados: ${data.message}`);
+        }
+    })
+    .catch(error => console.error('Erro ao conectar:', error));
 }
 
 // Função que exibe opção de data de volta pois, caso seja só ida, não há
@@ -128,7 +128,6 @@ function conferirTipoViagem(){
 
     return resultado; 
 }
-
 
 // Função que trata das datas preenchidas. Se a data de volta for igual ou menor que a de ida
 // deve ser bloqueada e enviar mensagem. Usa o ID do tipoSelecionado e o valor se for IDA E VOLTA

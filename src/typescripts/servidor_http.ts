@@ -1022,9 +1022,11 @@ app.post("/alterarVoo", async(req,res)=>{
 });
 
 
-// mostar linhas e colunas das aeronaves
+// Função GET para resgatar dentro de um array o [número de colunas, número de assentos] de um avião para ser utilizado na
+// impressão do mapa de assentos. Constroi um IF para checar se foi retornado algo e, se positivo, retornar apenas uma posição
+// do array, para não criar um array dentro de um array
 app.get("/listarLinhasEColunas", async(req,res)=>{
-  const numeroVoo = req.query.voo as string;
+  const numeroVoo = req.query.idDoVoo as string;
   
   try {
     const connAttibs: ConnectionAttributes = {
@@ -1034,12 +1036,19 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
     }
     
     const connection = await oracledb.getConnection(connAttibs);
-    let resultadoConsulta = await connection.execute("SELECT v.id as id_voo, a.colunas as numero_de_colunas, a.fileiras as numero_de_fileiras FROM voos v JOIN aeronaves a ON v.aeronave = a.id WHERE v.id = :numeroVoo",[numeroVoo]);
+    let resultadoConsulta = await connection.execute("SELECT a.colunas as numero_de_colunas, a.assentos as numero_de_assentos FROM voos v JOIN aeronaves a ON v.aeronave = a.id WHERE v.id = :numeroVoo", [numeroVoo]);
 
+    console.log(resultadoConsulta);
 
     await connection.close();
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
+
+    if (resultadoConsulta.rows && resultadoConsulta.rows.length > 0) {
+      cr.payload = resultadoConsulta.rows[0];
+    } else {
+      cr.payload = [];
+    }
 
   } catch(e) {
     if (e instanceof Error) {

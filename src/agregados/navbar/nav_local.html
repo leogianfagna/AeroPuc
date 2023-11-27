@@ -1,17 +1,30 @@
-<!-- head e body estão aqui para o live server não mostrar mensagem de erro -->
+<!-- 
+    Arquivo HTML que compõe a NAV BAR nas páginas do modo administrativo. 
+    Código será reutilizado sem a necessidade de colá-lo, sendo inserido em
+    cada página através de um FETCH.
+
+    Usado a tipografia do boostrap
+    https://getbootstrap.com/docs/5.0/content/typography/
+-->
+
+<!-- Head e Body estão aqui para o live server não mostrar mensagem de erro -->
 <head></head>
 <body></body>
-<link rel="stylesheet" href="/src/assets/css/index.css"> <!-- importar um css criado para o index -->
+
+<link rel="stylesheet" href="/src/assets/css/index.css">
 <nav class="navbar navbar-expand-lg bg-body-tertiary nav-bar" data-bs-theme="light">
-    <div class="container-fluid nav-bar-elementos"> <!-- container fluído é que um elemento vai ficar do lado do outro -->
-        <!-- 
-            usando tipografia do boostrap
-            https://getbootstrap.com/docs/5.0/content/typography/
-        -->
+
+    <!-- Div que cria um container fluid, que significa que um elemento fica ao lado do outro -->
+    <div class="container-fluid nav-bar-elementos">
+
+        <!-- Insere o logo tipo da empresa -->
         <a class="navbar-brand fs-3 text-muted" href="#">AeroPUC <img src="/src/assets/images/logo-removebg-preview.png" width="90px" height="auto" ></a>
+        
+        <!-- Elementos da Nav bar-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- deixar vazio -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul> <!-- deixar vazio -->
+            
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link fw-bold" href="/index.html">Início</a>

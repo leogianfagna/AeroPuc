@@ -1,18 +1,34 @@
-<!-- head e body estão aqui para o live server não mostrar mensagem de erro -->
+<!-- 
+    Arquivo HTML que compõe a NAV BAR nas páginas do modo administrativo. 
+    Código será reutilizado sem a necessidade de colá-lo, sendo inserido em
+    cada página através de um FETCH.
+-->
+
+<!-- Head e Body estão aqui para o live server não mostrar mensagem de erro -->
 <head></head>
 <body></body>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid"> <!-- container fluído é que um elemento vai ficar do lado do outro -->
+    
+    <!-- Div que cria um container fluid, que significa que um elemento fica ao lado do outro -->
+    <div class="container-fluid">
+
         <a class="navbar-brand" href="/index.html">AeroPUC</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <!-- Div no estilo Bootstrap para encaixar todos os elementos -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- opções da nav -->
+            
+            <!-- Define as opções da Nav bar -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- aeronaves -->
+                
+                <!-- Elementos/links abaixo -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aeronaves</a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Aeronaves
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/src/paginas/admin/main/aeronaves.html">Visualizar</a></li>
                         <li><a class="dropdown-item" href="/src/paginas/admin/cadastrar/aeronaves.html">Cadastrar</a></li>
@@ -20,7 +36,7 @@
                         <li><a class="dropdown-item" href="/src/paginas/admin/excluir/aeronaves.html">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- aeroportos -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Aeroportos
@@ -32,7 +48,7 @@
                         <li><a class="dropdown-item" href="/src/paginas/admin/excluir/aeroportos.html">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- voos -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Voos
@@ -44,7 +60,7 @@
                         <li><a class="dropdown-item" href="/src/paginas/admin/excluir/voos.html">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- cidades -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cidades
@@ -55,7 +71,7 @@
                         <li><a class="dropdown-item disabled" aria-disabled="true">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- trajetos -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Trajetos
@@ -67,7 +83,7 @@
                         <li><a class="dropdown-item" href="/src/paginas/admin/excluir/trajetos.html">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- clientes -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Clientes
@@ -79,7 +95,7 @@
                         <li><a class="dropdown-item" href="/src/paginas/admin/excluir/clientes.html">Excluir</a></li>
                     </ul>
                 </li>
-                <!-- mapa assentos -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Assentos
@@ -90,13 +106,6 @@
                     </ul>
                 </li>
             </ul>
-            <span class="navbar-text" style="margin-right: 10px">
-                Procurar por páginas:
-            </span>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" aria-label="Search">
-                <button class="btn btn-outline-info" type="submit">Pesquisar</button>
-            </form>
         </div>
     </div>
 </nav>

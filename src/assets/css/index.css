@@ -1,58 +1,37 @@
-.fundoCor {
-    background-color: black;
+/* Para remover a margem e o preenchimento padrão e inserir uma cor de fundo */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(223, 217, 217);
 }
 
-.imagemCapa {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
+/* Estilos para ajustar o tamanho da nav-bar e o encaixe dos elementos dentro dela */
 .nav-bar{
-    /* ajustar o tamanho vertical */
     height: 70px;
 }
 
 .nav-bar-elementos{
-    /* ajustar o tamanho vertical */
-    height: 70px;
-
-    /* ajustar com a borda da página */
+    /* Alinhar com a margem da página */
     margin-left: 15%;
     margin-right: 15%;
+    height: 70px;
 }
 
-body {
-    margin: 0; /* Remover a margem padrão do corpo do HTML */
-    padding: 0; /* Remover o preenchimento padrão do corpo do HTML */
-    background-color: rgb(223, 217, 217);
-}
-
+/* Criado para montar uma margem em volta do centro da tela */
 .container {
     margin-left: 15%;
     margin-right: 15%;
 }
 
+/* Alinha a div central com a margem da página e é criada para encaixar os elementos do index */
 .div-central {
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 30px;
-
-    overflow: hidden; /* Adicionado para corrigir o problema do overflow */
+    overflow: hidden;
 }
 
-.div-esquerda {
-    
-    float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
-    border: 3px black solid;
-}
-
-.div-direita {
-    
-    float: left; /* Adicionado para garantir que as divs fiquem lado a lado */
-    border: 3px black solid;
-}
-
+/* Arrastar o slogan livremente pelo index */
 .descolar {
     margin-left: -15%;
     margin-top: 30%;
