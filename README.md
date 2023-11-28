@@ -60,7 +60,7 @@ Se você está lendo isso, provavelmente já está com o projeto baixado, mas ca
 2. Caso não esteja na rede da PUCCAMP, deve-se utilizar a VPN para conseguir acessar o banco. Para isso, utilize [esse tutorial](https://github.com/leogianfagna/pi_aeropuc).
 4. Execute `npm install` para instalar todas as dependências do projeto
 5. Execute `npm start` para iniciar o servidor http
-6. Utilizando a extensão *Live Server*, vá ao arquivo **index.html** (\src\paginas\index.html) e abra-o ao vivo (opção no canto inferior direito)
+6. Utilizando a extensão *Live Server*, vá ao arquivo **index.html** (no diretório principal do projeto) e abra-o ao vivo (opção no canto inferior direito)
 7. Comece a usar no browser!
 
    
