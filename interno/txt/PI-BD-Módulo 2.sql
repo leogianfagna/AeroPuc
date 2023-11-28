@@ -67,18 +67,21 @@ create table aeronaves(
   modelo varchar(30) not null,
   fabricante varchar(30) not null,
   ano_fabricacao integer not null,
+  colunas integer not null,
+  fileiras integer not null,
   assentos integer not null);
-insert into aeronaves VALUES(aeronaves_id.nextval, 1234	,'Airbus A320',	'Airbus'	,1987	,75);
-insert into aeronaves VALUES(aeronaves_id.nextval, 5678	,'Boeing 737',	'Boeing',	1967	,85);
-insert into aeronaves VALUES(aeronaves_id.nextval, 9012	,'Boeing 777'	,'Boeing'	,1993	,100);
-insert into aeronaves VALUES(aeronaves_id.nextval, 3454	,'CRJ 1000'	,'Bombardier'	,2010	,100);
-insert into aeronaves VALUES(aeronaves_id.nextval, 7945	,'Embraer E-195'	,'Embraer'	,2002	,66);
-insert into aeronaves VALUES(aeronaves_id.nextval, 1426	,'Boeing 727'	,'Boeing'	,1984	,100);
-insert into aeronaves VALUES(aeronaves_id.nextval, 7817	,'Airbus A330'	,'Airbus'	,1992	,100);
-insert into aeronaves VALUES(aeronaves_id.nextval, 1418	,'Boeing 747'	,'Boeing'	,1969	,90);
-insert into aeronaves VALUES(aeronaves_id.nextval, 9829	,'Boeing 787'	,'Boeing'	,2007	,40);
-insert into aeronaves VALUES(aeronaves_id.nextval, 1110	,'Boeing 767'	,'Boeing'	,1991	,75);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1234	,'Airbus A320',	'Airbus'	,1987, 19, 4 ,76);
+insert into aeronaves VALUES(aeronaves_id.nextval, 5678	,'Boeing 737',	'Boeing',	1967, 15, 6	,90);
+insert into aeronaves VALUES(aeronaves_id.nextval, 9012	,'Boeing 777'	,'Boeing'	,1993, 25, 4 ,100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 3454	,'CRJ 1000'	,'Bombardier'	,2010, 25, 4, 100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 7945	,'Embraer E-195'	,'Embraer'	,2002, 19, 4, 76);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1426	,'Boeing 727'	,'Boeing'	,1984, 15, 6 ,90);
+insert into aeronaves VALUES(aeronaves_id.nextval, 7817	,'Airbus A330'	,'Airbus'	,1992, 25, 4, 100);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1418	,'Boeing 747'	,'Boeing'	,1969, 15, 6, 90);
+insert into aeronaves VALUES(aeronaves_id.nextval, 9829	,'Boeing 787'	,'Boeing'	,2007, 25, 6, 150);
+insert into aeronaves VALUES(aeronaves_id.nextval, 1110	,'Boeing 767'	,'Boeing'	,1991, 25, 6, 150);
 select * from aeronaves;
+
 
 
 

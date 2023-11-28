@@ -46,24 +46,33 @@ function tryH(){
 // passada como parâmetro. Apenas tabelas no modo administrativo, que são
 // mostrada todas as colunas
 app.get("/queryTabelasAdministrativas", async(req,res)=>{
-
+  
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-
+    //Criar as variáveis usadas
     var tabela = req.query.tabelaParaExecutarSelect as string;
+
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
+
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute(`SELECT * FROM ${tabela}`);
   
+    //Fechar conexão 
     await connection.close();
+
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -71,6 +80,7 @@ app.get("/queryTabelasAdministrativas", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
@@ -78,26 +88,33 @@ app.get("/queryTabelasAdministrativas", async(req,res)=>{
 // função get para conseguir as cidades de origem, baseado na cidade 
 // destino que o usuário registrou
 app.get("/listarCidadesDestino", async(req,res)=>{
+  
+  //Criar as variáveis usadas
   var busca = req.query.voo as string;
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
 
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute("SELECT origem FROM trajetos WHERE destino = 'campinas' ORDER BY origem ASC");
     console.log("Busca SQL: ", resultadoConsulta);
-  
+    
+    //Fechar conexão 
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -105,33 +122,41 @@ app.get("/listarCidadesDestino", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // clientes = executar select somente na cadeira reservada
 app.get("/listarAssentosReservados", async(req,res)=>{
+  
+  //Criar as variáveis usadas
   const numeroVoo = req.query.voo as string;
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-
+   // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
     
     console.log("Num recebido: ", numeroVoo);
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute("select assento from mapa_assentos where status = 'Indisponível' and voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
     console.log("resultado consulta: ", resultadoConsulta);
   
+    //Fechar conexão
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -139,6 +164,7 @@ app.get("/listarAssentosReservados", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
@@ -146,6 +172,8 @@ app.get("/listarAssentosReservados", async(req,res)=>{
 // buscar os voos baseado nas datas e informações inseridas
 // por enquanto só fazendo pela data
 app.get("/buscarVoosLista", async(req,res)=>{
+
+  //Criar as variáveis usadas
   var dataPartidaVoo = req.query.dataPreenchida as string;
   var dataVoltaVoo = req.query.dataVoltaPreenchida as string;
   var cidadeDestinoViagem = req.query.localDestino as string;
@@ -154,12 +182,13 @@ app.get("/buscarVoosLista", async(req,res)=>{
   var tipoDeBuscaSimplesOuAvancada = req.query.tipoBusca as string;
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-
+   // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
     let resultadoConsulta;
     
@@ -180,13 +209,15 @@ app.get("/buscarVoosLista", async(req,res)=>{
       resultadoConsulta = await connection.execute(`SELECT ${queryBancoDeDados} FROM voos JOIN trajetos ON voos.trajeto = trajetos.id JOIN
       aeronaves ON voos.aeronave = aeronaves.id WHERE trajetos.origem = '${cidadeOrigemViagem}' AND trajetos.destino = '${cidadeDestinoViagem}'`);
     }
-    
+    //Fechar conexão
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -194,12 +225,14 @@ app.get("/buscarVoosLista", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // cliente = inserir modo administrativo
 app.put("/inserirCliente", async(req,res)=>{
+  //Criar as variáveis usadas
   const nome = req.body.nome as string;
   const email = req.body.email as string;
   const assento = req.body.assento as number;
@@ -208,12 +241,13 @@ app.put("/inserirCliente", async(req,res)=>{
   let conn;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     });
-
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO cliente
     (id, nome, email, assento, voo)
     VALUES (clientes_id.nextval, :1, :2, :3, :4)`;
@@ -230,6 +264,7 @@ app.put("/inserirCliente", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -237,7 +272,9 @@ app.put("/inserirCliente", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
     res.send(cr);  
@@ -246,10 +283,12 @@ app.put("/inserirCliente", async(req,res)=>{
 
 // função para setar uma cadeira como indisponível, ou seja, reservada
 app.post("/reservarCadeira", async(req,res)=>{
+  //Criar as variáveis usadas
   const vooReserva = req.body.vooReserva as number;
   const cadeiraReserva = req.body.cadeiraReserva as number;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
@@ -258,6 +297,7 @@ app.post("/reservarCadeira", async(req,res)=>{
 
     console.log("voo: ", vooReserva);
     console.log("voo: ", cadeiraReserva);
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE mapa_assentos SET status = 'Indisponível' WHERE voo = :1 AND assento = :2`
     const dados = [vooReserva, cadeiraReserva];
 
@@ -271,10 +311,12 @@ app.post("/reservarCadeira", async(req,res)=>{
       cr.message = "Assento reservado.";
     } else {
       cr.message = "Assento não reservado.";
+      //Fechar conexão
       await connection.close();
     }
 
   } catch(e){
+    // Trata erros
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -283,12 +325,14 @@ app.post("/reservarCadeira", async(req,res)=>{
     }
   }
   finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // aeronaves = inserir
 app.put("/inserirAeronave", async(req,res)=>{
+  //Criar as variáveis usadas
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
   const registro = req.body.registro as number;
@@ -298,12 +342,14 @@ app.put("/inserirAeronave", async(req,res)=>{
   let conn;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO aeronaves
     (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao)
     VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5)`;
@@ -320,6 +366,7 @@ app.put("/inserirAeronave", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -327,7 +374,9 @@ app.put("/inserirAeronave", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
     res.send(cr);  
@@ -336,21 +385,25 @@ app.put("/inserirAeronave", async(req,res)=>{
 
 // aeronaves = excluir
 app.delete("/excluirAeronave", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
 
     try {
+      //Criar conexão com o banco de dados usando as informações do .env
       const connection = await oracledb.getConnection({
          user: process.env.ORACLE_DB_USER,
          password: process.env.ORACLE_DB_PASSWORD,
          connectionString: process.env.ORACLE_CONN_STR,
       });
   
+      //Executar o comando no banco de dados
       const cmdDeleteAero = `DELETE FROM aeronaves WHERE id = :1`
       const dados = [id];
   
       let resDelete = await connection.execute(cmdDeleteAero, dados);
       
       await connection.commit();
+      //Fechar conexão
       await connection.close();
       const rowsDeleted = resDelete.rowsAffected;
       
@@ -362,6 +415,7 @@ app.delete("/excluirAeronave", async(req,res)=>{
       }
   
     } catch(e) {
+      // Trata erros
       if (e instanceof Error) {
         cr.message = e.message;
         console.log(e.message);
@@ -369,12 +423,14 @@ app.delete("/excluirAeronave", async(req,res)=>{
         cr.message = "Erro ao conectar ao oracle. Sem detalhes";
       }
     } finally {
+      // Envia a resposta
       res.send(cr);  
     }
 });
 
 // aeronaves = alterar
 app.post("/alterarAeronave", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
@@ -383,12 +439,14 @@ app.post("/alterarAeronave", async(req,res)=>{
   const registro = req.body.registro as number;
 
   try{
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, numero_identificacao = :2, ano_fabricacao = :3, assentos = :4, modelo = :5 WHERE id = :6`
     const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, id];
 
@@ -402,10 +460,12 @@ app.post("/alterarAeronave", async(req,res)=>{
       cr.message = "Aeronave alterada.";
     } else {
       cr.message = "Aeronave não alterada. Verifique se o código informado está correto.";
+      //Fechar conexão
       await connection.close();
     }
 
   } catch(e){
+    // Trata erros
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -414,24 +474,27 @@ app.post("/alterarAeronave", async(req,res)=>{
     }
   }
   finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // aeroportos = inserir
 app.put("/inserirAeroporto", async(req,res)=>{
+  //Criar as variáveis usadas
   const aeroporto = req.body.aeroporto as string;
   const cidade = req.body.cidade as number;
 
   let conn;
-
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO aeroportos
     (id, aeroporto, cidade)
     VALUES (500, Campinas, Teste)`;
@@ -449,6 +512,7 @@ app.put("/inserirAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -456,7 +520,9 @@ app.put("/inserirAeroporto", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
     
@@ -466,20 +532,24 @@ app.put("/inserirAeroporto", async(req,res)=>{
 
 // aeroportos - excluir
 app.delete("/excluirAeroporto", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdDeleteAero = `DELETE FROM aeroportos WHERE id = :1`
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsDeleted = resDelete.rowsAffected;
     
@@ -491,6 +561,7 @@ app.delete("/excluirAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -498,12 +569,14 @@ app.delete("/excluirAeroporto", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // aeroportos - alterar
 app.post("/alterarAeroporto", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.idAeroporto as number;
   const cidade = req.body.cidadeLocalizada as number;
   const aeroporto= req.body.nomeAeroporto as string;
@@ -514,18 +587,21 @@ app.post("/alterarAeroporto", async(req,res)=>{
 
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE aeroportos SET aeroporto = :1, cidade = :2 WHERE id = :3`
     const dados = [aeroporto, cidade,id];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsUpdated = resUpdate.rowsAffected;
     console.log("Linhas afetadas:", rowsUpdated);
@@ -538,6 +614,7 @@ app.post("/alterarAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -545,12 +622,14 @@ app.post("/alterarAeroporto", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // cidades - inserir
 app.put("/inserirCidade", async(req,res)=>{
+  //Criar as variáveis usadas
   const cidade = req.body.cidade as string;
   const estado = req.body.estado as string;
   const pais = req.body.pais as string; 
@@ -558,12 +637,14 @@ app.put("/inserirCidade", async(req,res)=>{
   let conn;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO cidades
     VALUES(cidades_id.nextval,:1, :2, :3)`
     const dados = [cidade,estado,pais];
@@ -578,6 +659,7 @@ app.put("/inserirCidade", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -585,7 +667,9 @@ app.put("/inserirCidade", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
     res.send(cr);  
@@ -594,20 +678,24 @@ app.put("/inserirCidade", async(req,res)=>{
 
 // cidade - excluir
 app.delete("/excluirCidade", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdDeleteAero = `DELETE FROM cidades WHERE id = :1`
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsDeleted = resDelete.rowsAffected;
     
@@ -619,6 +707,7 @@ app.delete("/excluirCidade", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -626,30 +715,35 @@ app.delete("/excluirCidade", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // cidades - alterar
 app.put("/alterarCidade", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
   const cidade = req.body.cidade as string;
   const estado = req.body.estado as string;
   const pais = req.body.pais as string;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
        connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE aeronaves SET cidade = :2,
      estado = :3, pais = :4 WHERE id = :1`
     const dados = [id, cidade, estado, pais];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsUpdated = resUpdate.rowsAffected;
     
@@ -661,6 +755,7 @@ app.put("/alterarCidade", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -668,6 +763,7 @@ app.put("/alterarCidade", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
@@ -676,22 +772,26 @@ app.put("/alterarCidade", async(req,res)=>{
 app.get("/listarMapa", async(req,res)=>{
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-    
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
     
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute("SELECT * FROM mapa_assentos");
-  
+    //Fechar conexão
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -699,12 +799,14 @@ app.get("/listarMapa", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // trajetos - inserir
 app.put("/inserirTrajeto", async(req,res)=>{
+  //Criar as variáveis usadas
   const origem = req.body.origem as string;
   const destino = req.body.destino as string; 
   const duracao = req.body.duracao as string;
@@ -713,12 +815,14 @@ app.put("/inserirTrajeto", async(req,res)=>{
   let conn;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO trajetos 
     VALUES(trajetos_id.nextval,:1, :2, :3, :4)`
     const dados = [origem,destino,duracao,tipo];
@@ -733,6 +837,7 @@ app.put("/inserirTrajeto", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -741,28 +846,34 @@ app.put("/inserirTrajeto", async(req,res)=>{
     }
   } finally {
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // trajeto - excluir
 app.delete("/excluirTrajeto", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdDeleteAero = `DELETE FROM trajetos WHERE id = :1`
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsDeleted = resDelete.rowsAffected;
     
@@ -773,6 +884,7 @@ app.delete("/excluirTrajeto", async(req,res)=>{
       cr.message = "Trajeto não excluída. Verifique se o código informado está correto.";
     }
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -780,12 +892,14 @@ app.delete("/excluirTrajeto", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // alterar trajetos
 app.post("/alterarTrajeto", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
   const origem = req.body.origem as string;
   const destino = req.body.destino as string; 
@@ -793,18 +907,21 @@ app.post("/alterarTrajeto", async(req,res)=>{
   const tipo = req.body.tipo as string;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
        connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE trajetos SET origem = :2,
        destino = :3,  duracao = :4, tipo= :5 WHERE id = :1`
     const dados = [id,origem,destino,duracao,tipo];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsUpdated = resUpdate.rowsAffected;
     
@@ -816,6 +933,7 @@ app.post("/alterarTrajeto", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -823,6 +941,7 @@ app.post("/alterarTrajeto", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
@@ -831,21 +950,25 @@ app.post("/alterarTrajeto", async(req,res)=>{
 app.get("/listarDestinos", async(req,res)=>{
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-    
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute("SELECT DISTINCT destino FROM trajetos");
-  
+    //Fechar conexão
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -853,31 +976,37 @@ app.get("/listarDestinos", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // resgatar todos os aeroportos de partida possíveis, baseado no destino inserido acima
 app.get("/listarPartida", async(req,res)=>{
+  //Criar as variáveis usadas
   var localViagemDestino = req.query.localDestino as string;
   console.log("resgatou: ", localViagemDestino);
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-    
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute(`SELECT DISTINCT origem FROM trajetos WHERE destino = '${localViagemDestino}'`);
-  
+    //Fechar conexão
     await connection.close();
+    //Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
+    // Trata erros
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -885,12 +1014,14 @@ app.get("/listarPartida", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // voos - inserir
 app.put("/inserirVoos", async(req,res)=>{
+  //Criar as variáveis usadas
   const data_ida = req.body.data_ida as string;
   const data_volta = req.body.data_volta as string;
   const trajeto = req.body.trajeto as number;
@@ -900,14 +1031,15 @@ app.put("/inserirVoos", async(req,res)=>{
   const valor = req.body.valor as string;
 
   let conn;
-
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     conn = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO voos 
     VALUES(voos_id.nextval, :1, :2, :3, :4, :5, :6, :7)`
     const dados = [data_ida,data_volta ,trajeto, aeronave, horario_ida, horario_volta, valor];
@@ -922,6 +1054,7 @@ app.put("/inserirVoos", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -930,28 +1063,34 @@ app.put("/inserirVoos", async(req,res)=>{
     }
   } finally {
     if (conn!== undefined) {
+      //Fechar conexão
       await conn.close();
     }
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // voos - excluir
 app.delete("/excluirVoo", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
         user: process.env.ORACLE_DB_USER,
         password: process.env.ORACLE_DB_PASSWORD,
         connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdDeleteAero = `DELETE FROM voos WHERE id = :1`
     const dados = [id];
 
     let resDelete = await connection.execute(cmdDeleteAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsDeleted = resDelete.rowsAffected;
     
@@ -963,6 +1102,7 @@ app.delete("/excluirVoo", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if(e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -970,12 +1110,14 @@ app.delete("/excluirVoo", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
 
 // voos - alterar
 app.post("/alterarVoo", async(req,res)=>{
+  //Criar as variáveis usadas
   const id = req.body.id as number;
   const data_ida = req.body.data_ida as string;
   const data_volta = req.body.data_volta as string;
@@ -986,12 +1128,14 @@ app.post("/alterarVoo", async(req,res)=>{
   const valor = req.body.valor as string;
 
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connection = await oracledb.getConnection({
        user: process.env.ORACLE_DB_USER,
        password: process.env.ORACLE_DB_PASSWORD,
        connectionString: process.env.ORACLE_CONN_STR,
     });
 
+    //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE voos SET data_ida = :2, data_volta :8,
      trajeto = :3, aeronave = :4, horario_ida = :5, horario_volta = :6, valor = :7 WHERE id = :1`
     const dados = [id, data_ida, trajeto, aeronave, horario_ida, horario_volta, valor, data_volta];
@@ -999,6 +1143,7 @@ app.post("/alterarVoo", async(req,res)=>{
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
+    //Fechar conexão
     await connection.close();
     const rowsUpdated = resUpdate.rowsAffected;
     
@@ -1010,6 +1155,7 @@ app.post("/alterarVoo", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1017,6 +1163,7 @@ app.post("/alterarVoo", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
@@ -1026,16 +1173,19 @@ app.post("/alterarVoo", async(req,res)=>{
 // impressão do mapa de assentos. Constroi um IF para checar se foi retornado algo e, se positivo, retornar apenas uma posição
 // do array, para não criar um array dentro de um array
 app.get("/listarLinhasEColunas", async(req,res)=>{
+  //Criar as variáveis usadas
   const numeroVoo = req.query.idDoVoo as string;
   
   try {
+    //Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
       connectionString: process.env.ORACLE_CONN_STR,
     }
-    
+    // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
+    //Executar o comando no banco de dados
     let resultadoConsulta = await connection.execute("SELECT a.colunas as numero_de_colunas, a.assentos as numero_de_assentos FROM voos v JOIN aeronaves a ON v.aeronave = a.id WHERE v.id = :numeroVoo", [numeroVoo]);
 
     console.log(resultadoConsulta);
@@ -1051,6 +1201,7 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
     }
 
   } catch(e) {
+    // Trata erros
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1058,6 +1209,7 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
     res.send(cr);  
   }
 });
