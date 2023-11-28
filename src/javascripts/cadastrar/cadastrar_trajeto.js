@@ -1,4 +1,5 @@
 // funcoes de tratamento de dados recebidos
+// Função para verificar se a origem foi selecionada
 function selecionouOrigem(){
     let resultado = false; 
     var origem = document.getElementById("cidadeOrigem");
@@ -10,7 +11,7 @@ function selecionouOrigem(){
 
     return resultado;
 }
-
+// Função para verificar se o destino foi selecionado
 function selecionouDestino(){
     let resultado = false; 
     var destino = document.getElementById("cidadeDestino");
@@ -22,7 +23,7 @@ function selecionouDestino(){
 
     return resultado;
 }
-
+// Função para verificar se o campo de duração foi preenchido.
 function preencheuDuracao(){
     let resultado = false;
     const duracao = document.getElementById("duração").value;
@@ -33,7 +34,7 @@ function preencheuDuracao(){
     
     return resultado;
 }
-
+// Função para verificar se o tipo foi selecionado
 function selecionouTipo(){
     let resultado = false; 
     var tipo = document.getElementById("tipo");
@@ -45,7 +46,7 @@ function selecionouTipo(){
 
     return resultado;
 }
-
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -58,6 +59,7 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função para enviar dados para o servidor usando um método PUT.
 // funcao fetch tipo PUT
 function fetchInserir(body) {
     const requestOptions = {
@@ -72,22 +74,22 @@ function fetchInserir(body) {
 
 // funcao para inserir um novo trajeto
 function inserirTrajeto(){
-
+    // Validação: Origem selecionada
     if(!selecionouOrigem()){
         showStatusMessage("Selecione a origem...", true);  
         return;
     }
-
+    // Validação: Destino selecionado
     if(!selecionouDestino()){
         showStatusMessage("Selecione o destino...", true);
         return;
     }
-
+    // Validação: Duração preenchida
     if(!preencheuDuracao()){
         showStatusMessage("Preencha a duração...", true);
         return;
     }
-
+    // Validação: Tipo selecionado
     if(!selecionouTipo()){
         showStatusMessage("Selecione o tipo...", true);
         return;
@@ -98,7 +100,8 @@ function inserirTrajeto(){
     const destinoInserido = document.getElementById("cidadeDestino").value;
     const duracaoInserida = document.getElementById("duração").value;
     const tipoCaminhoInserido = document.getElementById("tipo").value;
-
+    
+    // Chamada da função fetchInserir para enviar os dados ao servidor
     // promise
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
@@ -107,7 +110,7 @@ function inserirTrajeto(){
         duracao: duracaoInserida,
         tipo: tipoCaminhoInserido })
         .then(resultado => {
-            // obteve resposta
+            // Verifica se a resposta foi bem-sucedida ou apresentou erro
             if(resultado.status === "SUCCESS"){
             showStatusMessage("Trajeto cadastrado!", false);
             }else{

@@ -1,4 +1,5 @@
 // funcoes de tratamento de dados recebidos
+// Função para validar se o ano informado está no intervalo válido.
 function anoValido(){
     let resultado = false;
     var strAno = document.getElementById("anoFabricacao").value;
@@ -11,7 +12,7 @@ function anoValido(){
 
     return resultado;
 }
-
+// Função para validar o número de assentos.
 function totalAssentosValido(){
     let resultado = false;
     const strAssentos = document.getElementById("qtdeAssentos").value;
@@ -24,6 +25,7 @@ function totalAssentosValido(){
     return resultado; 
 }
 
+// Função para verificar se um fabricante foi selecionado
 function selecionouFabricante(){
     let resultado = false; 
     var listaFabricantes = document.getElementById("fabricantesCombo");
@@ -36,6 +38,7 @@ function selecionouFabricante(){
     return resultado;
 }
 
+// Função para verificar se o campo de modelo foi preenchido.
 function preencheuModelo(){
     let resultado = false;
     const modeloInformado = document.getElementById("modelo").value;
@@ -47,6 +50,7 @@ function preencheuModelo(){
     return resultado;
 }
 
+// Função para verificar se o campo de referência foi preenchido.
 function preencheuRegistro(){
     let resultado = false;
     const registroReferencia = document.getElementById("referencia").value;
@@ -58,6 +62,7 @@ function preencheuRegistro(){
     return resultado;
 }
 
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -70,6 +75,7 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função para enviar dados para o servidor usando um método PUT.
 // funcao fetch tipo PUT
 function fetchInserir(body) {
     const requestOptions = {
@@ -84,27 +90,27 @@ function fetchInserir(body) {
 
 // funcao para inserir uma nova aeronave
 function inserirAeronave(){
-
+// Validação: Fabricante selecionado
     if(!selecionouFabricante()){
         showStatusMessage("Fabricante não selecionado.", true);  
         return;
     }
-
+   // Validação: Modelo preenchido
     if(!preencheuModelo()){
         showStatusMessage("Modelo deve ser preenchido.", true);
         return;
     }
-
+ // Validação: Referência preenchida
     if(!preencheuRegistro()){
         showStatusMessage("Referência deve ser preenchida.", true);
         return;
     }
-
+ // Validação: Ano de fabricação no intervalo válido
     if(!anoValido()){
         showStatusMessage("Ano de fabricação deve de 2000 até 2025.", true);
         return;
     }
-
+ // Validação: Total de assentos válido
     if(!totalAssentosValido()){
         showStatusMessage("Total de assentos inválido.", true);
         return;
@@ -138,7 +144,4 @@ function inserirAeronave(){
             showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
-
-        // uma possivel melhoria: se tenta inserir um modelo que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
 }

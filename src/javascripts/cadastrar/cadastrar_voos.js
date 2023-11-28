@@ -1,4 +1,5 @@
 // funcoes de tratamento de dados recebidos
+// Função para verificar se um trajeto foi selecionado
 function selecionouTrajeto(){
     let resultado = false; 
     var trajeto = document.getElementById("trajeto");
@@ -10,7 +11,7 @@ function selecionouTrajeto(){
 
     return resultado;
 }
-
+// Função para verificar se uma aeronave foi selecionada
 function selecionouAeronave(){
     let resultado = false; 
     var aeronave = document.getElementById("aeronave");
@@ -23,6 +24,7 @@ function selecionouAeronave(){
     return resultado;
 }
 
+// Função para verificar se o campo de data de ida foi preenchido.
 function preencheuDataida(){
     let resultado = false;
     const data = document.getElementById("data_ida").value;
@@ -33,7 +35,7 @@ function preencheuDataida(){
     
     return resultado;
 }
-
+// Função para verificar se o campo de data de volta foi preenchido.
 function preencheuDatavolta(){
     let resultado = false;
     const data = document.getElementById("data_volta").value;
@@ -44,7 +46,7 @@ function preencheuDatavolta(){
     
     return resultado;
 }
-
+// Função para verificar se o campo de horário de ida foi preenchido.
 function preencheuIda(){
     let resultado = false;
     const ida = document.getElementById("horarioIda").value;
@@ -55,7 +57,7 @@ function preencheuIda(){
 
     return resultado;
 }
-
+// Função para verificar se o campo de horário de chegada foi preenchido.
 function preencheuChegada(){
     let resultado = false;
     const chegada = document.getElementById("horarioChegada").value;
@@ -66,7 +68,7 @@ function preencheuChegada(){
 
     return resultado;
 }
-
+// Função para verificar se o campo de valor foi preenchido.
 function preencheuValor(){
     let resultado = false;
     const valor = document.getElementById("valor").value;
@@ -77,7 +79,7 @@ function preencheuValor(){
 
     return resultado;
 }
-
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -90,6 +92,7 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função para enviar dados para o servidor usando um método PUT.
 // funcao fetch tipo PUT
 function fetchInserir(body) {
     const requestOptions = {
@@ -105,36 +108,37 @@ function fetchInserir(body) {
 // funcao para inserir um novo voo
 function inserirVoo(){
 
+    // Validação: Trajeto selecionado
     if(!selecionouTrajeto()){
         showStatusMessage("Selecione o trajeto...", true);
         return;
     }
-
+    // Validação: Aeronave selecionada
     if(!selecionouAeronave()){
         showStatusMessage("Selecione a aeronave...", true);
         return;
     }
-
+    // Validação: Valor preenchido
     if(!preencheuValor()){
         showStatusMessage("Preencha o valor...", true);
         return;
     }
-
+    // Validação: Horário de chegada preenchido
     if(!preencheuChegada()){
         showStatusMessage("Preencha o horário de chegada...", true);
         return;
     }
-
+    // Validação: Horário de ida preenchido
     if(!preencheuIda()){
         showStatusMessage("Preencha o horário de Ida.", true);
         return;
     }
-
+    // Validação: Data de ida preenchida
     if(!preencheuDataida()){
         showStatusMessage("Preencha a data de ida.", true);
         return;
     }
-
+    // Validação: Data de volta preenchida
     if(!preencheuDatavolta()){
         showStatusMessage("Preencha a data de volta.", true);
         return;
@@ -160,7 +164,7 @@ function inserirVoo(){
         horario_volta: horarioVoltaInserido,
         valor: precoVooInserido })
         .then(resultado => {
-            // obteve resposta
+            // Verifica se a resposta foi bem-sucedida ou apresentou erro
             if(resultado.status === "SUCCESS"){
                 showStatusMessage("Voo cadastrado!", false);
             } else {
@@ -172,7 +176,4 @@ function inserirVoo(){
             showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
-
-        // uma possivel melhoria: se tenta inserir um modelo que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
 }

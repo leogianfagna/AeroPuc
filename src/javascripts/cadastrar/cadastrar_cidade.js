@@ -1,4 +1,5 @@
 // funcoes de tratamento de dados recebidos
+// Função para verificar se o campo de cidade foi preenchido.
 function preencheuCidade(){
     let resultado = false;
     const cidadeInformada = document.getElementById("cidade").value;
@@ -9,6 +10,7 @@ function preencheuCidade(){
     
     return resultado;
 }
+// Função para verificar se o campo de estado foi preenchido.
 
 function preencheuEstado(){
     let resultado = false;
@@ -20,7 +22,7 @@ function preencheuEstado(){
 
     return resultado;
 }
-
+// Função para verificar se o campo de país foi preenchido.
 function preencheuPais(){
     let resultado = false;
     const paisInformado = document.getElementById("pais").value;
@@ -31,7 +33,7 @@ function preencheuPais(){
 
     return resultado;
 }
-
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -44,6 +46,7 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
+// Função para enviar dados para o servidor usando um método PUT.
 // funcao fetch tipo PUT
 function fetchInserir(body) {
     const requestOptions = {
@@ -55,19 +58,20 @@ function fetchInserir(body) {
     return fetch('http://localhost:3000/inserirCidade', requestOptions)
     .then(T => T.json())
 }
-
+// Função principal para inserir uma nova cidade, realizando validações antes do envio.
 // funcao para inserir uma nova cidade
 function inserirCidade(){
+    // Validação: Cidade preenchida
     if(!preencheuCidade()){
         showStatusMessage("Cidade não preenchida.", true);  
         return;
     }
-
+    // Validação: Estado preenchido
     if(!preencheuEstado()){
         showStatusMessage("Estado não preenchido.", true);
         return;
     }
-
+    // Validação: País preenchido
     if(!preencheuPais()){
         showStatusMessage("País não preenchido.", true);
         return;
@@ -78,6 +82,7 @@ function inserirCidade(){
     const estadoInserido = document.getElementById("estado").value;
     const paisInserido = document.getElementById("pais").value;
 
+    // Chamada da função fetchInserir para enviar os dados ao servidor
     // promise
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
@@ -85,7 +90,7 @@ function inserirCidade(){
         estado: estadoInserido, 
         pais: paisInserido })
         .then(resultado => {
-            // obteve resposta
+            // Verifica se a resposta foi bem-sucedida ou apresentou erro
             if(resultado.status === "SUCCESS"){
             showStatusMessage("Cidade cadastrada!", false);
             }else{
@@ -97,7 +102,4 @@ function inserirCidade(){
             showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
-
-        // uma possivel melhoria: se tenta inserir uma cidade que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
 }

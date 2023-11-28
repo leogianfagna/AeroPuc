@@ -1,6 +1,5 @@
 // funcoes de tratamento de dados recebidos
-
-/*
+// Função para verificar se o campo de cidade foi preenchido.
 function preencheuCidade(){
     let resultado = false;
     const cidadeInformada = document.getElementById("cidade").value;
@@ -11,7 +10,7 @@ function preencheuCidade(){
     
     return resultado;
 }
-
+// Função para verificar se o campo de estado foi preenchido.
 function preencheuEstado(){
     let resultado = false;
     const estadoInformado = document.getElementById("estado").value;
@@ -22,7 +21,7 @@ function preencheuEstado(){
 
     return resultado;
 }
-
+// Função para verificar se o campo de país foi preenchido.
 function preencheuPais(){
     let resultado = false;
     const paisInformado = document.getElementById("pais").value;
@@ -33,8 +32,8 @@ function preencheuPais(){
 
     return resultado;
 }
-*/
 
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -104,7 +103,4 @@ function inserirCliente(){
             showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
-
-        // uma possivel melhoria: se tenta inserir uma cidade que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
 }

@@ -1,4 +1,5 @@
 // funcoes de tratamento de dados recebidos
+// Função para validar se uma cidade foi selecionada
 function selecionouCidade(){
     let resultado = false; 
     var cidade = document.getElementById("cidade").value;
@@ -10,6 +11,7 @@ function selecionouCidade(){
 
     return resultado; 
 }
+// Função para verificar se o campo de nome do aeroporto foi preenchido.
 function preencheuNome(){
     let resultado = false;
     const nomeAeroporto = document.getElementById("aeroportoNome").value;
@@ -20,7 +22,7 @@ function preencheuNome(){
     
     return resultado;
 }
-
+// Função para exibir mensagens de status
 function showStatusMessage(msg, error){
     var pStatus = document.getElementById("status");
     
@@ -32,7 +34,7 @@ function showStatusMessage(msg, error){
     
     pStatus.textContent = msg;
 }
-
+// Função para enviar dados para o servidor usando um método PUT.
 // funcao fetch tipo PUT
 function fetchInserir(body) {
     const requestOptions = {
@@ -44,15 +46,15 @@ function fetchInserir(body) {
     return fetch('http://localhost:3000/inserirAeroporto', requestOptions)
     .then(T => T.json())
 }
-
+// Função principal para inserir um novo aeroporto, realizando validações antes do envio.
 // funcao para inserir os dados
 function inserirAeroporto(){
-
+ // Validação: Cidade selecionada
     if(!selecionouCidade()){
         showStatusMessage("Cidade não selecionada.", true);  
         return;
     }
-
+ // Validação: Nome do aeroporto preenchido
     if(!preencheuNome()){
         showStatusMessage("Nome do aeroporto deve ser preenchido.", true);
         return;
@@ -62,13 +64,14 @@ function inserirAeroporto(){
     const aeroportoInserido = document.getElementById("aeroportoNome").value;
     const cidadeInserida = document.getElementById("cidade").value;
 
+    // Chamada da função fetchInserir para enviar os dados ao servidor
     // promise
     fetchInserir({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         aeroporto: aeroportoInserido,
         cidade: cidadeInserida })
         .then(resultado => {
-            // obteve resposta
+            // Verifica se a resposta foi bem-sucedida ou apresentou erro
             if(resultado.status === "SUCCESS"){
             showStatusMessage("Aeroporto cadastrado!", false);
             }else{
@@ -80,7 +83,4 @@ function inserirAeroporto(){
             showStatusMessage("Erro técnico ao cadastrar... Contate o suporte.", true);
             console.log("Falha grave ao cadastrar.")
         });
-
-        // uma possivel melhoria: se tenta inserir um modelo que ja existe da erro, pela unicidade
-        // tentar personalizar essa mensagem
 }
