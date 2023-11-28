@@ -36,7 +36,7 @@ function fetchDeletar(body) {
     .then(T => T.json())
 }
 
-// funcao para excluir
+// Função para excluir um trajeto da tabela
 function excluir(){
     if (!ids()) {
         showStatusMessage("ID deve ser preenchido.", true);
