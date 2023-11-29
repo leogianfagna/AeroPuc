@@ -1213,3 +1213,49 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
     res.send(cr);  
   }
 });
+
+// Função que retorna a busca de uma tabela que passa como argumento o nome da tabela, o nome da coluna e a busca
+app.get("/queryOpcaoInseridaTabelaAdmin", async(req,res)=>{
+  
+  try {
+    //Criar conexão com o banco de dados usando as informações do .env
+    const connAttibs: ConnectionAttributes = {
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    }
+
+    //Criar as variáveis usadas
+    var nomeTabela = req.query.tabelaQuery as string;
+    var nomeColuna = req.query.colunaQuery as string;
+    var buscaInserida = req.query.condicao as string;
+
+    // Estabelece uma conexão com o banco de dados Oracle
+    const connection = await oracledb.getConnection(connAttibs);
+
+    //Executar o comando no banco de dados
+    let resultadoConsulta = await connection.execute(`SELECT * FROM ${nomeTabela} WHERE ${nomeColuna} = ${buscaInserida}`);
+
+    console.log(resultadoConsulta);
+  
+    //Fechar conexão 
+    await connection.close();
+
+    //Atribuir resultados para as respostas de conexão
+    cr.status = "SUCCESS"; 
+    cr.message = "Dados obtidos";
+    cr.payload = resultadoConsulta.rows;
+
+  } catch(e) {
+    // Trata erros
+    if (e instanceof Error) {
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  } finally {
+    // Envia a resposta
+    res.send(cr);  
+  }
+});
