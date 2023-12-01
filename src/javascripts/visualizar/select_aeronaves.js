@@ -43,9 +43,8 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
     // Declaração das variáveis
     const dadoParaBuscarNaCondicao = document.getElementById("campoBusca").value;
 
-    // testar
-    console.log(nomeDaTabela);
-    console.log(nomeDaColuna);
+    // Limpar a tabela atual do HTML
+    tabelaDeAeronaves.innerHTML = '';
 
     // Função FETCH que executa uma busca no banco usando o comando SELECT * FROM <nome da tabela> WHERE "tipo de dado" = "busca"
     // O nome da tabela é passada como um argumento para utilizar a mesma função typescript
@@ -55,7 +54,6 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
         if (data.status === 'SUCCESS') {
             let i = 0;
             const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
-            tabelaDeAeronaves.innerHTML = ''; // Limpa o conteúdo atual
 
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
@@ -81,23 +79,4 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
         }
     })
     .catch(error => console.error('Erro ao conectar:', error));   
-}
-
-function buscaPersonalizada(){
-    const dadoParaBuscarNaCondicao = document.getElementById("campoBusca").value;
-    sessionStorage.setItem("opcaoInserida", dadoParaBuscarNaCondicao);
-
-    buscarDadosPersonalizados("aeronaves", "modelo");
-    return;
-}
-
-function main(){
-    // resgatar sessionStorage
-    var busca = sessionStorage.getItem("opcaoInserida");
-
-    if (busca !== "") {
-        buscarDadosPersonalizados();
-    } else {
-        imprimirDadosNaTabela();
-    }
 }

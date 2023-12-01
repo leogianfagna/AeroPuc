@@ -1218,7 +1218,7 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
 app.get("/queryOpcaoInseridaTabelaAdmin", async(req,res)=>{
   
   try {
-    //Criar conexão com o banco de dados usando as informações do .env
+    // Criar conexão com o banco de dados usando as informações do .env
     const connAttibs: ConnectionAttributes = {
       user: process.env.ORACLE_DB_USER,
       password: process.env.ORACLE_DB_PASSWORD,
@@ -1233,15 +1233,15 @@ app.get("/queryOpcaoInseridaTabelaAdmin", async(req,res)=>{
     // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
 
-    //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute(`SELECT * FROM ${nomeTabela} WHERE ${nomeColuna} = ${buscaInserida}`);
-
-    console.log(resultadoConsulta);
-  
-    //Fechar conexão 
+    // Executar o comando no banco de dados
+    // Comando que busca qualquer resultado que CONTENHA a "buscaInserida"
+    // Utilizar porcentagem que simboliza que o elemento buscado pode estar no começo, no meio ou no final da string
+    let resultadoConsulta = await connection.execute(`SELECT * FROM ${nomeTabela} WHERE ${nomeColuna} LIKE '%${buscaInserida}%'`);
+    
+    // Fechar conexão 
     await connection.close();
 
-    //Atribuir resultados para as respostas de conexão
+    // Atribuir resultados para as respostas de conexão
     cr.status = "SUCCESS"; 
     cr.message = "Dados obtidos";
     cr.payload = resultadoConsulta.rows;

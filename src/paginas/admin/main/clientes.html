@@ -40,8 +40,8 @@
             <div class="row justify-content-end">
                 <div class="col-lg-4">
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" aria-label="Search" placeholder="Pesquisar por uma aeronave">
-                        <button class="btn btn-outline-info" type="submit">Pesquisar</button>
+                        <input id="campoBusca" class="form-control me-2" type="search" aria-label="Search" placeholder="Pesquisar por nome">
+                        <button class="btn btn-outline-info" type="button" onclick="buscarDadosPersonalizados('cliente', 'nome')" value="nada">Pesquisar</button>
                     </form>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </tr>
                     </thead>
                     <!-- tbody da tabela (as informações) -->
-                    <tbody id="tabelaDeAeronaves" class="align-middle">
+                    <tbody id="tabelaDeClientes" class="align-middle">
                         <!-- As linhas da tabela serão adicionadas aqui via JavaScript -->
                     </tbody>
                 </table>
