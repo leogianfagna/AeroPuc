@@ -15,7 +15,7 @@
         <div id="nav-bar-local-pronta"></div>
         <script>
             // requisição para carregar o conteúdo do arquivo
-            fetch('/src/agregados/navbar/nav_local.html') // se necessario, trocar o nome do arquivo aqui
+            fetch('/src/componentes/navbar/nav_local.html') // se necessario, trocar o nome do arquivo aqui
                 .then(response => response.text())
                 .then(data => {
                     
@@ -26,6 +26,7 @@
                 })
                 .catch(error => console.error('Erro ao carregar o arquivo:', error));
         </script>
+        
         <!-- div central para centralizar todos os elementos no espaço determinado -->
         <div class="div-central">
             <!-- div conteiner para encaixar todos os recursos -->
@@ -36,11 +37,11 @@
                         <div class="descolar">
                             <h1 class="display-5 fw-bold">
                                 Viaje com segurança, <br>
-                                escolha com Aeropuc.
+                                escolha Aeropuc.
                             </h1>
                             <p class="lead">Uma nova plataforma para agendamento e compra de passagens!</p>
                             <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Comprar uma passagem" href="/src/paginas/local/reserva_voo.html">Agendar</a>
-                            <a type="button" class="btn btn-light btn-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar todos os voos disponíveis" href="/src/paginas/admin/main/aeronaves.html">Voos</a>
+                            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar todos os voos disponíveis" onclick="showModal();">Voos</button>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -78,5 +79,36 @@
             <br><br>
             <p style="text-align: center;" class="lead">Para suporte, ligue (19) 3232-3232</p>
         </div>
+
+        <!-- Cria o modal para aparecer na hora de clicar em voos -->
+        <script>
+            function showModal(){
+                const myModal = new bootstrap.Modal(document.getElementById('modalMensagemVoos'));
+                myModal.show();
+            }
+            showModal();
+        </script>
+        <div class="modal fade" id="modalMensagemVoos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Voos na Aeropuc</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Focado em voos brasileiros, nossa companhia disponibiliza uma grande variedade de voos para diferentes cidades. 
+                            Ainda assim, disponibilizamos voos internacionais para satisfazer suas necessidades!</p>
+                        <p>Algumas passagens incluem volta, mas para você que procura somente ida, escolha opções avançadas para 
+                            visualizar apenas passagens desse tipo!</p>
+                        <p>Faça uma busca avançada: insira data de ida, volta, tipo de voo e as cidades de origem e destino.</p>
+                        <p>Visualize nossas opções em "Agendar".</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

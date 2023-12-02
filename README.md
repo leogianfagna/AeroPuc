@@ -26,7 +26,7 @@ Dentro do projeto, separamos de forma organizada os elementos. Diretamente no re
 
 - **\interno**: Repositório que criamos para testar páginas, guardar arquivos importantes de uso do nosso grupo, entre outros. Ele não segue uma organização e não afeta o funcionamento do projeto.
 - **\src**: Repositório onde fica os elementos que compõe o projeto. Dentro dele, organizamos por tipo de arquivo ou funcionalidade:
-  - **\agregados**: conjunto html que é repetitivo e utilizado em diversos outros arquivos
+  - **\componentes**: conjunto html que é repetitivo e utilizado em diversos outros arquivos
   - **\assets**: imagens e arquivo css para personalização das páginas
   - **\javascripts**: scripts na linguagem .js com diversas funcionalidades e objetivos
   - **index.html** : página de início
