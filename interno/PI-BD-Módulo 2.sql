@@ -67,8 +67,8 @@ create table aeronaves(
   modelo varchar(30) not null,
   fabricante varchar(30) not null,
   ano_fabricacao integer not null,
-  colunas integer not null,
   fileiras integer not null,
+  colunas integer not null,
   assentos integer not null);
 insert into aeronaves VALUES(aeronaves_id.nextval, 1234	,'Airbus A320',	'Airbus'	,1987, 19, 4 ,76);
 insert into aeronaves VALUES(aeronaves_id.nextval, 5678	,'Boeing 737',	'Boeing',	1967, 15, 6	,90);

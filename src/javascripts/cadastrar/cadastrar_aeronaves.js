@@ -12,13 +12,47 @@ function anoValido(){
 
     return resultado;
 }
+
+// Função para validar o número de fileiras.
+function fileirasValido(){
+    let resultado = false;
+    const strFileiras = document.getElementById("fileiras").value;
+    const fileiras = parseInt(strFileiras);
+    
+    if (fileiras > 0) {
+        resultado = true;
+    }
+
+    return resultado; 
+}
+
+// Função para validar o número de colunas.
+function colunasValido(){
+    let resultado = false;
+    const strColunas = document.getElementById("colunas").value;
+    const colunas = parseInt(strColunas);
+    
+    if (colunas > 0) {
+        resultado = true;
+    }
+
+    return resultado; 
+}
+
+
 // Função para validar o número de assentos.
 function totalAssentosValido(){
     let resultado = false;
     const strAssentos = document.getElementById("qtdeAssentos").value;
     const assentos = parseInt(strAssentos);
+
+    const strFileiras = document.getElementById("fileiras").value;
+    const fileiras = parseInt(strFileiras);
+
+    const strColunas = document.getElementById("colunas").value;
+    const colunas = parseInt(strColunas);
     
-    if (assentos > 0) {
+    if (assentos === fileiras * colunas) {
         resultado = true;
     }
 
@@ -110,6 +144,16 @@ function inserirAeronave(){
         showStatusMessage("Ano de fabricação deve de 2000 até 2025.", true);
         return;
     }
+// Validação: Quantidade de fileiras
+    if(!fileirasValido()){
+        showStatusMessage("Número de fileiras inválido.", true);
+        return;
+    }
+// Validação: Quantidade de colunas
+    if(!colunasValido()){
+        showStatusMessage("Número de colunas inválido.", true);
+        return;
+    }
  // Validação: Total de assentos válido
     if(!totalAssentosValido()){
         showStatusMessage("Total de assentos inválido.", true);
@@ -121,6 +165,8 @@ function inserirAeronave(){
     const modeloInserido = document.getElementById("modelo").value;
     const anoFabInserido = document.getElementById("anoFabricacao").value;
     const registroInserido = document.getElementById("referencia").value;
+    const totalFileiras = document.getElementById("fileiras").value;
+    const totalColunas = document.getElementById("colunas").value;
     const totalAssentosInserido = document.getElementById("qtdeAssentos").value;
 
     // promise
@@ -130,7 +176,9 @@ function inserirAeronave(){
         modelo: modeloInserido, 
         qtdeAssentos: totalAssentosInserido,
         anoFab: anoFabInserido,
-        registro: registroInserido })
+        registro: registroInserido,
+        colunas: totalColunas,
+        fileiras: totalFileiras })
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){

@@ -260,7 +260,7 @@ app.put("/inserirCliente", async(req,res)=>{
     
     if (rowsInserted !== undefined && rowsInserted === 1) {
       cr.status = "SUCCESS"; 
-      cr.message = "Aeronave inserida.";
+      cr.message = "Cliente inserido.";
     }
 
   } catch(e) {
@@ -338,6 +338,8 @@ app.put("/inserirAeronave", async(req,res)=>{
   const registro = req.body.registro as number;
   const qtdeAssentos = req.body.qtdeAssentos as number;
   const anoFab = req.body.anoFab as number;
+  const colunas = req.body.totalColunas as number;
+  const fileiras = req.body.totalFileiras as number;
 
   let conn;
 
@@ -351,10 +353,10 @@ app.put("/inserirAeronave", async(req,res)=>{
 
     //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO aeronaves
-    (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao)
-    VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5)`;
+    (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao, fileiras, colunas)
+    VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5, :7, :6)`;
 
-    const dados = [registro, fabricante, modelo, qtdeAssentos, anoFab];
+    const dados = [registro, fabricante, modelo, qtdeAssentos, anoFab, colunas, fileiras];
     let resInsert = await conn.execute(cmdInsertAero, dados);
     
     await conn.commit();
@@ -497,11 +499,11 @@ app.put("/inserirAeroporto", async(req,res)=>{
     //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO aeroportos
     (id, aeroporto, cidade)
-    VALUES (500, Campinas, Teste)`;
+    VALUES (aeroportos_id.nextval,:1,:2)`;
 
     const dados = [aeroporto, cidade];
     
-    let resInsert = await conn.execute(cmdInsertAero);
+    let resInsert = await conn.execute(cmdInsertAero,dados);
     await conn.commit();
     const rowsInserted = resInsert.rowsAffected;
     console.log("Colunas afetadas: ", rowsInserted);
@@ -737,7 +739,7 @@ app.put("/alterarCidade", async(req,res)=>{
     });
 
     //Executar o comando no banco de dados
-    const cmdUpdateAero = `UPDATE aeronaves SET cidade = :2,
+    const cmdUpdateAero = `UPDATE cidades SET cidade = :2,
      estado = :3, pais = :4 WHERE id = :1`
     const dados = [id, cidade, estado, pais];
 
