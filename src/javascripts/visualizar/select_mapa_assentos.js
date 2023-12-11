@@ -37,7 +37,7 @@ function imprimirDadosNaTabela(){
 imprimirDadosNaTabela();
 
 // Função que vai re-imprimir a tabela, mas agora com os dados condizentes na busca
-function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
+function buscarDadosPersonalizados(nomeDaColuna){
     // Declaração das variáveis
     const dadoParaBuscarNaCondicao = document.getElementById("campoBusca").value;
 
@@ -46,7 +46,7 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
 
     // Função FETCH que executa uma busca no banco usando o comando SELECT * FROM <nome da tabela> WHERE "tipo de dado" = "busca"
     // O nome da tabela é passada como um argumento para utilizar a mesma função typescript
-    fetch(`http://localhost:3000/queryOpcaoInseridaTabelaAdmin?tabelaQuery=${nomeDaTabela}&colunaQuery=${nomeDaColuna}&condicao=${dadoParaBuscarNaCondicao}`)
+    fetch(`http://localhost:3000/queryOpcaoInseridaTabelaMapa?colunaQuery=${nomeDaColuna}&condicao=${dadoParaBuscarNaCondicao}`)
     .then(response => response.json())
     .then(data => {
         if (data.status === 'SUCCESS') {
