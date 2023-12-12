@@ -17,9 +17,9 @@ function anoValido(){
 function fileirasValido(){
     let resultado = false;
     const strFileiras = document.getElementById("fileiras").value;
-    const fileiras = parseInt(strFileiras);
+    const fileira = parseInt(strFileiras);
     
-    if (fileiras > 0) {
+    if (fileira > 0) {
         resultado = true;
     }
 
@@ -30,15 +30,14 @@ function fileirasValido(){
 function colunasValido(){
     let resultado = false;
     const strColunas = document.getElementById("colunas").value;
-    const colunas = parseInt(strColunas);
+    const coluna = parseInt(strColunas);
     
-    if (colunas > 0) {
+    if (coluna > 0) {
         resultado = true;
     }
 
     return resultado; 
 }
-
 
 // Função para validar o número de assentos.
 function totalAssentosValido(){
@@ -47,12 +46,12 @@ function totalAssentosValido(){
     const assentos = parseInt(strAssentos);
 
     const strFileiras = document.getElementById("fileiras").value;
-    const fileiras = parseInt(strFileiras);
+    const fileira = parseInt(strFileiras);
 
     const strColunas = document.getElementById("colunas").value;
-    const colunas = parseInt(strColunas);
+    const coluna = parseInt(strColunas);
     
-    if (assentos === fileiras * colunas) {
+    if (assentos === fileira * coluna) {
         resultado = true;
     }
 
@@ -165,8 +164,8 @@ function inserirAeronave(){
     const modeloInserido = document.getElementById("modelo").value;
     const anoFabInserido = document.getElementById("anoFabricacao").value;
     const registroInserido = document.getElementById("referencia").value;
-    const totalFileiras = document.getElementById("fileiras").value;
-    const totalColunas = document.getElementById("colunas").value;
+    const fileirasInserido = document.getElementById("fileiras").value;
+    const colunasInserido = document.getElementById("colunas").value;
     const totalAssentosInserido = document.getElementById("qtdeAssentos").value;
 
     // promise
@@ -177,8 +176,8 @@ function inserirAeronave(){
         qtdeAssentos: totalAssentosInserido,
         anoFab: anoFabInserido,
         registro: registroInserido,
-        colunas: totalColunas,
-        fileiras: totalFileiras })
+        colunas: colunasInserido,
+        fileiras: fileirasInserido })
         .then(resultado => {
             // obteve resposta
             if(resultado.status === "SUCCESS"){

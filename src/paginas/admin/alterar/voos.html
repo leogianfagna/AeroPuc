@@ -18,14 +18,13 @@
         <link rel="icon" type="image/x-icon" href="/src/assets/images/logo.jpg">
     </head>
     <body data-bs-theme="light">
+        <div id="nav-bar-admin-pronta"></div>   
         <!-- Script para carregar a barra de navegação -->
         <script>
-            // Requisição para carregar o conteúdo do arquivo da barra de navegação
             fetch('/src/componentes/navbar/nav_admin.html')
                 .then(response => response.text())
                 .then(data => {
                     var elemento = document.getElementById('nav-bar-admin-pronta');
-                    // Inserir o conteúdo HTML no elemento
                     elemento.innerHTML = data;
                 })
                 .catch(error => console.error('Erro ao carregar o arquivo:', error));

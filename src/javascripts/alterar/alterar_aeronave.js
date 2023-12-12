@@ -3,7 +3,7 @@ function id(){
     let resultado = false;
     const id = document.getElementById("identificador").value;
     
-    if (parseInt(id) > 10) {
+    if (parseInt(id) > 0) {
         resultado = true;
     }
 
@@ -15,7 +15,33 @@ function anoValido(){
     var strAno = document.getElementById("anoFabricacao").value;
     const ano = parseInt(strAno);
     
-    if (ano >= 2000 && ano <= 2025) {
+    if (ano >= 1900 && ano <= 2025) {
+        resultado = true;
+    }
+
+    return resultado; 
+}
+
+// Função para validar o número de fileiras.
+function fileirasValido(){
+    let resultado = false;
+    const strFileiras = document.getElementById("fileiras").value;
+    const fileira = parseInt(strFileiras);
+    
+    if (fileira > 0) {
+        resultado = true;
+    }
+
+    return resultado; 
+}
+
+// Função para validar o número de colunas.
+function colunasValido(){
+    let resultado = false;
+    const strColunas = document.getElementById("colunas").value;
+    const coluna = parseInt(strColunas);
+    
+    if (coluna > 0) {
         resultado = true;
     }
 
@@ -118,6 +144,16 @@ function alterarAeronave(){
         return;
     }
 
+    if(!fileirasValido()){
+        showStatusMessage("Número de fileiras inválido.", true);
+        return;
+    }
+
+    if(!colunasValido()){
+        showStatusMessage("Número de colunas inválido.", true);
+        return;
+    }
+
     if (!totalAssentosValido()) {
         showStatusMessage("Preencha corretamente o total de assentos.", true);
         return;
@@ -129,6 +165,8 @@ function alterarAeronave(){
     const modeloInserido = document.getElementById("modelo").value;
     const anoFabInserido = document.getElementById("anoFabricacao").value;
     const registroInserido = document.getElementById("referencia").value;
+    const fileirasInserido = document.getElementById("fileiras").value;
+    const colunasInserido = document.getElementById("colunas").value;
     const totalAssentosInserido = document.getElementById("qtdeAssentos").value;
 
     // promise
@@ -139,7 +177,9 @@ function alterarAeronave(){
         modelo: modeloInserido, 
         qtdeAssentos: totalAssentosInserido,
         anoFab: anoFabInserido,
-        registro: registroInserido })
+        registro: registroInserido,
+        colunas: colunasInserido,
+        fileiras: fileirasInserido })
         
     .then(resultado => {
         

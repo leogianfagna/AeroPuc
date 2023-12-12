@@ -421,10 +421,10 @@ app.put("/inserirAeronave", async(req,res)=>{
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
   const registro = req.body.registro as number;
+  const colunas = req.body.colunas as number;
+  const fileiras = req.body.fileiras as number;
   const qtdeAssentos = req.body.qtdeAssentos as number;
   const anoFab = req.body.anoFab as number;
-  const colunas = req.body.totalColunas as number;
-  const fileiras = req.body.totalFileiras as number;
 
   let conn;
 
@@ -438,8 +438,8 @@ app.put("/inserirAeronave", async(req,res)=>{
 
     //Executar o comando no banco de dados
     const cmdInsertAero = `INSERT INTO aeronaves
-    (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao, fileiras, colunas)
-    VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5, :7, :6)`;
+    (id, numero_identificacao, fabricante, modelo, assentos, ano_fabricacao, colunas, fileiras)
+    VALUES (aeronaves_id.nextval, :1, :2, :3, :4, :5, :6, :7)`;
 
     const dados = [registro, fabricante, modelo, qtdeAssentos, anoFab, colunas, fileiras];
     let resInsert = await conn.execute(cmdInsertAero, dados);
@@ -451,7 +451,6 @@ app.put("/inserirAeronave", async(req,res)=>{
       cr.status = "SUCCESS"; 
       cr.message = "Aeronave inserida.";
     }
-
   } catch(e) {
     // Trata erros
     if (e instanceof Error) {
@@ -521,6 +520,8 @@ app.post("/alterarAeronave", async(req,res)=>{
   const id = req.body.id as number;
   const fabricante = req.body.fabricante as string;
   const modelo = req.body.modelo as string;
+  const colunas = req.body.colunas as number;
+  const fileiras = req.body.fileiras as number;
   const qtdeAssentos = req.body.qtdeAssentos as number;
   const anoFab = req.body.anoFab as number;
   const registro = req.body.registro as number;
@@ -534,8 +535,10 @@ app.post("/alterarAeronave", async(req,res)=>{
     });
 
     //Executar o comando no banco de dados
-    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, numero_identificacao = :2, ano_fabricacao = :3, assentos = :4, modelo = :5 WHERE id = :6`
-    const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, id];
+    const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, 
+    numero_identificacao = :2, ano_fabricacao = :3, assentos = :4, modelo = :5, 
+    colunas = :7, fileiras = :8 WHERE id = :6`
+    const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, id, colunas, fileiras];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();

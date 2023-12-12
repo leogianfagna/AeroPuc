@@ -18,6 +18,7 @@
         <link rel="icon" type="image/x-icon" href="/src/assets/images/logo.jpg">
     </head>
     <body data-bs-theme="light">
+        <div id="nav-bar-admin-pronta"></div>   
         <!-- Script para carregar a barra de navegação -->
         <script>
             fetch('/src/componentes/navbar/nav_admin.html')
@@ -69,6 +70,16 @@
                         <input id="referencia" name="referencia" type="text" class="form-control" placeholder="Ex.: 5678">
                     </div>
                     <div class="col">
+                        <!-- fileiras -->
+                        <label for="fileiras" class="form-label">Quantidade de fileiras</label>
+                        <input id="fileiras" name="fileiras" type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                        <!-- colunas -->
+                        <label for="colunas" class="form-label">Quantidade de colunas</label>
+                        <input id="colunas" name="colunas" type="text" class="form-control">
+                    </div>
+                    <div class="col">
                         <label for="qtdeAssentos" class="form-label">Quantidade de assentos</label>
                         <input id="qtdeAssentos" name="qtdeAssentos" type="text" class="form-control">
                     </div>
@@ -87,7 +98,7 @@
                     <button type="reset" id="btnLimpar" class="btn btn-outline-secondary">Limpar</button>
                     
                     <!-- Link para voltar para outra página -->
-                    <a class="btn btn-outline-secondary" href="/src/paginas/admin/main/cidades.html" role="button">Voltar</a>
+                    <a class="btn btn-outline-secondary" href="/src/paginas/admin/main/aeronaves.html" role="button">Voltar</a>
                 </p>
             </form>
             
