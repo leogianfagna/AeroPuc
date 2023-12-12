@@ -321,6 +321,51 @@ app.put("/inserirCliente", async(req,res)=>{
   }
 });
 
+// clientes = excluir
+app.delete("/excluirCliente", async(req,res)=>{
+  //Criar as variáveis usadas
+  const id = req.body.id as number;
+
+    try {
+      //Criar conexão com o banco de dados usando as informações do .env
+      const connection = await oracledb.getConnection({
+         user: process.env.ORACLE_DB_USER,
+         password: process.env.ORACLE_DB_PASSWORD,
+         connectionString: process.env.ORACLE_CONN_STR,
+      });
+  
+      //Executar o comando no banco de dados
+      const cmdDeleteAero = `DELETE FROM cliente WHERE id = :1`
+      const dados = [id];
+  
+      let resDelete = await connection.execute(cmdDeleteAero, dados);
+      
+      await connection.commit();
+      //Fechar conexão
+      await connection.close();
+      const rowsDeleted = resDelete.rowsAffected;
+      
+      if (rowsDeleted !== undefined &&  rowsDeleted === 1) {
+        cr.status = "SUCCESS"; 
+        cr.message = "Cliente excluído.";
+      } else {
+        cr.message = "Cliente não excluído. Verifique se o código informado está correto.";
+      }
+  
+    } catch(e) {
+      // Trata erros
+      if (e instanceof Error) {
+        cr.message = e.message;
+        console.log(e.message);
+      } else {
+        cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+      }
+    } finally {
+      // Envia a resposta
+      res.send(cr);  
+    }
+});
+
 // função para setar uma cadeira como indisponível, ou seja, reservada
 app.post("/reservarCadeira", async(req,res)=>{
   //Criar as variáveis usadas

@@ -14,6 +14,10 @@
         function exibirDados() {
             var email = sessionStorage.getItem("pagamentoEmail");
             document.getElementById("emailPagamento").textContent = email;
+            var voo = sessionStorage.getItem("vooEscolhido");
+            document.getElementById("voo").textContent =voo;
+            var assento = sessionStorage.getItem("assentoReservado");
+            document.getElementById("assento").textContent = assento;
         }
     </script>
 </head>
@@ -61,7 +65,11 @@
         <h1 class="display-4 fw-bold">Pagamento aprovado!</h1>
         <h2 class="display-6" style="margin-top: -5px;">Obrigado pela preferência.</h2>
         <p style="margin-top: 20px;"></p>
-        <p style="display: inline;">Sua reserva foi feita com sucesso. As demais informações foram enviadas para seu email: </p>
+        <p style="display: inline;">Sua reserva foi feita com sucesso. Seu assento é </p>
+        <p style="display: inline; " id="assento" class="fw-bold"></p>
+        <p style="display: inline;"> do voo </p>
+        <p style="display: inline; " id="voo" class="fw-bold"></p>
+        <p style="display: inline;"> As demais informações foram enviadas para seu email: </p>
         <p style="display: inline; " id="emailPagamento" class="fw-bold"></p>
         <br>
         <a style="margin-top: 30px;" type="button" class="btn btn-outline-secondary" href="/index.html">Voltar ao Menu</a>
