@@ -51,10 +51,10 @@ function criarMapaAssentos(vooEscolhido, cadeiraSelecionadaNoMapa){
                     document.getElementById("mapaAssentos").innerHTML += `<br>`;
                 }
             
-                // For para as colunas
+                // For para as fileiras
                 for (let i = 0; i < fileirasAviao; i++) {
             
-                    // For para cada assento da coluna. É aqui que ele imprime os botões (assentos) ou corredor
+                    // For para cada assento da fileira. É aqui que ele imprime os botões (assentos) ou corredor
                     for (let j = 0; j < NumeroDeColunasDoAviao; j++) {
                         cadeiraVez++;
                         fileiraIdentificacao = String.fromCharCode(poltronaLetra) + letraExtra + (j + 1);
