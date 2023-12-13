@@ -40,12 +40,32 @@
                     </div>
                 </div>
                 <p style="margin-top: 15px">
-                    <button type="button" onclick="excluir();" id="btnExcluir" class="btn btn-outline-primary" name="btnExcluir">Excluir</button>
+                    <button type="button" onclick="showModal();" id="btnExcluir" class="btn btn-outline-primary" name="btnExcluir">Excluir</button>
                     <a class="btn btn-outline-secondary" href="/src/paginas/admin/main/aeronaves.html" role="button">Voltar</a>
                 </p>
             </form>
             <!-- aqui aparece a mensagem do resultado, a classe é selecionada no próprio javascript-->
             <p id="status"></p>
         </div>
+
+        <!-- Cria o modal para confirmar a exclusão -->
+        <div class="modal fade" id="modalDeExclusao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar exclusão?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Você tem certeza que deseja excluir esse dado? Essa ação é irreversível.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="excluir();" id="btnExcluir" name="btnExcluir" class="btn btn-outline-danger" data-bs-dismiss="modal">Excluir</button>
+                        <button type="button" id="btnCancelarExclusao" name="btnCancelarExclusao" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

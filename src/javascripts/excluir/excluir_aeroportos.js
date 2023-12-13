@@ -64,3 +64,16 @@ function excluir(){
         console.log("Falha grave ao excluir.")
     });
 }
+
+function showModal(){
+
+    if (!ids()) {
+        showStatusMessage("ID deve ser preenchido.", true);
+        return;
+    } else {
+        showStatusMessage("", false);
+    }
+
+    const myModal = new bootstrap.Modal(document.getElementById('modalDeExclusao'));
+    myModal.show();
+}
