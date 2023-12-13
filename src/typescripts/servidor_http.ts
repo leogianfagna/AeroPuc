@@ -971,7 +971,7 @@ app.get("/listarDestinos", async(req,res)=>{
     // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
     //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute("SELECT DISTINCT destino FROM trajetos");
+    let resultadoConsulta = await connection.execute("SELECT DISTINCT destino FROM trajetos ORDER BY destino ASC");
     //Fechar conexão
     await connection.close();
     //Atribuir resultados para as respostas de conexão
@@ -1009,7 +1009,7 @@ app.get("/listarPartida", async(req,res)=>{
     // Estabelece uma conexão com o banco de dados Oracle
     const connection = await oracledb.getConnection(connAttibs);
     //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute(`SELECT DISTINCT origem FROM trajetos WHERE destino = '${localViagemDestino}'`);
+    let resultadoConsulta = await connection.execute(`SELECT DISTINCT origem FROM trajetos WHERE destino = '${localViagemDestino}' ORDER BY origem ASC`);
     //Fechar conexão
     await connection.close();
     //Atribuir resultados para as respostas de conexão
