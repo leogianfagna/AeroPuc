@@ -27,7 +27,7 @@ function imprimirDadosNaTabela(){
 
                 // Atualiza o contador de resultados
                 var contadorElemento = document.getElementById("contadorResultados");
-                contadorElemento.textContent = data.payload.length + ".";
+                contadorElemento.textContent = data.payload.length;
                 
             } else {
                 console.error(`Erro ao obter dados: ${data.message}`);
@@ -72,7 +72,7 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
 
             // Atualiza o contador de resultados
             var contadorElemento = document.getElementById("contadorResultados");
-            contadorElemento.textContent = data.payload.length + ".";
+            contadorElemento.textContent = data.payload.length;
             
         } else {
             console.error(`Erro ao obter dados: ${data.message}`);
