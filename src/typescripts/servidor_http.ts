@@ -125,48 +125,6 @@ app.get("/mostrarVoos", async(req,res)=>{
   }
 });
 
-// função get para conseguir as cidades de origem, baseado na cidade 
-// destino que o usuário registrou
-app.get("/listarCidadesDestino", async(req,res)=>{
-  
-  //Criar as variáveis usadas
-  var busca = req.query.voo as string;
-  
-  try {
-    //Criar conexão com o banco de dados usando as informações do .env
-    const connAttibs: ConnectionAttributes = {
-      user: process.env.ORACLE_DB_USER,
-      password: process.env.ORACLE_DB_PASSWORD,
-      connectionString: process.env.ORACLE_CONN_STR,
-    }
-    // Estabelece uma conexão com o banco de dados Oracle
-    const connection = await oracledb.getConnection(connAttibs);
-
-    //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute("SELECT origem FROM trajetos WHERE destino = 'campinas' ORDER BY origem ASC");
-    console.log("Busca SQL: ", resultadoConsulta);
-    
-    //Fechar conexão 
-    await connection.close();
-    //Atribuir resultados para as respostas de conexão
-    cr.status = "SUCCESS"; 
-    cr.message = "Dados obtidos";
-    cr.payload = resultadoConsulta.rows;
-
-  } catch(e) {
-    // Trata erros
-    if (e instanceof Error) {
-      cr.message = e.message;
-      console.log(e.message);
-    } else {
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
-    }
-  } finally {
-    // Envia a resposta
-    res.send(cr);  
-  }
-});
-
 // clientes = executar select somente na cadeira reservada
 app.get("/listarAssentosReservados", async(req,res)=>{
   
@@ -537,8 +495,8 @@ app.post("/alterarAeronave", async(req,res)=>{
     //Executar o comando no banco de dados
     const cmdUpdateAero = `UPDATE aeronaves SET fabricante = :1, 
     numero_identificacao = :2, ano_fabricacao = :3, assentos = :4, modelo = :5, 
-    colunas = :7, fileiras = :8 WHERE id = :6`
-    const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, id, colunas, fileiras];
+    colunas = :6, fileiras = :7 WHERE id = :8`
+    const dados = [fabricante, registro, anoFab, qtdeAssentos, modelo, colunas, fileiras, id];
 
     let resUpdate = await connection.execute(cmdUpdateAero, dados);
     await connection.commit();
@@ -851,42 +809,6 @@ app.put("/alterarCidade", async(req,res)=>{
       console.log(e.message);
     } else {
       cr.message = "Erro ao conectar ao oracle. Sem detalhes.";
-    }
-  } finally {
-    // Envia a resposta
-    res.send(cr);  
-  }
-});
-
-// mapa de assentos - executar select
-app.get("/listarMapa", async(req,res)=>{
-
-  try {
-    //Criar conexão com o banco de dados usando as informações do .env
-    const connAttibs: ConnectionAttributes = {
-      user: process.env.ORACLE_DB_USER,
-      password: process.env.ORACLE_DB_PASSWORD,
-      connectionString: process.env.ORACLE_CONN_STR,
-    }
-    // Estabelece uma conexão com o banco de dados Oracle
-    const connection = await oracledb.getConnection(connAttibs);
-    
-    //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute("SELECT * FROM mapa_assentos");
-    //Fechar conexão
-    await connection.close();
-    //Atribuir resultados para as respostas de conexão
-    cr.status = "SUCCESS"; 
-    cr.message = "Dados obtidos";
-    cr.payload = resultadoConsulta.rows;
-
-  } catch(e) {
-    // Trata erros
-    if (e instanceof Error) {
-      cr.message = e.message;
-      console.log(e.message);
-    } else {
-      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
     // Envia a resposta
