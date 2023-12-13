@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <!-- Configuração do conjunto de caracteres e visualização para dispositivos móveis -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Importação do script JavaScript para alterar informações de voos -->
+        <script src="/src/javascripts/alterar/alterar_assentos.js"></script>
+        
+        <!-- Título da página -->
+        <title>Voos</title>
+        
+        <!-- Importação do framework Bootstrap para estilização -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        
+        <!-- Ícone da página -->
+        <link rel="icon" type="image/x-icon" href="/src/assets/images/logo.jpg">
+    </head>
+    <body data-bs-theme="light">
+        <div id="nav-bar-admin-pronta"></div>   
+        <!-- Script para carregar a barra de navegação -->
+        <script>
+            fetch('/src/componentes/navbar/nav_admin.html')
+                .then(response => response.text())
+                .then(data => {
+                    var elemento = document.getElementById('nav-bar-admin-pronta');
+                    elemento.innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao carregar o arquivo:', error));
+        </script>
+        
+        <!-- Container principal -->
+        <div class="container" style="margin-top:50px">
+            <div>
+                <!-- Título e descrição do formulário -->
+                <h1 class="text-center">Alterar status de um assento</h1>
+                <p class="text-center">Preencha as informações</p>
+            </div>
+            
+            <!-- Formulário para alterar informações de voos -->
+            <form>
+                <!-- Linha com dois campos: ID, Trajeto do voo realizado, Aeronave utilizada -->
+                <div class="row" style="margin-top: 30px">
+                    <div class="col">
+                        <!-- ID do voo modificado -->
+                        <label for="id" class="form-label">ID do assento modificado</label>
+                        <input id="id" name="id" type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                        <!-- Status do assento de passagem -->
+                        <label for="statusDoAssento" class="form-label">Status do assento</label>
+                        <select id="statusDoAssento" name="statusDoAssento" class="form-select" aria-label="Default select example">
+                            <option value="0">Selecionar</option>
+                            <option value="Disponível">Disponível</option>
+                            <option value="Indisponível">Indisponível</option>
+                            <option value="Interditado">Interditado</option>
+                            <option value="Em manutenção">Em manutenção</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Botões e link no final do formulário -->
+                <p style="margin-top: 15px">
+                    <!-- Botão para confirmar a alteração -->
+                    <button type="button" onclick="alterarStatusAssentoAdministrativo();" id="btnAlterar" class="btn btn-outline-primary">Confirmar</button>
+                    
+                    <!-- Botão para limpar os campos do formulário -->
+                    <button type="reset" id="btnLimpar" class="btn btn-outline-secondary">Limpar</button>
+                    
+                    <!-- Link para voltar para outra página -->
+                    <a class="btn btn-outline-secondary" href="/src/paginas/admin/main/assentos_reservados.html" role="button">Voltar</a>
+                </p>
+            </form>
+            
+            <!-- Mensagem de status que será exibida dinamicamente -->
+            <p id="status"></p>
+        </div>
+
+        <!-- Importação do script Bootstrap para funcionalidades adicionais -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

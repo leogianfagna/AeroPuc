@@ -143,7 +143,7 @@ app.get("/listarAssentosReservados", async(req,res)=>{
     
     console.log("Num recebido: ", numeroVoo);
     //Executar o comando no banco de dados
-    let resultadoConsulta = await connection.execute("select assento from mapa_assentos where status = 'Indisponível' and voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
+    let resultadoConsulta = await connection.execute("select assento from mapa_assentos where status != 'Disponível' and voo = :numeroVoo ORDER BY assento ASC", [numeroVoo]);
     console.log("resultado consulta: ", resultadoConsulta);
   
     //Fechar conexão
@@ -271,7 +271,7 @@ app.put("/inserirCliente", async(req,res)=>{
     }
   } finally {
     // Envia a resposta
-    if (conn!== undefined) {
+    if (conn !== undefined) {
       //Fechar conexão
       await conn.close();
     }
@@ -1360,6 +1360,56 @@ app.get("/queryOpcaoInseridaTabelaMapa", async(req,res)=>{
       cr.message = "Erro ao conectar ao oracle. Sem detalhes";
     }
   } finally {
+    // Envia a resposta
+    res.send(cr);  
+  }
+});
+
+// Função para alterar o status de um assento no modo administrativo, onde vai alterar somente o status e manter as demais informações
+app.post("/alterarAssentoManualmente", async(req,res)=>{
+  //Criar as variáveis usadas
+  const id = req.body.id as number;
+  const status = req.body.novoStatus as string;
+
+  console.log(id);
+  console.log(status);
+
+  try{
+    //Criar conexão com o banco de dados usando as informações do .env
+    const connection = await oracledb.getConnection({
+      user: process.env.ORACLE_DB_USER,
+      password: process.env.ORACLE_DB_PASSWORD,
+      connectionString: process.env.ORACLE_CONN_STR,
+    });
+
+    //Executar o comando no banco de dados
+    const cmdUpdateAero = `UPDATE mapa_assentos SET status = :1 WHERE id = :2`
+    const dados = [status, id];
+
+    let resUpdate = await connection.execute(cmdUpdateAero, dados);
+    await connection.commit();
+    const rowsUpdated = resUpdate.rowsAffected;
+    console.log("Linhas afetadas:", rowsUpdated);
+    
+    if (rowsUpdated !== undefined && rowsUpdated === 1) {
+      cr.status = "SUCCESS"; 
+      cr.message = "Status do assento alterado.";
+    } else {
+      cr.message = "Status não alterado. Verifique se o código informado está correto.";
+      //Fechar conexão
+      await connection.close();
+    }
+
+  } catch(e){
+    // Trata erros
+    if(e instanceof Error){
+      cr.message = e.message;
+      console.log(e.message);
+    } else {
+      cr.message = "Erro ao conectar ao oracle. Sem detalhes";
+    }
+  }
+  finally {
     // Envia a resposta
     res.send(cr);  
   }
