@@ -108,52 +108,55 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
-// Função para enviar dados para o servidor usando um método PUT.
-// funcao fetch tipo PUT
+// Função que realizar uma requisição HTTP do tipo PUT usando API Fetch
 function fetchInserir(body) {
+
+    // Define as opções para a requisição
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
 
+    // Realizar a requisição para o URL fornecido com as opções "requestOptions"
     return fetch('http://localhost:3000/inserirAeronave', requestOptions)
-    .then(T => T.json())
+    .then(T => T.json()) // Mapeia a resposta para o formato JSON
 }
 
-// funcao para inserir uma nova aeronave
+// Função para inserir uma nova aeronave
 function inserirAeronave(){
-// Validação: Fabricante selecionado
+
+    // Validação de dados
     if(!selecionouFabricante()){
         showStatusMessage("Fabricante não selecionado.", true);  
         return;
     }
-   // Validação: Modelo preenchido
+
     if(!preencheuModelo()){
         showStatusMessage("Modelo deve ser preenchido.", true);
         return;
     }
- // Validação: Referência preenchida
+
     if(!preencheuRegistro()){
         showStatusMessage("Referência deve ser preenchida.", true);
         return;
     }
- // Validação: Ano de fabricação no intervalo válido
+
     if(!anoValido()){
         showStatusMessage("Ano de fabricação deve de 2000 até 2025.", true);
         return;
     }
-// Validação: Quantidade de fileiras
+
     if(!fileirasValido()){
         showStatusMessage("Número de fileiras inválido.", true);
         return;
     }
-// Validação: Quantidade de colunas
+
     if(!colunasValido()){
         showStatusMessage("Número de colunas inválido.", true);
         return;
     }
- // Validação: Total de assentos válido
+
     if(!totalAssentosValido()){
         showStatusMessage("Total de assentos inválido.", true);
         return;

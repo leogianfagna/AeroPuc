@@ -72,7 +72,7 @@ app.get("/queryTabelasAdministrativas", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -112,7 +112,7 @@ app.get("/mostrarVoos", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -154,7 +154,7 @@ app.get("/listarAssentosReservados", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -215,7 +215,7 @@ app.get("/buscarVoosLista", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -262,7 +262,7 @@ app.put("/inserirCliente", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -311,7 +311,7 @@ app.delete("/excluirCliente", async(req,res)=>{
       }
   
     } catch(e) {
-      // Trata erros
+      // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
       if (e instanceof Error) {
         cr.message = e.message;
         console.log(e.message);
@@ -359,7 +359,7 @@ app.post("/reservarCadeira", async(req,res)=>{
     }
 
   } catch(e){
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -410,7 +410,7 @@ app.put("/inserirAeronave", async(req,res)=>{
       cr.message = "Aeronave inserida.";
     }
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -459,7 +459,7 @@ app.delete("/excluirAeronave", async(req,res)=>{
       }
   
     } catch(e) {
-      // Trata erros
+      // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
       if (e instanceof Error) {
         cr.message = e.message;
         console.log(e.message);
@@ -513,7 +513,7 @@ app.post("/alterarAeronave", async(req,res)=>{
     }
 
   } catch(e){
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -560,7 +560,7 @@ app.put("/inserirAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -609,7 +609,7 @@ app.delete("/excluirAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -662,7 +662,7 @@ app.post("/alterarAeroporto", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -707,7 +707,7 @@ app.put("/inserirCidade", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -755,7 +755,7 @@ app.delete("/excluirCidade", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -803,7 +803,7 @@ app.put("/alterarCidade", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -849,7 +849,7 @@ app.put("/inserirTrajeto", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -896,7 +896,7 @@ app.delete("/excluirTrajeto", async(req,res)=>{
       cr.message = "Trajeto não excluída. Verifique se o código informado está correto.";
     }
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -945,7 +945,7 @@ app.post("/alterarTrajeto", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -980,7 +980,7 @@ app.get("/listarDestinos", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -1018,7 +1018,7 @@ app.get("/listarPartida", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);
@@ -1066,7 +1066,7 @@ app.put("/inserirVoos", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1114,7 +1114,7 @@ app.delete("/excluirVoo", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1167,7 +1167,7 @@ app.post("/alterarVoo", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1213,7 +1213,7 @@ app.get("/listarLinhasEColunas", async(req,res)=>{
     }
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1259,7 +1259,7 @@ app.get("/queryOpcaoInseridaTabelaAdmin", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1307,7 +1307,7 @@ app.get("/queryOpcaoInseridaTabelaVoos", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1352,7 +1352,7 @@ app.get("/queryOpcaoInseridaTabelaMapa", async(req,res)=>{
     cr.payload = resultadoConsulta.rows;
 
   } catch(e) {
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if (e instanceof Error) {
       cr.message = e.message;
       console.log(e.message);
@@ -1401,7 +1401,7 @@ app.post("/alterarAssentoManualmente", async(req,res)=>{
     }
 
   } catch(e){
-    // Trata erros
+    // Confere se "e" que é o erro vindo do catch é uma instância da classe "Error"
     if(e instanceof Error){
       cr.message = e.message;
       console.log(e.message);

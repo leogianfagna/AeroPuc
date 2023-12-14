@@ -34,15 +34,19 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
-function fetchInserir(body) {
+// Função que realizar uma requisição HTTP do tipo POST usando API Fetch
+function fetchAlterar(body) {
+
+    // Define as opções para a requisição
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
 
+    // Realizar a requisição para o URL fornecido com as opções "requestOptions"
     return fetch('http://localhost:3000/alterarAssentoManualmente', requestOptions)
-    .then(T => T.json())
+    .then(T => T.json()) // Mapeia a resposta para o formato JSON
 }
 
 function alterarStatusAssentoAdministrativo(){
@@ -62,12 +66,14 @@ function alterarStatusAssentoAdministrativo(){
     const statusInserido = document.getElementById("statusDoAssento").value;
 
     // promise
-    fetchInserir({
+    fetchAlterar({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         id: idInserido,
         novoStatus: statusInserido })
+
+        // Obteve a resposta "resultado" e usa um método encadeado (=>) para executar a função callback
         .then(resultado => {
-            // obteve resposta
+
             if(resultado.status === "SUCCESS") {
                 showStatusMessage("Status do assento alterado!", false);
             } else {
@@ -75,6 +81,8 @@ function alterarStatusAssentoAdministrativo(){
                 console.log(resultado.message);
             }
         })
+
+        // Nenhum parâmetro necessário, mas pode se usar "error" caso necessário
         .catch(()=>{
             showStatusMessage("Erro técnico ao alterar. Contate o suporte.", true);
             console.log("Falha grave ao alterar.")

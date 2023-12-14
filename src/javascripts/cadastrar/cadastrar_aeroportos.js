@@ -34,27 +34,31 @@ function showStatusMessage(msg, error){
     
     pStatus.textContent = msg;
 }
-// Função para enviar dados para o servidor usando um método PUT.
-// funcao fetch tipo PUT
+
+// Função que realizar uma requisição HTTP do tipo PUT usando API Fetch
 function fetchInserir(body) {
+
+    // Define as opções para a requisição
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
 
+    // Realizar a requisição para o URL fornecido com as opções "requestOptions"
     return fetch('http://localhost:3000/inserirAeroporto', requestOptions)
-    .then(T => T.json())
+    .then(T => T.json()) // Mapeia a resposta para o formato JSON
 }
+
 // Função principal para inserir um novo aeroporto, realizando validações antes do envio.
-// funcao para inserir os dados
 function inserirAeroporto(){
- // Validação: Cidade selecionada
+
+    // Validação de dados
     if(!selecionouCidade()){
         showStatusMessage("Cidade não selecionada.", true);  
         return;
     }
- // Validação: Nome do aeroporto preenchido
+
     if(!preencheuNome()){
         showStatusMessage("Nome do aeroporto deve ser preenchido.", true);
         return;

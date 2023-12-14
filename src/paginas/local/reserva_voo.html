@@ -49,6 +49,7 @@
               if (data.status === 'SUCCESS') {
                 const localPartidaSelect = document.getElementById('localDestino');
 
+                // Payload é a propriedade definida pelo typescript, que é o resultado da query
                 data.payload.forEach(rowData => {
                   // a consulta só retorna destino (SELECT destino FROM trajetos)
                   const option = document.createElement('option');

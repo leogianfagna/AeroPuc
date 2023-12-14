@@ -10,6 +10,7 @@ function imprimirDadosNaTabela(){
                 const tabelaDeAeroportos = document.getElementById('tabelaDeAeroportos');
                 tabelaDeAeroportos.innerHTML = ''; // Limpa o conteúdo atual
 
+                // Payload é a propriedade definida pelo typescript, que é o resultado da query
                 data.payload.forEach(rowData => {
                     const tr = document.createElement('tr');
 
@@ -54,6 +55,7 @@ function buscarDadosPersonalizados(nomeDaTabela, nomeDaColuna){
             let i = 0;
             const tabelaDeAeroportos = document.getElementById('tabelaDeAeroportos');
 
+            // Payload é a propriedade definida pelo typescript, que é o resultado da query
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
 

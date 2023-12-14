@@ -252,7 +252,8 @@ function buscarVoos(){
     mostrarDivTabela.style.height = 'auto';
     mostrarDivTabela.style.visibility = 'visible';
 
-    // obter os dados do HTML e já prepara para enviar ao fetch (com encodeURIComponent)
+    // Obter os dados do HTML e já prepara para enviar ao fetch (com encodeURIComponent)
+    // Encode necessário por conta de caracteres especiais, espaços e símbolos nas datas
     const dataPartidaFetch = encodeURIComponent(document.getElementById("start").value);
     const dataVoltaFetch = encodeURIComponent(document.getElementById("back").value);
     const destinoFetch = encodeURIComponent(document.getElementById("localDestino").value);
@@ -274,35 +275,40 @@ function buscarVoos(){
             const tabelaDeAeronaves = document.getElementById('tabelaDeAeronaves');
             tabelaDeAeronaves.innerHTML = ''; // limpar o conteúdo atual
 
+            // Payload é a propriedade definida pelo typescript, que é o resultado da query (assumindo que é um array)
             data.payload.forEach(rowData => {
                 const tr = document.createElement('tr');
               
+                // Itera sobre cada elemento do array rowData, sendo cellData o valor e o index indica a posição do elemento na linha
                 rowData.forEach((cellData, index) => {
-                  const td = document.createElement('td');
-              
-                  // Verifique se a coluna é a coluna ID
-                  if (index === 0) {
+                const td = document.createElement('td');
+            
+                // Verifique se a coluna é a coluna ID
+                if (index === 0) {
                     // declarando os atributos do mesmo estilo que o bootstrap
                     const botaoExcluir = document.createElement('button');
                     botaoExcluir.type = 'button'; 
                     botaoExcluir.className = 'btn btn-outline-info';
                     botaoExcluir.textContent = `Reservar`;
-                    // cada botão chama a função que é a criarMapaAssentos, passando como parâmetro o ID do voo
+                    // Cada botão tem um ouvinte de evento "clique" para executar a função criarMapaAssentos baseado no número do voo/aeronave,
+                    // que é cellData. 
                     botaoExcluir.addEventListener('click', () => criarMapaAssentos(`${cellData}`));
                     td.appendChild(botaoExcluir);
 
-                  } else {
+                } else {
                     td.textContent = cellData;
-                  }
-              
-                  tr.appendChild(td);
+                }
+            
+                // appendChild adiciona elementos como "filhos" a outros elementos
+                tr.appendChild(td);
+
                 });
               
                 // Aqui imprime o próximo tr, colocando um ID para identificar cada linha
                 tr.id = i;
                 i++;
                 tabelaDeAeronaves.appendChild(tr);
-              });
+            });
               
             
         } else {

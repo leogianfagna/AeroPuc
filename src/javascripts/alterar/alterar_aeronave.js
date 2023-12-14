@@ -106,16 +106,19 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
-// funcao fetch tipo POST
+// Função que realizar uma requisição HTTP do tipo POST usando API Fetch
 function fetchAlterar(body) {
+
+    // Define as opções para a requisição
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
 
+    // Realizar a requisição para o URL fornecido com as opções "requestOptions"
     return fetch('http://localhost:3000/alterarAeronave', requestOptions)
-    .then(T => T.json())
+    .then(T => T.json()) // Mapeia a resposta para o formato JSON
 }
 
 function alterarAeronave(){
@@ -171,7 +174,8 @@ function alterarAeronave(){
 
     // promise
     fetchAlterar({
-        // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
+        // Chamando a função fetchAlterar e passando um objeto como argumento
+        // As chaves da esquerda devem coincidir com a expectativa do servidor
         id: idInserido, 
         fabricante: fabricanteInserido, 
         modelo: modeloInserido, 
@@ -181,9 +185,8 @@ function alterarAeronave(){
         colunas: colunasInserido,
         fileiras: fileirasInserido })
         
+    // Obteve a resposta "resultado" e usa um método encadeado (=>) para executar a função callback
     .then(resultado => {
-        
-        // obteve resposta
         
         if(resultado.status === "SUCCESS") {
             showStatusMessage("Aeronave alterada!", false);
@@ -193,6 +196,7 @@ function alterarAeronave(){
         }
     })
     
+    // Nenhum parâmetro necessário, mas pode se usar "error" caso necessário
     .catch(()=>{
         showStatusMessage("Erro técnico ao alterar. Contate o suporte.", true);
         console.log("Falha grave ao alterar.");

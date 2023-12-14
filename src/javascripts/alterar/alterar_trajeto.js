@@ -69,15 +69,19 @@ function showStatusMessage(msg, error){
     pStatus.textContent = msg;
 }
 
-function fetchInserir(body) {
+// Função que realizar uma requisição HTTP do tipo POST usando API Fetch
+function fetchAlterar(body) {
+
+    // Define as opções para a requisição
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     };
 
+    // Realizar a requisição para o URL fornecido com as opções "requestOptions"
     return fetch('http://localhost:3000/alterarTrajeto', requestOptions)
-    .then(T => T.json())
+    .then(T => T.json()) // Mapeia a resposta para o formato JSON
 }
 
 function AlterarTrajeto(){
@@ -114,22 +118,26 @@ function AlterarTrajeto(){
     const tipoCaminhoInserido = document.getElementById("tipo").value;
 
     // promise
-    fetchInserir({
+    fetchAlterar({
         // lado esquerdo: as variaveis utilizadas devem ser as mesmas nos arquivos typescript
         idInserido: idInserido,
         origem: origemInserida, 
         destino: destinoInserido,
         duracao: duracaoInserida,
         tipo: tipoCaminhoInserido })
+
+        // Obteve a resposta "resultado" e usa um método encadeado (=>) para executar a função callback
         .then(resultado => {
-            // obteve resposta
+
             if(resultado.status === "SUCCESS"){
-            showStatusMessage("Trajeto alterado!", false);
+                showStatusMessage("Trajeto alterado!", false);
             }else{
-            showStatusMessage("Erro ao alterar trajeto...: " + message, true);
-            console.log(resultado.message);
+                showStatusMessage("Erro ao alterar trajeto...: " + message, true);
+                console.log(resultado.message);
             }
         })
+
+        // Nenhum parâmetro necessário, mas pode se usar "error" caso necessário
         .catch(()=>{
             showStatusMessage("Erro técnico ao alterar... Contate o suporte.", true);
             console.log("Falha grave ao alterar.")
