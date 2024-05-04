@@ -1,16 +1,12 @@
 # AeroPUC: Projeto Integrador II - 2023
-Trabalho do Projeto Integrador, grupo 8 de 2023.
+Esse projeto foi criado com conhecimentos **INICIANTES** para a disciplina Projeto Integrador de 2023 na **PUCC**.
 
 ## Membros:
-Gustavo Giotto Avelar - 23000567
-Leonardo Ferraro Gianfagna - 18174490
-Mateus Colferai Mistro - 23002896
-Renan Negri Cecolin - 23012651
-Samuel Arantes dos Santos Prado - 23013858
-
-
-# Sobre o projeto
-Informações sobre esse projeto.
+- Gustavo Giotto Avelar - 23000567
+- Leonardo Ferraro Gianfagna - 18174490
+- Mateus Colferai Mistro - 23002896
+- Renan Negri Cecolin - 23012651
+- Samuel Arantes dos Santos Prado - 23013858
 
 ## Descrição:
 Esse projeto cria uma página HTML com uma aplicação em back-end, utilizando um banco de dados Oracle. Ele possui uma **área administrativa** e a **área do cliente**, que permite que o usuário compre e reserve passagens de voos em uma interface interativa e amigável.
@@ -56,7 +52,7 @@ A tabela cliente e assentos funciona para conseguir armazenar as compras e ident
 Se você está lendo isso, provavelmente já está com o projeto baixado, mas caso não esteja:
 1. Usando o IDE Vscode, clone o repositório em algum diretório escolhido usando um novo terminal:
     1. `cd desktop`
-    2. `git clone https://github.com/leogianfagna/pi_aeropuc.git`
+    2. `git clone https://github.com/leogianfagna/AeroPuc.git`
 2. Caso não esteja na rede da PUCCAMP, deve-se utilizar a VPN para conseguir acessar o banco. Para isso, utilize [esse tutorial](https://github.com/leogianfagna/pi_aeropuc).
 4. Execute `npm install` para instalar todas as dependências do projeto
 5. Execute `npm start` para iniciar o servidor http
